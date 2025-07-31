@@ -1,0 +1,1914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>💀 Skull Clicker™</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&display=swap');
+
+  :root {
+    --bg-color: #f5f5f5;
+    --text-color: #333;
+    --panel-bg: #e0e0e0;
+    --border-color: #888;
+    --header-bg: rgba(0,0,0,0.1);
+    --button-bg: none;
+    --button-hover-scale: 1.1;
+    --upgrade-container-bg: #ff6b6b;
+    --feature-container-bg: #4ecdc4;
+    --autoclicker-container-bg: #ffe66d;
+    --prestige-container-bg: #7bed9f;
+    --save-container-bg: #70a1ff;
+    --feature-button-bg: #2980b9;
+    --feature-button-color: #fff;
+    --save-button-bg: #444;
+    --save-button-hover-bg: #666;
+    --reset-button-bg: #e74c3c;
+    --reset-button-hover-bg: #c0392b;
+    --achievement-bg: #eee;
+    --achievement-border: #ccc;
+    --achievement-unlocked-border: #6c3;
+    --achievement-unlocked-bg: #faffec;
+    --achievement-popup-bg: #fffbe6;
+    --achievement-popup-border: #6c3;
+    --achievements-button-bg: #fff;
+    --achievements-button-color: #222;
+    --achievements-button-border: #888;
+    --achievements-button-open-bg: #faffec;
+    --achievements-button-open-border: #6c3;
+    --alert-bg: #fff;
+    --alert-color: #000;
+    --click-animation-color: rgba(255, 215, 0, 0.7);
+    --particle-size: 8px;
+    --critical-color: #ff0000;
+    --golden-color: #ffd700;
+    --golden-time-color: #ffcc00;
+    --notification-bg: rgba(0, 0, 0, 0.7);
+    --notification-color: #fff;
+    --progress-bar-bg: #ddd;
+    --progress-bar-fill: #4CAF50;
+    --tooltip-bg: rgba(0, 0, 0, 0.8);
+    --tooltip-color: #fff;
+  }
+
+  body.dark-mode {
+    --bg-color: #121212;
+    --text-color: #eee;
+    --panel-bg: #222;
+    --border-color: #555;
+    --header-bg: rgba(255,255,255,0.15);
+    --button-bg: none;
+    --upgrade-container-bg: #d63031;
+    --feature-container-bg: #00b894;
+    --autoclicker-container-bg: #fdcb6e;
+    --prestige-container-bg: #00cec9;
+    --save-container-bg: #0984e3;
+    --feature-button-bg: #3a7bd5;
+    --feature-button-color: #eee;
+    --save-button-bg: #666;
+    --save-button-hover-bg: #888;
+    --reset-button-bg: #c0392b;
+    --reset-button-hover-bg: #e74c3c;
+    --achievement-bg: #333;
+    --achievement-border: #666;
+    --achievement-unlocked-border: #6c3;
+    --achievement-unlocked-bg: #264d00;
+    --achievement-popup-bg: #264d00;
+    --achievement-popup-border: #6c3;
+    --achievements-button-bg: #222;
+    --achievements-button-color: #eee;
+    --achievements-button-border: #555;
+    --achievements-button-open-bg: #264d00;
+    --achievements-button-open-border: #6c3;
+    --alert-bg: #222;
+    --alert-color: #eee;
+    --click-animation-color: rgba(255, 215, 0, 0.5);
+    --critical-color: #ff6b6b;
+    --golden-color: #ffcc00;
+    --golden-time-color: #ffd700;
+    --notification-bg: rgba(255, 255, 255, 0.2);
+    --notification-color: #fff;
+    --progress-bar-bg: #444;
+    --progress-bar-fill: #4CAF50;
+    --tooltip-bg: rgba(255, 255, 255, 0.2);
+    --tooltip-color: #fff;
+  }
+
+  body {
+    font-family: 'Barlow', Arial, sans-serif;
+    color: var(--text-color);
+    background: var(--bg-color);
+    padding: 20px;
+    text-align: center;
+    transition: background-color 0.5s, color 0.5s;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+
+  h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  #score {
+    font-size: 3em;
+    margin: 20px 0;
+    font-weight: bold;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  #mainBtn {
+    font-size: 10em;
+    padding: 20px;
+    border: none;
+    background: var(--button-bg);
+    cursor: pointer;
+    transition: transform 0.2s;
+    color: var(--text-color);
+    margin: 20px auto;
+    position: relative;
+    user-select: none;
+    outline: none;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  #mainBtn:hover {
+    transform: scale(var(--button-hover-scale));
+  }
+  
+  #mainBtn:active {
+    transform: scale(0.95);
+  }
+
+  #statsDisplay {
+    margin-top: 20px;
+    padding: 20px;
+    background: var(--panel-bg);
+    border-radius: 12px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  /* Containers */
+  .upgrade-container,
+  .feature-container,
+  .autoclicker-container,
+  .prestige-container,
+  .save-container,
+  .achievements-container {
+    margin-top: 30px;
+    width: 100%;
+    max-width: 950px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 12px;
+    border: 2px solid var(--border-color);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  
+  .upgrade-container { background-color: var(--upgrade-container-bg); }
+  .feature-container { background-color: var(--feature-container-bg); }
+  .autoclicker-container { background-color: var(--autoclicker-container-bg); }
+  .prestige-container { background-color: var(--prestige-container-bg); }
+  .save-container { background-color: var(--save-container-bg); }
+  .achievements-container {
+    background-color: var(--panel-bg);
+    box-sizing: border-box;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+  }
+
+  /* Headers */
+  .upgrade-header,
+  .feature-header,
+  .autoclicker-header,
+  .prestige-header,
+  .save-header,
+  .achievements-header {
+    background: var(--header-bg);
+    cursor: pointer;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: var(--text-color);
+    border-radius: 12px 12px 0 0;
+    user-select: none;
+    transition: background 0.3s;
+  }
+  
+  .upgrade-header:hover,
+  .feature-header:hover,
+  .autoclicker-header:hover,
+  .prestige-header:hover,
+  .save-header:hover,
+  .achievements-header:hover {
+    filter: brightness(1.1);
+  }
+
+  /* Content (collapsed by default except Save & Load) */
+  #upgradesContent,
+  #featuresContent,
+  #autoclickerContent,
+  #prestigeContent,
+  #achievementsContent {
+    display: none;
+    padding: 20px;
+    text-align: left;
+    color: var(--text-color);
+  }
+  
+  #saveContent {
+    display: block;
+    padding: 20px;
+    text-align: center;
+    color: var(--text-color);
+  }
+
+  /* Upgrade grid */
+  .upgrade-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+  }
+  
+  @media(max-width: 768px) {
+    .upgrade-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  @media(max-width: 480px) {
+    .upgrade-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Upgrade buttons */
+  .upgrade.small {
+    border-radius: 8px;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 15px 10px;
+    font-size: 1em;
+    transition: all 0.2s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .upgrade.small:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    filter: brightness(1.1);
+  }
+  
+  .upgrade.small:active {
+    transform: translateY(1px);
+  }
+  
+  .upgrade.small .icon {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+  }
+  
+  .upgrade.small .cost {
+    font-size: 0.9em;
+    margin-top: 5px;
+    opacity: 0.9;
+  }
+
+  /* Feature buttons */
+  button.feature {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--feature-button-bg);
+    color: var(--feature-button-color);
+    font-weight: bold;
+    cursor: pointer;
+    margin: 10px 5px;
+    transition: all 0.2s;
+    width: 100%;
+    max-width: 300px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  button.feature:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    filter: brightness(1.1);
+  }
+  
+  button.feature:active {
+    transform: translateY(1px);
+  }
+  
+  .feature-info {
+    margin: 10px 0;
+    padding: 10px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 8px;
+    font-size: 0.95em;
+  }
+
+  /* Autoclicker & Prestige buttons */
+  #autoclickerBuyBtn, #prestigeBuyBtn {
+    display: block;
+    margin: 15px auto 0 auto;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+  
+  #autoclickerBuyBtn {
+    background-color: #6c3483;
+  }
+  
+  #autoclickerBuyBtn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    background: #7d3c98;
+  }
+  
+  #autoclickerBuyBtn:active {
+    transform: translateY(1px);
+    background: #512e5f;
+  }
+  
+  #prestigeBuyBtn {
+    background-color: #b03a00;
+  }
+  
+  #prestigeBuyBtn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    background: #c04000;
+  }
+  
+  #prestigeBuyBtn:active {
+    transform: translateY(1px);
+    background: #7a2700;
+  }
+
+  /* Save/Load Buttons */
+  #saveBtn, #loadBtn, #resetBtn {
+    padding: 12px 24px;
+    font-size: 1em;
+    border-radius: 8px;
+    margin: 10px 5px;
+    border: none;
+    background: var(--save-button-bg);
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+  
+  #saveBtn:hover, #loadBtn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    background: var(--save-button-hover-bg);
+  }
+  
+  #saveBtn:active, #loadBtn:active {
+    transform: translateY(1px);
+  }
+  
+  #resetBtn {
+    background: var(--reset-button-bg);
+  }
+  
+  #resetBtn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    background: var(--reset-button-hover-bg);
+  }
+  
+  #resetBtn:active {
+    transform: translateY(1px);
+  }
+
+  /* Achievements Button */
+  #achievementsBtn {
+    margin-top: 30px;
+    margin-bottom: 0;
+    padding: 16px 36px;
+    font-size: 1.15em;
+    font-weight: bold;
+    color: var(--achievements-button-color);
+    background: var(--achievements-button-bg);
+    border: 2px solid var(--achievements-button-border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    outline: none;
+  }
+  
+  #achievementsBtn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    filter: brightness(1.05);
+  }
+  
+  #achievementsBtn:active {
+    transform: translateY(1px);
+  }
+  
+  #achievementsBtn.open {
+    background: var(--achievements-button-open-bg);
+    border-color: var(--achievements-button-open-border);
+  }
+
+  /* Achievements container */
+  .achievements-container {
+    border-radius: 12px;
+    border: 2px solid var(--border-color);
+    background-color: var(--panel-bg);
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  /* Achievements list */
+  .achievements-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 15px;
+    align-items: flex-start;
+    justify-items: center;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+  
+  @media (max-width: 600px) {
+    .achievements-list {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+  }
+
+  /* Single achievement */
+  .achievement {
+    background: var(--achievement-bg);
+    border-radius: 8px;
+    padding: 15px;
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border: 2px solid var(--achievement-border);
+    position: relative;
+    transition: all 0.3s;
+    opacity: 0.7;
+    filter: grayscale(70%);
+    text-align: left;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+  }
+  
+  .achievement.unlocked {
+    border-color: var(--achievement-unlocked-border);
+    background: var(--achievement-unlocked-bg);
+    opacity: 1;
+    filter: none;
+    animation: pop-in 0.4s;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  }
+  
+  .achievement .icon {
+    font-size: 2.5em;
+    margin-right: 15px;
+    flex-shrink: 0;
+  }
+  
+  .achievement-text {
+    flex-grow: 1;
+  }
+  
+  .achievement-title {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 5px;
+  }
+  
+  .achievement-description {
+    font-size: 0.9em;
+    opacity: 0.8;
+  }
+  
+  .achievement-progress {
+    height: 4px;
+    background: var(--progress-bar-bg);
+    border-radius: 2px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+  
+  .achievement-progress-fill {
+    height: 100%;
+    background: var(--progress-bar-fill);
+    width: 0%;
+    transition: width 0.5s;
+  }
+
+  /* Achievement popup */
+  #achievementPopup {
+    display: none;
+    position: fixed;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--achievement-popup-bg);
+    color: var(--text-color);
+    border: 2px solid var(--achievement-popup-border);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    padding: 20px 36px;
+    z-index: 10000;
+    font-size: 1.3em;
+    min-width: 280px;
+    max-width: 95vw;
+    animation: pop-in 0.5s;
+    text-align: center;
+  }
+  
+  #achievementPopup .icon {
+    font-size: 2.5em;
+    margin-right: 15px;
+    vertical-align: middle;
+  }
+  
+  #achievementPopup .title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    font-size: 1.2em;
+  }
+  
+  #achievementPopup .description {
+    font-size: 0.9em;
+    opacity: 0.9;
+  }
+
+  @keyframes pop-in {
+    0% { transform: translateX(-50%) scale(0.7); opacity: 0; }
+    80% { transform: translateX(-50%) scale(1.10); opacity: 1; }
+    100% { transform: translateX(-50%) scale(1); opacity: 1; }
+  }
+
+  /* Dark mode toggle button */
+  #darkModeToggle {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: var(--achievements-button-bg);
+    color: var(--achievements-button-color);
+    border: 2px solid var(--achievements-button-border);
+    border-radius: 12px;
+    padding: 10px 18px;
+    font-size: 1em;
+    cursor: pointer;
+    z-index: 11000;
+    transition: all 0.3s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  #darkModeToggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    filter: brightness(1.1);
+  }
+  
+  #darkModeToggle:active {
+    transform: translateY(1px);
+  }
+
+  /* Click animation */
+  .click-effect {
+    position: absolute;
+    pointer-events: none;
+    width: var(--particle-size);
+    height: var(--particle-size);
+    background: var(--click-animation-color);
+    border-radius: 50%;
+    animation: click-animation 1s ease-out forwards;
+    z-index: 1000;
+  }
+  
+  @keyframes click-animation {
+    0% {
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(10);
+      opacity: 0;
+    }
+  }
+
+  /* Critical hit effect */
+  .critical-hit {
+    position: absolute;
+    pointer-events: none;
+    font-size: 2em;
+    font-weight: bold;
+    color: var(--critical-color);
+    animation: critical-animation 1s ease-out forwards;
+    z-index: 1000;
+    text-shadow: 0 0 10px rgba(255,0,0,0.7);
+  }
+  
+  @keyframes critical-animation {
+    0% {
+      transform: translate(-50%, -50%) scale(0.5);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(2);
+      opacity: 0;
+    }
+  }
+
+  /* Golden time indicator */
+  .golden-time {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background: var(--golden-time-color);
+    color: #000;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    z-index: 10000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    animation: pulse 1.5s infinite;
+    display: none;
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+
+  /* Notification system */
+  .notification {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--notification-bg);
+    color: var(--notification-color);
+    padding: 12px 24px;
+    border-radius: 8px;
+    z-index: 10000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    max-width: 80%;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    display: flex;
+    align-items: center;
+  }
+  
+  .notification.show {
+    opacity: 1;
+  }
+  
+  .notification .icon {
+    margin-right: 10px;
+    font-size: 1.5em;
+  }
+
+  /* Tooltip */
+  .tooltip {
+    position: absolute;
+    background: var(--tooltip-bg);
+    color: var(--tooltip-color);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.9em;
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.2s;
+    max-width: 250px;
+    text-align: center;
+    transform: translateY(10px);
+  }
+  
+  .tooltip.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Golden skull effect */
+  .golden-skull {
+    color: var(--golden-color);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+    animation: glow 1.5s infinite alternate;
+  }
+  
+  @keyframes glow {
+    from {
+      text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+    }
+    to {
+      text-shadow: 0 0 20px rgba(255, 215, 0, 0.9);
+    }
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    body {
+      padding: 15px;
+    }
+    
+    #mainBtn {
+      font-size: 8em;
+      width: 160px;
+      height: 160px;
+    }
+    
+    #score {
+      font-size: 2.5em;
+    }
+    
+    .upgrade-grid {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+    
+    .achievement {
+      padding: 12px;
+    }
+    
+    .achievement .icon {
+      font-size: 2em;
+      margin-right: 10px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    #mainBtn {
+      font-size: 6em;
+      width: 120px;
+      height: 120px;
+    }
+    
+    #score {
+      font-size: 2em;
+    }
+    
+    .upgrade-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .achievement {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .achievement .icon {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>💀 Skull Clicker™</h1>
+  <button id="darkModeToggle" aria-pressed="false" aria-label="Toggle dark mode">Dark Mode</button>
+  
+  <div class="golden-time" id="goldenTimeIndicator">GOLDEN TIME! 2x Points!</div>
+  
+  <div id="score">0</div>
+  <button id="mainBtn" aria-label="Main click button">💀</button>
+  
+  <div id="statsDisplay"></div>
+
+  <!-- Achievements -->
+  <button id="achievementsBtn" class="open">Achievements</button>
+  
+  <div class="achievements-container" id="achievementsContainer" role="region" aria-label="Achievements">
+    <div class="achievements-header" id="achievementsHeader" role="button" tabindex="0" aria-expanded="false" aria-controls="achievementsContent">Achievements ▼</div>
+    <div class="achievements-content" id="achievementsContent" aria-hidden="true">
+      <div class="achievements-list" id="achievementsList"></div>
+    </div>
+  </div>
+
+  <div id="achievementPopup" role="alert" aria-live="assertive" aria-atomic="true"></div>
+
+  <!-- Upgrades -->
+  <div class="upgrade-container" id="upgradesContainer">
+    <div class="upgrade-header" id="upgradesHeader" role="button" tabindex="0" aria-expanded="false" aria-controls="upgradesContent">Upgrades ▼</div>
+    <div class="upgrade-content" id="upgradesContent" aria-hidden="true">
+      <div class="upgrade-grid" id="upgradeGrid"></div>
+    </div>
+  </div>
+
+  <!-- Facilities -->
+  <div class="feature-container" id="featuresContainer">
+    <div class="feature-header" id="featuresHeader" role="button" tabindex="0" aria-expanded="false" aria-controls="featuresContent">Facilities ▼</div>
+    <div class="feature-content" id="featuresContent" aria-hidden="true">
+      <div class="feature-group">
+        <button id="factoryBtn" class="feature">Buy Factory</button>
+        <div id="factoryInfo" class="feature-info">Factory Level: 0<br>Benefit: +0%</div>
+      </div>
+      <div class="feature-group">
+        <button id="bankBtn" class="feature">Upgrade Bank</button>
+        <div id="bankInfo" class="feature-info">Bank Level: 0<br>Benefit: +0%</div>
+      </div>
+      <div class="feature-group">
+        <button id="hotelBtn" class="feature">Upgrade Hotel</button>
+        <div id="hotelInfo" class="feature-info">Hotel Level: 0<br>Benefit: +0%</div>
+      </div>
+      <div class="feature-group">
+        <button id="shopBtn" class="feature">Upgrade Shop</button>
+        <div id="shopInfo" class="feature-info">Shop Level: 0<br>Benefit: +0%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Auto Clicker -->
+  <div class="autoclicker-container" id="autoclickerContainer">
+    <div class="autoclicker-header" id="autoclickerHeader" role="button" tabindex="0" aria-expanded="false" aria-controls="autoclickerContent">Auto Clicker ▼</div>
+    <div class="autoclicker-content" id="autoclickerContent" aria-hidden="true">
+      <div id="autoclickerInfo">Level: 0<br>Effect: +0/sec<br>Cost: 100</div>
+      <button id="autoclickerBuyBtn">Buy Auto Clicker</button>
+    </div>
+  </div>
+
+  <!-- Prestige -->
+  <div class="prestige-container" id="prestigeContainer">
+    <div class="prestige-header" id="prestigeHeader" role="button" tabindex="0" aria-expanded="false" aria-controls="prestigeContent">Prestige ▼</div>
+    <div class="prestige-content" id="prestigeContent" aria-hidden="true">
+      <div id="prestigeInfo">Level: 0/12<br>Bonus Multiplier: x1<br>Cost: 1T</div>
+      <button id="prestigeBuyBtn">Buy Prestige</button>
+    </div>
+  </div>
+
+  <!-- Save/Load -->
+  <div class="save-container" id="saveContainer">
+    <div class="save-header" id="saveHeader" role="button" tabindex="0" aria-expanded="true" aria-controls="saveContent">Save & Load ▲</div>
+    <div class="save-content" id="saveContent" aria-hidden="false">
+      <button id="saveBtn">Save Game</button>
+      <button id="loadBtn">Load Game</button>
+      <button id="resetBtn">Full Reset</button>
+      <div id="lastSavedInfo" style="margin-top: 10px; font-size: 0.9em; color: var(--text-color);"></div>
+    </div>
+  </div>
+</div>
+
+<div id="notificationArea"></div>
+
+<script>
+// DARK MODE TOGGLE
+const darkModeBtn = document.getElementById('darkModeToggle');
+darkModeBtn.addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+  const isDark = document.body.classList.contains('dark-mode');
+  darkModeBtn.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+  darkModeBtn.setAttribute('aria-pressed', isDark);
+});
+
+// Toggle section helper function for headers + content
+function toggleSection(headerId, contentId) {
+  const header = document.getElementById(headerId);
+  const content = document.getElementById(contentId);
+
+  function toggle() {
+    const expanded = content.style.display === 'block';
+    if (expanded) {
+      content.style.display = 'none';
+      header.textContent = header.textContent.replace('▲', '▼');
+      header.setAttribute('aria-expanded', 'false');
+      content.setAttribute('aria-hidden', 'true');
+    } else {
+      content.style.display = 'block';
+      header.textContent = header.textContent.replace('▼', '▲');
+      header.setAttribute('aria-expanded', 'true');
+      content.setAttribute('aria-hidden', 'false');
+    }
+  }
+
+  header.addEventListener('click', toggle);
+  header.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggle();
+    }
+  });
+}
+
+// Initialize toggles for all sections
+['upgradesHeader', 'featuresHeader', 'autoclickerHeader', 'prestigeHeader', 'saveHeader', 'achievementsHeader'].forEach(id => {
+  const contentId = id.replace('Header', 'Content');
+  toggleSection(id, contentId);
+});
+
+// Achievements button toggle
+document.getElementById('achievementsBtn').addEventListener('click', function() {
+  const container = document.getElementById('achievementsContainer');
+  const header = document.getElementById('achievementsHeader');
+  const content = document.getElementById('achievementsContent');
+  
+  if (content.style.display === 'block') {
+    content.style.display = 'none';
+    header.textContent = 'Achievements ▼';
+    header.setAttribute('aria-expanded', 'false');
+    content.setAttribute('aria-hidden', 'true');
+    this.classList.remove('open');
+  } else {
+    content.style.display = 'block';
+    header.textContent = 'Achievements ▲';
+    header.setAttribute('aria-expanded', 'true');
+    content.setAttribute('aria-hidden', 'false');
+    this.classList.add('open');
+  }
+});
+
+// ----- Achievements System -----
+const achievements = [
+  // Click achievements
+  { id: 'first_click', icon: '👆', title: 'First Click', description: 'Click the skull for the first time', condition: (g) => g.clicks >= 1, unlocked: false, progress: (g) => g.clicks >= 1 ? 1 : g.clicks },
+  { id: 'hundred_clicks', icon: '💯', title: 'Century', description: 'Reach 100 clicks', condition: (g) => g.clicks >= 100, unlocked: false, progress: (g) => Math.min(g.clicks / 100, 1) },
+  { id: 'thousand_clicks', icon: '👍', title: 'Grand Master', description: 'Reach 1,000 clicks', condition: (g) => g.clicks >= 1000, unlocked: false, progress: (g) => Math.min(g.clicks / 1000, 1) },
+  { id: 'tenk_clicks', icon: '🎯', title: 'Ten Thousand', description: 'Reach 10,000 clicks', condition: g => g.clicks >= 10000, unlocked: false, progress: (g) => Math.min(g.clicks / 10000, 1) },
+  { id: 'hundredk_clicks', icon: '🔥', title: 'Hundred Thousand', description: 'Reach 100,000 clicks', condition: g => g.clicks >= 100000, unlocked: false, progress: (g) => Math.min(g.clicks / 100000, 1) },
+  { id: 'million_clicks', icon: '🏆', title: 'Million Clicks', description: 'Reach 1 million clicks', condition: g => g.clicks >= 1000000, unlocked: false, progress: (g) => Math.min(g.clicks / 1000000, 1) },
+
+  // Score achievements
+  { id: 'ten_thousand_score', icon: '✨', title: 'Score Milestone', description: 'Reach 10,000 points', condition: (g) => g.score >= 1e4, unlocked: false, progress: (g) => Math.min(g.score / 1e4, 1) },
+  { id: 'millionaire', icon: '💰', title: 'Millionaire', description: 'Reach 1 million points', condition: (g) => g.score >= 1e6, unlocked: false, progress: (g) => Math.min(g.score / 1e6, 1) },
+  { id: 'billionaire', icon: '💎', title: 'Billionaire', description: 'Reach 1 billion points', condition: (g) => g.score >= 1e9, unlocked: false, progress: (g) => Math.min(g.score / 1e9, 1) },
+  { id: 'trillionaire', icon: '🪙', title: 'Trillionaire', description: 'Reach 1 trillion points', condition: (g) => g.score >= 1e12, unlocked: false, progress: (g) => Math.min(g.score / 1e12, 1) },
+  { id: 'quadrillionaire', icon: '💸', title: 'Quadrillionaire', description: 'Reach 1 quadrillion points', condition: (g) => g.score >= 1e15, unlocked: false, progress: (g) => Math.min(g.score / 1e15, 1) },
+  { id: 'sextillionaire', icon: '🥇', title: 'Sextillionaire', description: 'Reach 1 sextillion points', condition: (g) => g.score >= 1e21, unlocked: false, progress: (g) => Math.min(g.score / 1e21, 1) },
+  { id: 'octillionaire', icon: '🦾', title: 'Octillionaire', description: 'Reach 1 octillion points', condition: (g) => g.score >= 1e27, unlocked: false, progress: (g) => Math.min(g.score / 1e27, 1) },
+  { id: 'decillionaire', icon: '🌌', title: 'Decillionaire', description: 'Reach 1 decillion points', condition: (g) => g.score >= 1e33, unlocked: false, progress: (g) => Math.min(g.score / 1e33, 1) },
+
+  // Upgrade/facility/autoclicker
+  { id: 'first_upgrade', icon: '🔼', title: 'Upgrader', description: 'Purchase your first upgrade', condition: (g) => g.baseMultiplier > 1, unlocked: false, progress: (g) => g.baseMultiplier > 1 ? 1 : 0 },
+  { id: 'first_factory', icon: '🏭', title: 'Industrialist', description: 'Build your first factory', condition: (g) => g.factoryLevel >= 1, unlocked: false, progress: (g) => Math.min(g.factoryLevel, 1) },
+  { id: 'max_factory', icon: '🏭', title: 'Factory Master', description: 'Max out Factory level (100)', condition: (g) => g.factoryLevel >= 100, unlocked: false, progress: (g) => Math.min(g.factoryLevel / 100, 1) },
+  { id: 'first_bank', icon: '🏦', title: 'Banker', description: 'Upgrade your first bank', condition: (g) => g.bankLevel >= 1, unlocked: false, progress: (g) => Math.min(g.bankLevel, 1) },
+  { id: 'max_bank', icon: '🏦', title: 'Banking Mogul', description: 'Max out Bank level (100)', condition: (g) => g.bankLevel >= 100, unlocked: false, progress: (g) => Math.min(g.bankLevel / 100, 1) },
+  { id: 'first_hotel', icon: '🏨', title: 'Hotelier', description: 'Upgrade your first hotel', condition: (g) => g.hotelLevel >= 1, unlocked: false, progress: (g) => Math.min(g.hotelLevel, 1) },
+  { id: 'max_hotel', icon: '🏨', title: 'Hotel Tycoon', description: 'Max out Hotel level (100)', condition: (g) => g.hotelLevel >= 100, unlocked: false, progress: (g) => Math.min(g.hotelLevel / 100, 1) },
+  { id: 'first_shop', icon: '🏪', title: 'Shopkeeper', description: 'Upgrade your first shop', condition: (g) => g.shopLevel >= 1, unlocked: false, progress: (g) => Math.min(g.shopLevel, 1) },
+  { id: 'max_shop', icon: '🏪', title: 'Shopping Empire', description: 'Max out Shop level (100)', condition: (g) => g.shopLevel >= 100, unlocked: false, progress: (g) => Math.min(g.shopLevel / 100, 1) },
+  { id: 'first_autoclicker', icon: '🤖', title: 'Automator', description: 'Purchase your first auto clicker', condition: (g) => g.autoclickerLevel >= 1, unlocked: false, progress: (g) => Math.min(g.autoclickerLevel, 1) },
+  { id: 'fifty_autoclickers', icon: '🛠️', title: 'Automation Factory', description: 'Buy 50 auto clickers', condition: (g) => g.autoclickerLevel >= 50, unlocked: false, progress: (g) => Math.min(g.autoclickerLevel / 50, 1) },
+  { id: 'max_autoclicker', icon: '🤖', title: 'Robot Overlord', description: 'Max out Auto Clicker level (200)', condition: (g) => g.autoclickerLevel >= 200, unlocked: false, progress: (g) => Math.min(g.autoclickerLevel / 200, 1) },
+
+  // Prestige
+  { id: 'first_prestige', icon: '🔄', title: 'Ascended', description: 'Prestige for the first time', condition: (g) => g.prestigeLevel >= 1, unlocked: false, progress: (g) => Math.min(g.prestigeLevel, 1) },
+  { id: 'third_prestige', icon: '🔄', title: 'Ascended III', description: 'Prestige for the third time', condition: (g) => g.prestigeLevel >= 3, unlocked: false, progress: (g) => Math.min(g.prestigeLevel / 3, 1) },
+  { id: 'max_prestige', icon: '👑', title: 'Supreme Being', description: 'Reach maximum prestige level (12)', condition: (g) => g.prestigeLevel >= 12, unlocked: false, progress: (g) => Math.min(g.prestigeLevel / 12, 1) },
+
+  // Special achievements
+  { id: 'critical_hit', icon: '💥', title: 'Critical Hit!', description: 'Get a critical hit', condition: (g) => g.criticalHits >= 1, unlocked: false, progress: (g) => Math.min(g.criticalHits, 1) },
+  { id: 'golden_time', icon: '🌟', title: 'Golden Moment', description: 'Experience golden time', condition: (g) => g.goldenTimeExperienced >= 1, unlocked: false, progress: (g) => Math.min(g.goldenTimeExperienced, 1) },
+  { id: 'full_reset', icon: '♻️', title: 'Fresh Start', description: 'Perform a full reset once', condition: (g) => g.fullResets >= 1, unlocked: false, progress: (g) => Math.min(g.fullResets, 1) },
+];
+
+// Add fullResets to game state
+let fullResets = 0;
+let criticalHits = 0;
+let goldenTimeExperienced = 0;
+
+function renderAchievements() {
+  const container = document.getElementById('achievementsList');
+  container.innerHTML = "";
+  achievements.forEach(ach => {
+    const el = document.createElement('div');
+    el.className = 'achievement' + (ach.unlocked ? ' unlocked' : '');
+    
+    const progress = ach.progress ? ach.progress(game) : 0;
+    const progressBar = ach.progress && !ach.unlocked ? `
+      <div class="achievement-progress">
+        <div class="achievement-progress-fill" style="width: ${progress * 100}%"></div>
+      </div>
+    ` : '';
+    
+    el.innerHTML = `
+      <span class="icon">${ach.icon}</span>
+      <div class="achievement-text">
+        <div class="achievement-title">${ach.title}</div>
+        <div class="achievement-description">${ach.description}</div>
+        ${progressBar}
+      </div>
+    `;
+    
+    // Add tooltip for locked achievements
+    if (!ach.unlocked) {
+      const tooltip = document.createElement('div');
+      tooltip.className = 'tooltip';
+      tooltip.textContent = `Progress: ${Math.round(progress * 100)}%`;
+      el.appendChild(tooltip);
+      
+      el.addEventListener('mouseenter', () => {
+        tooltip.classList.add('show');
+      });
+      
+      el.addEventListener('mouseleave', () => {
+        tooltip.classList.remove('show');
+      });
+    }
+    
+    container.appendChild(el);
+  });
+}
+
+function showAchievementPopup(ach) {
+  const popup = document.getElementById('achievementPopup');
+  popup.innerHTML = `
+    <span class="icon">${ach.icon}</span>
+    <span class="title">Achievement Unlocked!</span>
+    <div class="description">${ach.title}: ${ach.description}</div>
+  `;
+  popup.style.display = 'block';
+  
+  // Play sound if available
+  if (typeof Audio !== 'undefined') {
+    const sound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3');
+    sound.volume = 0.3;
+    sound.play().catch(e => console.log('Audio play failed:', e));
+  }
+  
+  setTimeout(() => {
+    popup.style.display = 'none';
+  }, 3000);
+}
+
+function checkAchievements() {
+  let anyNew = false;
+  achievements.forEach(ach => {
+    if (!ach.unlocked && ach.condition(game)) {
+      ach.unlocked = true;
+      showAchievementPopup(ach);
+      anyNew = true;
+    }
+  });
+  if (anyNew) renderAchievements();
+}
+
+// ----- Main Game Variables -----
+let score = 0;
+let baseMultiplier = 1;
+let factoryLevel = 0;
+const maxLevel = 100;
+let bankLevel = 0;
+let hotelLevel = 0;
+let shopLevel = 0;
+let autoclickerLevel = 0;
+let autoclickerBaseCost = 100;
+let prestigeLevel = 0;
+const prestigeMaxLevel = 12;
+const prestigeBaseCost = 1e12;
+let prestigeCost = prestigeBaseCost;
+let clicks = 0;
+
+// Golden time variables
+let goldenTimeActive = false;
+let goldenTimeEnd = 0;
+let goldenTimeChance = 0.0005; // 0.05% chance per click
+let goldenTimeDuration = 30000; // 30 seconds
+
+// Critical hit variables
+let criticalHitChance = 0.05; // 5% base chance
+let criticalHitMultiplier = 2; // 2x multiplier
+
+// For achievements system and reset count
+const game = {
+  get score() { return score; },
+  get baseMultiplier() { return baseMultiplier; },
+  get factoryLevel() { return factoryLevel; },
+  get bankLevel() { return bankLevel; },
+  get hotelLevel() { return hotelLevel; },
+  get shopLevel() { return shopLevel; },
+  get autoclickerLevel() { return autoclickerLevel; },
+  get prestigeLevel() { return prestigeLevel; },
+  get clicks() { return clicks; },
+  get fullResets() { return fullResets; },
+  get criticalHits() { return criticalHits; },
+  get goldenTimeExperienced() { return goldenTimeExperienced; }
+};
+
+// Format Number
+function formatNumber(n) {
+  if (n >= 1e60) return (n / 1e60).toFixed(2)+'Nd';
+  if (n >= 1e57) return (n / 1e57).toFixed(2)+'od';
+  if (n >= 1e54) return (n / 1e54).toFixed(2)+'Sd';
+  if (n >= 1e51) return (n / 1e51).toFixed(2)+'sd';
+  if (n >= 1e48) return (n / 1e48).toFixed(2)+'Qd';
+  if (n >= 1e45) return (n / 1e45).toFixed(2)+'qd';
+  if (n >= 1e42) return (n / 1e42).toFixed(2)+'Td';
+  if (n >= 1e39) return (n / 1e39).toFixed(2)+'Dd';
+  if (n >= 1e36) return (n / 1e36).toFixed(2)+'U';
+  if (n >= 1e33) return (n / 1e33).toFixed(2)+'D';
+  if (n >= 1e30) return (n / 1e30).toFixed(2)+'N';
+  if (n >= 1e27) return (n / 1e27).toFixed(2)+'o';
+  if (n >= 1e24) return (n / 1e24).toFixed(2)+'S';
+  if (n >= 1e21) return (n / 1e21).toFixed(2)+'s';
+  if (n >= 1e18) return (n / 1e18).toFixed(2)+'Q';
+  if (n >= 1e15) return (n / 1e15).toFixed(2)+'q';
+  if (n >= 1e12) return (n / 1e12).toFixed(2)+'T';
+  if (n >= 1e9) return (n / 1e9).toFixed(2)+'B';
+  if (n >= 1e6) return (n / 1e6).toFixed(2)+'M';
+  if (n >= 1e3) return (n / 1e3).toFixed(2)+'K';
+  return Math.round(n).toString();
+}
+
+// ----- Click Effects -----
+function createClickEffect(x, y, isCritical = false) {
+  if (isCritical) {
+    const crit = document.createElement('div');
+    crit.className = 'critical-hit';
+    crit.textContent = 'CRITICAL!';
+    crit.style.left = `${x}px`;
+    crit.style.top = `${y}px`;
+    document.body.appendChild(crit);
+    
+    setTimeout(() => {
+      crit.remove();
+    }, 1000);
+  } else {
+    const effect = document.createElement('div');
+    effect.className = 'click-effect';
+    effect.style.left = `${x}px`;
+    effect.style.top = `${y}px`;
+    document.body.appendChild(effect);
+    
+    setTimeout(() => {
+      effect.remove();
+    }, 1000);
+  }
+}
+
+// ----- Golden Time System -----
+function activateGoldenTime() {
+  goldenTimeActive = true;
+  goldenTimeEnd = Date.now() + goldenTimeDuration;
+  goldenTimeExperienced++;
+  
+  // Update UI
+  const indicator = document.getElementById('goldenTimeIndicator');
+  indicator.style.display = 'block';
+  indicator.textContent = `GOLDEN TIME! ${criticalHitMultiplier}x Points!`;
+  
+  // Change skull color
+  document.getElementById('mainBtn').classList.add('golden-skull');
+  
+  // Show notification
+  showNotification('🌟 Golden Time Activated! Points are doubled!', '🌟');
+  
+  // Check achievements
+  checkAchievements();
+  
+  // Set timeout to end golden time
+  setTimeout(() => {
+    if (goldenTimeActive) {
+      endGoldenTime();
+    }
+  }, goldenTimeDuration);
+}
+
+function endGoldenTime() {
+  goldenTimeActive = false;
+  
+  // Update UI
+  document.getElementById('goldenTimeIndicator').style.display = 'none';
+  document.getElementById('mainBtn').classList.remove('golden-skull');
+  
+  // Show notification
+  showNotification('Golden Time has ended.', '⏱️');
+}
+
+function checkGoldenTime() {
+  if (goldenTimeActive && Date.now() >= goldenTimeEnd) {
+    endGoldenTime();
+  }
+}
+
+// ----- Notification System -----
+function showNotification(message, icon = 'ℹ️') {
+  const notificationArea = document.getElementById('notificationArea');
+  const notification = document.createElement('div');
+  notification.className = 'notification';
+  notification.innerHTML = `<span class="icon">${icon}</span> ${message}`;
+  notificationArea.appendChild(notification);
+  
+  // Show notification
+  setTimeout(() => {
+    notification.classList.add('show');
+  }, 10);
+  
+  // Hide after 3 seconds
+  setTimeout(() => {
+    notification.classList.remove('show');
+    
+    // Remove after fade out
+    setTimeout(() => {
+      notification.remove();
+    }, 300);
+  }, 3000);
+}
+
+// ----- Upgrades -----
+const upgrades = [
+  { icon: '🍓', power: '+1', cost: 20, description: 'Small boost to your clicking power' },
+  { icon: '🍒', power: '+10', cost: 400, description: 'Moderate boost to your clicking power' },
+  { icon: '🍎', power: '+100', cost: 8e3, description: 'Significant boost to your clicking power' },
+  { icon: '🍅', power: '+1e03(1K)', cost: 1.6e5, description: 'Major boost to your clicking power' },
+  { icon: '🌶️', power: '+1e04(10K)', cost: 3.2e6, description: 'Huge boost to your clicking power' },
+  { icon: '🍉', power: '+1e05(100K)', cost: 6.4e7, description: 'Massive boost to your clicking power' },
+  { icon: '🍑', power: '+1e06(1M)', cost: 2.56e9, description: 'Enormous boost to your clicking power' },
+  { icon: '🍊', power: '+1e07(10M)', cost: 1.03e11, description: 'Gigantic boost to your clicking power' },
+  { icon: '🥕', power: '+1e08(100M)', cost: 4.13e12, description: 'Colossal boost to your clicking power' },
+  { icon: '🥭', power: '+1e09(1B)', cost: 1.61e14, description: 'Titanic boost to your clicking power' },
+  { icon: '🍍', power: '+1e10(10B)', cost: 6.44e15, description: 'Legendary boost to your clicking power' },
+  { icon: '🍌', power: '+1e11(100B)', cost: 2.76e17, description: 'Mythical boost to your clicking power' },
+  { icon: '🌽', power: '+1e12(1T)', cost: 1.04e19, description: 'Godly boost to your clicking power' },
+  { icon: '🍋', power: '+1e13(10T)', cost: 4.17e20, description: 'Divine boost to your clicking power' },
+  { icon: '🍈', power: '+1e14(100T)', cost: 1.68e22, description: 'Celestial boost to your clicking power' },
+  { icon: '🍐', power: '+1e15(1q)', cost: 6.72e23, description: 'Cosmic boost to your clicking power' },
+  { icon: '🫛', power: '+1e16(10q)', cost: 2.88e25, description: 'Universal boost to your clicking power' },
+  { icon: '🥬', power: '+1e17(100q)', cost: 1.37e27, description: 'Multiversal boost to your clicking power' },
+  { icon: '🫑', power: '+1e18(1Q)', cost: 6.95e28, description: 'Omniversal boost to your clicking power' },
+  { icon: '🍏', power: '+1e19(10Q)', cost: 2.78e30, description: 'Infinite boost to your clicking power' },
+  { icon: '🥝', power: '+1e20(100Q)', cost: 1.28e32, description: 'Ultimate boost to your clicking power' },
+  { icon: '🥑', power: '+1e21(1s)', cost: 5.12e33, description: 'Final boost to your clicking power' },
+  { icon: '🫒', power: '+1e22(10s)', cost: 2.05e35, description: 'Absolute boost to your clicking power' },
+  { icon: '🥦', power: '+1e23(100s)', cost: 8.20e36, description: 'Supreme boost to your clicking power' },
+  { icon: '🫐', power: '+1e24(1S)', cost: 3.28e38, description: 'Transcendent boost to your clicking power' },
+  { icon: '🍇', power: '+1e25(10S)', cost: 1.32e40, description: 'Eternal boost to your clicking power' },
+  { icon: '🍆', power: '+1e26(100S)', cost: 5.28e41, description: 'Primordial boost to your clicking power' },
+  { icon: '🍠', power: '+1e27(1o)', cost: 2.24e43, description: 'Ancient boost to your clicking power' },
+  { icon: '🥥', power: '+1e28(10o)', cost: 9.96e44, description: 'Arcane boost to your clicking power' },
+  { icon: '🥔', power: '+1e29(100o)', cost: 3.84e46, description: 'Mystical boost to your clicking power' },
+  { icon: '🧅', power: '+1e30(1N)', cost: 1.56e48, description: 'Enigmatic boost to your clicking power' },
+  { icon: '🫚', power: '+1e31(10N)', cost: 6.24e49, description: 'Unfathomable boost to your clicking power' },
+];
+
+const baseUpgradeCosts = upgrades.map(u => u.cost);
+
+// Color gradient for upgrades
+function lerp(a, b, t) { return a + (b - a) * t; }
+const startColor = { r: 231, g: 76, b: 60 }; // Red
+const midColor = { r: 155, g: 89, b: 182 }; // Purple
+const endColor = { r: 41, g: 128, b: 185 }; // Blue
+const upgradeColors = [];
+
+for (let i = 0; i < upgrades.length; i++) {
+  let t = i / (upgrades.length - 1);
+  let r, g, b;
+  
+  if (t < 0.5) {
+    t = t * 2;
+    r = Math.round(lerp(startColor.r, midColor.r, t));
+    g = Math.round(lerp(startColor.g, midColor.g, t));
+    b = Math.round(lerp(startColor.b, midColor.b, t));
+  } else {
+    t = (t - 0.5) * 2;
+    r = Math.round(lerp(midColor.r, endColor.r, t));
+    g = Math.round(lerp(midColor.g, endColor.g, t));
+    b = Math.round(lerp(midColor.b, endColor.b, t));
+  }
+  
+  upgradeColors.push(`rgb(${r},${g},${b})`);
+}
+
+const upgradeGrid = document.getElementById('upgradeGrid');
+upgrades.forEach((u, idx) => {
+  const btn = document.createElement('button');
+  btn.className = 'upgrade small';
+  btn.style.backgroundColor = upgradeColors[idx];
+  btn.style.color = '#fff';
+  btn.innerHTML = `
+    <span class="icon">${u.icon}</span>
+    <span>${u.power} Power</span>
+    <span class="cost">Cost: ${formatNumber(u.cost)}</span>
+  `;
+  
+  // Add tooltip
+  const tooltip = document.createElement('div');
+  tooltip.className = 'tooltip';
+  tooltip.textContent = u.description;
+  btn.appendChild(tooltip);
+  
+  btn.addEventListener('mouseenter', () => {
+    tooltip.classList.add('show');
+  });
+  
+  btn.addEventListener('mouseleave', () => {
+    tooltip.classList.remove('show');
+  });
+  
+  btn.addEventListener('click', () => {
+    if (score >= u.cost) {
+      score -= u.cost;
+      const num = parseFloat(u.power);
+      baseMultiplier += num;
+      u.cost = Math.ceil(u.cost * 1.15);
+      btn.innerHTML = `
+        <span class="icon">${u.icon}</span>
+        <span>${u.power} Power</span>
+        <span class="cost">Cost: ${formatNumber(u.cost)}</span>
+      `;
+      updateAll();
+      checkAchievements();
+      autoSave();
+      showNotification(`Purchased ${u.icon} ${u.power} Power Upgrade!`, '🔼');
+    } else {
+      showNotification('Not enough points for this upgrade!', '❌');
+    }
+  });
+  
+  upgradeGrid.appendChild(btn);
+});
+
+// ----- Facilities -----
+const factoryBtn = document.getElementById('factoryBtn');
+function getFactoryCost(level) { return Math.pow((level + 9), 13) / 1e7; }
+function updateFactoryInfo() {
+  document.getElementById('factoryInfo').innerHTML = `Factory Level: ${factoryLevel}<br>Benefit: +${factoryLevel * 20}%`;
+}
+factoryBtn.addEventListener('click', () => {
+  if (factoryLevel >= maxLevel) {
+    showNotification('Factory is at maximum level!', '🏭');
+    return;
+  }
+  const cost = getFactoryCost(factoryLevel + 1);
+  if (score >= cost) {
+    score -= cost;
+    factoryLevel++;
+    updateFactoryInfo();
+    updateAll();
+    checkAchievements();
+    autoSave();
+    showNotification(`Factory upgraded to level ${factoryLevel}! (+${factoryLevel * 20}%)`, '🏭');
+  } else {
+    showNotification('Not enough points to upgrade Factory!', '❌');
+  }
+});
+
+const bankBtn = document.getElementById('bankBtn');
+function getBankCost(level) { return Math.pow((level + 9), 15) / 1e3; }
+function updateBankInfo() {
+  document.getElementById('bankInfo').innerHTML = `Bank Level: ${bankLevel}<br>Benefit: +${bankLevel * 30}%`;
+}
+bankBtn.addEventListener('click', () => {
+  if (bankLevel >= maxLevel) {
+    showNotification('Bank is at maximum level!', '🏦');
+    return;
+  }
+  const cost = getBankCost(bankLevel + 1);
+  if (score >= cost) {
+    score -= cost;
+    bankLevel++;
+    updateBankInfo();
+    updateAll();
+    checkAchievements();
+    autoSave();
+    showNotification(`Bank upgraded to level ${bankLevel}! (+${bankLevel * 30}%)`, '🏦');
+  } else {
+    showNotification('Not enough points to upgrade Bank!', '❌');
+  }
+});
+
+const hotelBtn = document.getElementById('hotelBtn');
+function getHotelCost(level) { return Math.pow((level + 9), 17) * 10; }
+function updateHotelInfo() {
+  document.getElementById('hotelInfo').innerHTML = `Hotel Level: ${hotelLevel}<br>Benefit: +${hotelLevel * 45}%`;
+}
+hotelBtn.addEventListener('click', () => {
+  if (hotelLevel >= maxLevel) {
+    showNotification('Hotel is at maximum level!', '🏨');
+    return;
+  }
+  const cost = getHotelCost(hotelLevel + 1);
+  if (score >= cost) {
+    score -= cost;
+    hotelLevel++;
+    updateHotelInfo();
+    updateAll();
+    checkAchievements();
+    autoSave();
+    showNotification(`Hotel upgraded to level ${hotelLevel}! (+${hotelLevel * 45}%)`, '🏨');
+  } else {
+    showNotification('Not enough points to upgrade Hotel!', '❌');
+  }
+});
+
+const shopBtn = document.getElementById('shopBtn');
+function getShopUpgradeCost(level) { return Math.pow((level + 9), 19) * 1e5; }
+function updateShopInfo() {
+  document.getElementById('shopInfo').innerHTML = `Shop Level: ${shopLevel}<br>Benefit: +${shopLevel * 60}%`;
+}
+shopBtn.addEventListener('click', () => {
+  if (shopLevel >= 100) {
+    showNotification('Shop is at maximum level!', '🏪');
+    return;
+  }
+  const cost = getShopUpgradeCost(shopLevel + 1);
+  if (score >= cost) {
+    score -= cost;
+    shopLevel++;
+    updateShopInfo();
+    updateAll();
+    checkAchievements();
+    autoSave();
+    showNotification(`Shop upgraded to level ${shopLevel}! (+${shopLevel * 60}%)`, '🏪');
+  } else {
+    showNotification('Not enough points to upgrade Shop!', '❌');
+  }
+});
+
+// ----- Autoclicker -----
+const autoclickerMaxLevel = 200;
+function getAutoclickerCost(level) {
+  return Math.round(autoclickerBaseCost * Math.pow(1.2, level));
+}
+function getAutoclickerEffectPerSec() {
+  if (autoclickerLevel === 0) return 0;
+  return getTotalMultiplier() * (autoclickerLevel * 0.03);
+}
+function updateAutoclickerInfo() {
+  const effect = getAutoclickerEffectPerSec();
+  let cost = getAutoclickerCost(autoclickerLevel + 1);
+  let info = `Level: ${autoclickerLevel}/200<br>`;
+  info += `Effect: +${formatNumber(effect)}/sec (${autoclickerLevel * 3}%)<br>`;
+  info += autoclickerLevel < autoclickerMaxLevel
+    ? `Cost: ${formatNumber(cost)}`
+    : `Max Level`;
+  document.getElementById('autoclickerInfo').innerHTML = info;
+
+  const btn = document.getElementById('autoclickerBuyBtn');
+  if (autoclickerLevel < autoclickerMaxLevel) {
+    btn.textContent = `Buy Auto Clicker (${formatNumber(cost)})`;
+    btn.disabled = false;
+  } else {
+    btn.textContent = `Max Level Reached!`;
+    btn.disabled = true;
+  }
+}
+
+document.getElementById('autoclickerBuyBtn').addEventListener('click', () => {
+  const nextCost = getAutoclickerCost(autoclickerLevel + 1);
+  if (autoclickerLevel >= autoclickerMaxLevel) return;
+  if (score >= nextCost) {
+    score -= nextCost;
+    autoclickerLevel++;
+    updateAutoclickerInfo();
+    updateAll();
+    checkAchievements();
+    autoSave();
+    showNotification(`Auto Clicker upgraded to level ${autoclickerLevel}!`, '🤖');
+  } else {
+    showNotification('Not enough points to buy Auto Clicker!', '❌');
+  }
+});
+
+// ----- Prestige -----
+function getPrestigeBonus() {
+  return Math.pow(3, prestigeLevel);
+}
+function updatePrestigeInfo() {
+  const bonus = getPrestigeBonus();
+  document.getElementById('prestigeInfo').innerHTML = `
+    Level: ${prestigeLevel}/${prestigeMaxLevel}<br>
+    Bonus Multiplier: x${bonus.toLocaleString()}<br>
+    Cost: ${prestigeLevel < prestigeMaxLevel ? formatNumber(prestigeCost) : 'Max Level'}
+  `;
+  const btn = document.getElementById('prestigeBuyBtn');
+  if (prestigeLevel >= prestigeMaxLevel) {
+    btn.textContent = 'Max Prestige Level Reached!';
+    btn.disabled = true;
+  } else {
+    btn.textContent = `Buy Prestige (${formatNumber(prestigeCost)})`;
+    btn.disabled = false;
+  }
+}
+
+document.getElementById('prestigeBuyBtn').addEventListener('click', () => {
+  if (prestigeLevel >= prestigeMaxLevel) return;
+  if (score >= prestigeCost) {
+    score -= prestigeCost;
+    prestigeLevel++;
+    prestigeCost *= 10000;
+    resetOnPrestige();
+    updatePrestigeInfo();
+    updateAll();
+    checkAchievements();
+    autoSave();
+    showNotification(`Prestiged to level ${prestigeLevel}! Multiplier: x${getPrestigeBonus()}`, '🔄');
+  } else {
+    showNotification('Not enough points to Prestige!', '❌');
+  }
+});
+
+// ----- Main Click Button -----
+document.getElementById('mainBtn').addEventListener('click', function(e) {
+  // Check for critical hit
+  const isCritical = Math.random() < criticalHitChance;
+  const multiplier = isCritical ? criticalHitMultiplier : 1;
+  const pointsGained = getTotalMultiplier() * (goldenTimeActive ? 2 : 1) * multiplier;
+  
+  score += pointsGained;
+  clicks++;
+  
+  // Create click effect
+  const rect = this.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  createClickEffect(e.clientX, e.clientY, isCritical);
+  
+  // Check for golden time activation
+  if (!goldenTimeActive && Math.random() < goldenTimeChance) {
+    activateGoldenTime();
+  }
+  
+  if (isCritical) {
+    criticalHits++;
+    showNotification(`CRITICAL HIT! +${formatNumber(pointsGained)} points!`, '💥');
+  }
+  
+  updateAll();
+  checkAchievements();
+  autoSave();
+});
+
+// ----- Calculate Total Multiplier -----
+function getTotalMultiplier() {
+  const factoryFactor = 1 + (factoryLevel * 0.20);
+  const bankFactor = 1 + (bankLevel * 0.30);
+  const hotelFactor = 1 + (hotelLevel * 0.45);
+  const shopFactor = 1 + (shopLevel * 0.60);
+  return baseMultiplier * factoryFactor * bankFactor * hotelFactor * shopFactor * getPrestigeBonus();
+}
+
+// ----- Update All UI -----
+function updateAll() {
+  document.getElementById('score').textContent = formatNumber(score);
+
+  const factoryFactor = 1 + (factoryLevel * 0.20);
+  const bankFactor = 1 + (bankLevel * 0.30);
+  const hotelFactor = 1 + (hotelLevel * 0.45);
+  const shopFactor = 1 + (shopLevel * 0.60);
+
+  const totalMultiplier = baseMultiplier * factoryFactor * bankFactor * hotelFactor * shopFactor * getPrestigeBonus();
+
+  const statusHTML = `
+    <strong>Score:</strong> ${formatNumber(score)}<br>
+    <strong>Base Multiplier:</strong> x${formatNumber(baseMultiplier)}<br>
+    <strong>Factory Level:</strong> ${factoryLevel}/100 (+${(factoryLevel * 20)}%)<br>
+    <strong>Bank Level:</strong> ${bankLevel}/100 (+${bankLevel * 30}%)<br>
+    <strong>Hotel Level:</strong> ${hotelLevel}/100 (+${hotelLevel * 45}%)<br>
+    <strong>Shop Level:</strong> ${shopLevel}/100 (+${shopLevel * 60}%)<br>
+    <strong>Prestige Level:</strong> ${prestigeLevel}/12 (Bonus x${getPrestigeBonus().toLocaleString()})<br>
+    <strong>Total Multiplier:</strong> x${formatNumber(totalMultiplier)}<br>
+    <strong>Clicks:</strong> ${clicks}<br>
+    <strong>Auto Clicker:</strong> +${formatNumber(getAutoclickerEffectPerSec())}/sec<br>
+    ${goldenTimeActive ? '<strong style="color: var(--golden-color);">GOLDEN TIME ACTIVE! 2x Points!</strong>' : ''}
+  `;
+  document.getElementById('statsDisplay').innerHTML = statusHTML;
+
+  updateFactoryInfo();
+  updateBankInfo();
+  updateHotelInfo();
+  updateShopInfo();
+  updateAutoclickerInfo();
+  updatePrestigeInfo();
+}
+
+// ----- Reset on Prestige -----
+function resetOnPrestige() {
+  score = 0;
+  baseMultiplier = 1;
+  factoryLevel = 0;
+  bankLevel = 0;
+  hotelLevel = 0;
+  shopLevel = 0;
+  autoclickerLevel = 0;
+  autoclickerBaseCost = 100;
+  clicks = 0;
+
+  for (let i = 0; i < upgrades.length; i++) {
+    upgrades[i].cost = baseUpgradeCosts[i];
+    const btn = upgradeGrid.children[i];
+    btn.innerHTML = `
+      <span class="icon">${upgrades[i].icon}</span>
+      <span>${upgrades[i].power} Power</span>
+      <span class="cost">Cost: ${formatNumber(upgrades[i].cost)}</span>
+    `;
+  }
+  updateFactoryInfo();
+  updateBankInfo();
+  updateHotelInfo();
+  updateShopInfo();
+  updateAutoclickerInfo();
+}
+
+// ----- Cost update interval for facilities and shop buttons -----
+setInterval(() => {
+  if (factoryLevel < maxLevel) {
+    factoryBtn.textContent = `Buy Factory (${formatNumber(getFactoryCost(factoryLevel + 1))})`;
+  } else {
+    factoryBtn.textContent = `Factory max level!`;
+    factoryBtn.disabled = true;
+  }
+  
+  if (bankLevel < maxLevel) {
+    bankBtn.textContent = `Upgrade Bank (${formatNumber(getBankCost(bankLevel + 1))})`;
+  } else {
+    bankBtn.textContent = `Bank max level!`;
+    bankBtn.disabled = true;
+  }
+  
+  if (hotelLevel < maxLevel) {
+    hotelBtn.textContent = `Upgrade Hotel (${formatNumber(getHotelCost(hotelLevel + 1))})`;
+  } else {
+    hotelBtn.textContent = `Hotel max level!`;
+    hotelBtn.disabled = true;
+  }
+  
+  if (shopLevel < 100) {
+    shopBtn.textContent = `Upgrade Shop (${formatNumber(getShopUpgradeCost(shopLevel + 1))})`;
+  } else {
+    shopBtn.textContent = `Shop max level!`;
+    shopBtn.disabled = true;
+  }
+  
+  // Check golden time
+  checkGoldenTime();
+}, 100);
+
+// ----- Autoclicker points gain per 10ms -----
+let autoclickerRemainder = 0;
+setInterval(() => {
+  if (autoclickerLevel > 0) {
+    const perSecondGain = getTotalMultiplier() * (autoclickerLevel * 0.03) * (goldenTimeActive ? 2 : 1);
+    const per10MsGain = perSecondGain / 100;
+    autoclickerRemainder += per10MsGain;
+    const addPoints = Math.floor(autoclickerRemainder);
+    if (addPoints > 0) {
+      score += addPoints;
+      autoclickerRemainder -= addPoints;
+      updateAll();
+      checkAchievements();
+      autoSave();
+    }
+  }
+}, 10);
+
+// ----- Save/Load logic -----
+function getSaveData() {
+  return {
+    score,
+    baseMultiplier,
+    factoryLevel,
+    bankLevel,
+    hotelLevel,
+    shopLevel,
+    autoclickerLevel,
+    prestigeLevel,
+    prestigeCost,
+    upgrades: upgrades.map(u => ({ cost: u.cost })),
+    clicks,
+    achievements: achievements.map(a => !!a.unlocked),
+    lastSaved: Date.now(),
+    fullResets,
+    criticalHits,
+    goldenTimeExperienced,
+    goldenTimeActive,
+    goldenTimeEnd
+  };
+}
+
+function setSaveData(data) {
+  if (!data || typeof data !== 'object') return;
+  score = data.score || 0;
+  baseMultiplier = data.baseMultiplier || 1;
+  factoryLevel = data.factoryLevel || 0;
+  bankLevel = data.bankLevel || 0;
+  hotelLevel = data.hotelLevel || 0;
+  shopLevel = data.shopLevel || 0;
+  autoclickerLevel = data.autoclickerLevel || 0;
+  prestigeLevel = data.prestigeLevel || 0;
+  prestigeCost = data.prestigeCost || prestigeBaseCost;
+  clicks = data.clicks || 0;
+  fullResets = data.fullResets || 0;
+  criticalHits = data.criticalHits || 0;
+  goldenTimeExperienced = data.goldenTimeExperienced || 0;
+  goldenTimeActive = data.goldenTimeActive || false;
+  goldenTimeEnd = data.goldenTimeEnd || 0;
+  
+  if (Array.isArray(data.upgrades)) {
+    for (let i = 0; i < upgrades.length; i++) {
+      if (data.upgrades[i]) upgrades[i].cost = data.upgrades[i].cost;
+      const btn = upgradeGrid.children[i];
+      btn.innerHTML = `
+        <span class="icon">${upgrades[i].icon}</span>
+        <span>${upgrades[i].power} Power</span>
+        <span class="cost">Cost: ${formatNumber(upgrades[i].cost)}</span>
+      `;
+    }
+  }
+  
+  if (Array.isArray(data.achievements)) {
+    for (let i = 0; i < achievements.length; i++) {
+      achievements[i].unlocked = !!data.achievements[i];
+    }
+  }
+  
+  // Handle golden time from save
+  if (goldenTimeActive) {
+    const timeLeft = goldenTimeEnd - Date.now();
+    if (timeLeft > 0) {
+      activateGoldenTime();
+      setTimeout(() => {
+        if (goldenTimeActive) {
+          endGoldenTime();
+        }
+      }, timeLeft);
+    } else {
+      goldenTimeActive = false;
+    }
+  }
+  
+  renderAchievements();
+}
+
+function saveGame() {
+  localStorage.setItem('skullClickerSave', JSON.stringify(getSaveData()));
+  showNotification('Game saved successfully!', '💾');
+  updateLastSavedInfo();
+}
+
+function loadGame() {
+  const savestr = localStorage.getItem('skullClickerSave');
+  if (!savestr) {
+    showNotification('No save file found!', '❌');
+    return;
+  }
+  
+  try {
+    const save = JSON.parse(savestr);
+    setSaveData(save);
+
+    if (save.lastSaved && save.lastSaved < Date.now() && save.autoclickerLevel > 0) {
+      const seconds = Math.floor((Date.now() - save.lastSaved) / 1000);
+      if (seconds > 1) {
+        const idleGain = getTotalMultiplier() * (autoclickerLevel * 0.006) * seconds;
+        const earned = Math.floor(idleGain);
+        score += earned;
+        showNotification(`Welcome back! You earned ${formatNumber(earned)} points while idle (${seconds}s offline).`, '⏱️');
+      }
+    }
+    
+    updateLastSavedInfo();
+    showNotification('Game loaded successfully!', '🔃');
+  } catch {
+    showNotification('Corrupted save file!', '❌');
+  }
+  
+  updateAll();
+  checkAchievements();
+}
+
+function updateLastSavedInfo() {
+  const savestr = localStorage.getItem('skullClickerSave');
+  if (savestr) {
+    try {
+      const save = JSON.parse(savestr);
+      if (save.lastSaved) {
+        const lastSavedDate = new Date(save.lastSaved);
+        document.getElementById('lastSavedInfo').textContent =
+          `Last saved: ${lastSavedDate.toLocaleString()}`;
+      }
+    } catch {
+      document.getElementById('lastSavedInfo').textContent = '';
+    }
+  } else {
+    document.getElementById('lastSavedInfo').textContent = '';
+  }
+}
+
+function autoSave() {
+  localStorage.setItem('skullClickerSave', JSON.stringify(getSaveData()));
+  updateLastSavedInfo();
+}
+setInterval(autoSave, 60000);
+
+// ----- Full reset function -----
+function fullReset() {
+  if (confirm('Are you sure you want to delete all saved data and reset the game?\nThis cannot be undone!')) {
+    localStorage.removeItem('skullClickerSave');
+    score = 0;
+    baseMultiplier = 1;
+    factoryLevel = 0;
+    bankLevel = 0;
+    hotelLevel = 0;
+    shopLevel = 0;
+    autoclickerLevel = 0;
+    prestigeLevel = 0;
+    prestigeCost = prestigeBaseCost;
+    clicks = 0;
+    fullResets++;
+    criticalHits = 0;
+    goldenTimeExperienced = 0;
+    goldenTimeActive = false;
+    goldenTimeEnd = 0;
+
+    for (let i = 0; i < upgrades.length; i++) {
+      upgrades[i].cost = baseUpgradeCosts[i];
+      const btn = upgradeGrid.children[i];
+      btn.innerHTML = `
+        <span class="icon">${upgrades[i].icon}</span>
+        <span>${upgrades[i].power} Power</span>
+        <span class="cost">Cost: ${formatNumber(upgrades[i].cost)}</span>
+      `;
+    }
+    
+    achievements.forEach(a => a.unlocked = false);
+    renderAchievements();
+
+    updateAll();
+    showNotification('Game has been fully reset!', '♻️');
+  }
+}
+
+document.getElementById('saveBtn').addEventListener('click', saveGame);
+document.getElementById('loadBtn').addEventListener('click', loadGame);
+document.getElementById('resetBtn').addEventListener('click', fullReset);
+
+window.addEventListener('DOMContentLoaded', () => {
+  // Achievements panel collapsed by default
+  document.getElementById('achievementsContent').style.display = 'none';
+  document.getElementById('achievementsHeader').textContent = 'Achievements ▼';
+  document.getElementById('achievementsHeader').setAttribute('aria-expanded', 'false');
+  document.getElementById('achievementsContent').setAttribute('aria-hidden', 'true');
+
+  // Save & Load expanded by default
+  document.getElementById('saveContent').style.display = 'block';
+  document.getElementById('saveHeader').textContent = 'Save & Load ▲';
+  document.getElementById('saveHeader').setAttribute('aria-expanded', 'true');
+  document.getElementById('saveContent').setAttribute('aria-hidden', 'false');
+
+  prestigeLevel = 0;
+  prestigeCost = prestigeBaseCost;
+
+  renderAchievements();
+  loadGame();
+  updateAll();
+  checkAchievements();
+  autoSave();
+});
+</script>
+</body>
+</html>
