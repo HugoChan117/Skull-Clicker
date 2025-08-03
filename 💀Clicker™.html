@@ -1516,7 +1516,7 @@ document.getElementById('autoclickerBuyBtn').addEventListener('click', () => {
 
 // ----- Prestige -----
 function getPrestigeBonus() {
-  return Math.pow(3, prestigeLevel);
+  return Math.pow(4, prestigeLevel);
 }
 function updatePrestigeInfo() {
   const bonus = getPrestigeBonus();
@@ -1540,7 +1540,7 @@ document.getElementById('prestigeBuyBtn').addEventListener('click', () => {
   if (score >= prestigeCost) {
     score -= prestigeCost;
     prestigeLevel++;
-    prestigeCost *= 4000;
+    prestigeCost *= 10000;
     resetOnPrestige();
     updatePrestigeInfo();
     updateAll();
