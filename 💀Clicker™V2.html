@@ -2551,7 +2551,7 @@
   <div class="ascension-container" id="ascensionContainer">
     <div class="ascension-header" id="ascensionHeader" role="button" tabindex="0" aria-expanded="false" aria-controls="ascensionContent">✨ Ascension ▼</div>
     <div class="ascension-content" id="ascensionContent" aria-hidden="true">
-      <div id="ascensionInfo">Level: 0/5<br>Bonus Multiplier: x1<br>Cost: 1Ud</div>
+      <div id="ascensionInfo">Level: 0/5<br>Bonus Multiplier: x1<br>Cost: 1Td</div>
       <button id="ascensionBuyBtn">✨ Ascend</button>
     </div>
   </div>
@@ -2560,7 +2560,7 @@
   <div class="cosmic-container" id="cosmicContainer">
     <div class="cosmic-header" id="cosmicHeader" role="button" tabindex="0" aria-expanded="false" aria-controls="cosmicContent">🌌 Cosmic Realm ▼</div>
     <div class="cosmic-content" id="cosmicContent" aria-hidden="true">
-      <div id="cosmicInfo">Level: 0/3<br>Bonus Multiplier: x1<br>Cost: 1V</div>
+      <div id="cosmicInfo">Level: 0/3<br>Bonus Multiplier: x1<br>Cost: 1TV</div>
       <button id="cosmicBuyBtn">🌌 Enter Cosmic Realm</button>
     </div>
   </div>
@@ -2732,11 +2732,11 @@ const prestigeBaseCost = 1e12;
 let prestigeCost = prestigeBaseCost;
 let ascensionLevel = 0;
 const ascensionMaxLevel = 5;
-const ascensionBaseCost = 1e36;
+const ascensionBaseCost = 1e42;
 let ascensionCost = ascensionBaseCost;
 let cosmicLevel = 0;
 const cosmicMaxLevel = 3;
-const cosmicBaseCost = 1e60;
+const cosmicBaseCost = 1e72;
 let cosmicCost = cosmicBaseCost;
 let clicks = 0;
 
@@ -4073,7 +4073,7 @@ document.getElementById('ascensionBuyBtn').addEventListener('click', () => {
 
 // ----- Cosmic Realm -----
 function getCosmicBonus() {
-  return Math.pow(12, cosmicLevel);
+  return Math.pow(10, cosmicLevel);
 }
 function updateCosmicInfo() {
   const bonus = getCosmicBonus();
@@ -4097,7 +4097,7 @@ document.getElementById('cosmicBuyBtn').addEventListener('click', () => {
   if (score >= cosmicCost) {
     score -= cosmicCost;
     cosmicLevel++;
-    cosmicCost *= 1e9;
+    cosmicCost *= 1e10;
     resetOnCosmic();
     updateCosmicInfo();
     updateAll();
@@ -4388,7 +4388,7 @@ document.getElementById('mainBtn').addEventListener('click', function(e) {
       multiplier *= 2;
     }
     if (isRainbow) {
-      multiplier *= 3;
+      multiplier *= 4;
     }
   }
   
