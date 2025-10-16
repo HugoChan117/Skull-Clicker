@@ -1,7 +1,5 @@
 # Skull-Clicker 💀
 
----
-
 A tiny, single-file web clicker — a lightweight, playful HTML experiment for fast prototyping and micro-interactions.
 
 ---
