@@ -522,17 +522,6 @@
                         this.updateZoomButtons();
                     }
                 });
-
-                // Double tap to switch camera
-                let lastTap = 0;
-                this.video.addEventListener('touchend', (e) => {
-                    const currentTime = new Date().getTime();
-                    const tapLength = currentTime - lastTap;
-                    if (tapLength < 500 && tapLength > 0) {
-                        this.switchCamera();
-                    }
-                    lastTap = currentTime;
-                });
             }
 
             getDistance(touch1, touch2) {
