@@ -537,34 +537,22 @@
                     Math.pow(touch2.clientY - touch1.clientY, 2)
                 );
             }
-
- setZoom(zoom) {
-    // Store the previous zoom to avoid cumulative scaling
+ // Replace setZoom function
+setZoom(zoom) {
     this.currentZoom = zoom;
-    
-    // Reset transform and apply new zoom directly
     this.video.style.transform = `scale(${zoom})`;
-    
     // If browser supports camera zoom API, use it
     if (this.stream) {
         const track = this.stream.getVideoTracks()[0];
         if (track.getCapabilities && track.getCapabilities().zoom) {
             const capabilities = track.getCapabilities();
-            const settings = track.getSettings();
-            
-            // Calculate absolute zoom value
-            let absoluteZoom;
+            let absoluteZoom = zoom;
             if (capabilities.zoom) {
-                // Normalize zoom to camera's zoom range
                 const minZoom = capabilities.zoom.min || 1;
                 const maxZoom = capabilities.zoom.max || 8;
                 absoluteZoom = minZoom + (zoom - 1) * (maxZoom - minZoom) / 7;
                 absoluteZoom = Math.min(maxZoom, Math.max(minZoom, absoluteZoom));
-            } else {
-                absoluteZoom = zoom;
             }
-            
-            // Apply constraints with absolute value
             track.applyConstraints({
                 advanced: [{ zoom: absoluteZoom }]
             }).catch(console.error);
@@ -572,6 +560,47 @@
     }
 }
 
+// Replace takePhoto function
+async takePhoto() {
+    // Flash effect
+    this.flashOverlay.classList.add('active');
+    setTimeout(() => {
+        this.flashOverlay.classList.remove('active');
+    }, 200);
+
+    // Setup
+    const video = this.video;
+    const zoom = this.currentZoom;
+    const vw = video.videoWidth;
+    const vh = video.videoHeight;
+
+    // Crop to zoomed region (centered)
+    const w = vw / zoom;
+    const h = vh / zoom;
+    const sx = (vw - w) / 2;
+    const sy = (vh - h) / 2;
+
+    this.canvas.width = w;
+    this.canvas.height = h;
+    const ctx = this.canvas.getContext('2d');
+    ctx.drawImage(video, sx, sy, w, h, 0, 0, w, h);
+
+    const dataURL = this.canvas.toDataURL('image/jpeg', 0.9);
+    const photo = {
+        id: Date.now(),
+        dataURL: dataURL,
+        timestamp: new Date().toISOString()
+    };
+
+    this.photos.unshift(photo);
+    localStorage.setItem('cameraPhotos', JSON.stringify(this.photos));
+    this.updateGalleryPreview();
+
+    this.captureBtn.style.transform = 'scale(0.9)';
+    setTimeout(() => {
+        this.captureBtn.style.transform = 'scale(1)';
+    }, 100);
+}
             updateZoomButtons() {
                 document.querySelectorAll('.zoom-btn').forEach(btn => {
                     const zoomLevel = parseFloat(btn.dataset.zoom);
@@ -583,41 +612,7 @@
                 });
             }
 
-            async takePhoto() {
-                // Flash effect
-                this.flashOverlay.classList.add('active');
-                setTimeout(() => {
-                    this.flashOverlay.classList.remove('active');
-                }, 200);
 
-                // Capture photo
-                const context = this.canvas.getContext('2d');
-                this.canvas.width = this.video.videoWidth;
-                this.canvas.height = this.video.videoHeight;
-                
-                // Adjust for zoom
-                context.save();
-                context.scale(1/this.currentZoom, 1/this.currentZoom);
-                context.drawImage(this.video, 0, 0);
-                context.restore();
-                
-                const dataURL = this.canvas.toDataURL('image/jpeg', 0.9);
-                const photo = {
-                    id: Date.now(),
-                    dataURL: dataURL,
-                    timestamp: new Date().toISOString()
-                };
-
-                this.photos.unshift(photo);
-                localStorage.setItem('cameraPhotos', JSON.stringify(this.photos));
-                this.updateGalleryPreview();
-
-                // Animate capture button
-                this.captureBtn.style.transform = 'scale(0.9)';
-                setTimeout(() => {
-                    this.captureBtn.style.transform = 'scale(1)';
-                }, 100);
-            }
 
             async toggleVideoRecording() {
                 if (!this.isRecording) {
