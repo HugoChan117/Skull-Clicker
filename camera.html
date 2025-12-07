@@ -366,7 +366,7 @@
             </div>
             
             <div class="zoom-controls">
-                <button class="zoom-btn" data-zoom="1">1</button>
+                <button class="zoom-btn" data-zoom="1">1x</button>
                 <button class="zoom-btn" data-zoom="3">3x</button>
                 <button class="zoom-btn" data-zoom="9">9x</button>
                 <button class="zoom-btn" data-zoom="27">27x</button>
@@ -568,8 +568,8 @@
                 // Front camera: only one button, toggles between 1x and 2x
                 const btn = document.createElement('button');
                 btn.className = 'zoom-btn active';
-                btn.dataset.zoom = this.currentZoom < 1.9 ? 2 : 1;
-                btn.textContent = `${this.currentZoom < 1.9 ? "2x" : "1x"}`;
+                btn.dataset.zoom = this.currentZoom < 1.9 ? 1 : 2;
+                btn.textContent = `${this.currentZoom < 1.9 ? "1x" : "2x"}`;
                 zoomControls.appendChild(btn);
             } else {
                 // Back camera: regular multi-button zoom
