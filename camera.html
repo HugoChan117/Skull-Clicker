@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Camera App</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,7 +19,7 @@
             background: #000;
             color: white;
             overflow: hidden;
-            touch-action: manipulation;
+            touch-action: none;
         }
 
         .camera-container {
@@ -419,6 +419,8 @@
                 this.mediaRecorder = null;
                 this.photos = JSON.parse(localStorage.getItem('cameraPhotos') || '[]');
                 this.currentZoom = 1;
+                this.maxZoom = 20;
+                this.zoomPresets = [1, 2, 4, 8];
 
                 this.init();
             }
@@ -486,7 +488,6 @@
                     btn.addEventListener('click', (e) => {
                         const zoomLevel = parseFloat(e.target.dataset.zoom);
                         this.setZoom(zoomLevel);
-                        this.updateZoomButtons();
                     });
                 });
 
@@ -496,6 +497,14 @@
                         case 'Space':
                             e.preventDefault();
                             this.captureBtn.click();
+                            break;
+                        case 'ArrowUp':
+                            e.preventDefault();
+                            this.setZoom(Math.min(this.currentZoom * 1.05, this.maxZoom));
+                            break;
+                        case 'ArrowDown':
+                            e.preventDefault();
+                            this.setZoom(Math.max(this.currentZoom / 1.05, 1));
                             break;
                     }
                 });
@@ -517,10 +526,20 @@
                         e.preventDefault();
                         const currentDistance = this.getDistance(e.touches[0], e.touches[1]);
                         const scale = currentDistance / startDistance;
-                        const newZoom = Math.min(8, Math.max(1, startZoom * scale));
+                        const newZoom = Math.min(this.maxZoom, Math.max(1, startZoom * scale));
                         this.setZoom(newZoom);
-                        this.updateZoomButtons();
                     }
+                });
+
+                // Double tap to switch camera
+                let lastTap = 0;
+                this.video.addEventListener('touchend', (e) => {
+                    const currentTime = new Date().getTime();
+                    const tapLength = currentTime - lastTap;
+                    if (tapLength < 500 && tapLength > 0) {
+                        this.switchCamera();
+                    }
+                    lastTap = currentTime;
                 });
             }
 
@@ -530,57 +549,45 @@
                     Math.pow(touch2.clientY - touch1.clientY, 2)
                 );
             }
-setZoom(zoom) {
-    this.currentZoom = zoom;
-    this.video.style.transform = `scale(${zoom})`;
-    // That's all! Ignore camera track zoom APIs.
-}
 
-// Replace takePhoto function
-async takePhoto() {
-    // Flash effect
-    this.flashOverlay.classList.add('active');
-    setTimeout(() => {
-        this.flashOverlay.classList.remove('active');
-    }, 200);
+            setZoom(zoom) {
+                this.currentZoom = Math.min(Math.max(zoom, 1), this.maxZoom);
+                this.video.style.transform = `scale(${this.currentZoom})`;
+                this.updateZoomButtons();
+            }
 
-    // Setup
-    const video = this.video;
-    const zoom = this.currentZoom;
-    const vw = video.videoWidth;
-    const vh = video.videoHeight;
+            getClosestPresets() {
+                const presets = [...this.zoomPresets];
+                const current = this.currentZoom;
+                
+                // Determine which preset slot the current zoom belongs to
+                if (current < 1.9) {
+                    // First slot: current zoom if between 1-2, otherwise 1
+                    presets[0] = current >= 1 && current < 1.9 ? parseFloat(current.toFixed(1)) : 1;
+                } else if (current < 3.9) {
+                    // Second slot: current zoom if between 2-4, otherwise 2
+                    presets[1] = current >= 2 && current < 3.9 ? parseFloat(current.toFixed(1)) : 2;
+                } else if (current < 7.9) {
+                    // Third slot: current zoom if between 4-8, otherwise 4
+                    presets[2] = current >= 4 && current < 7.9 ? parseFloat(current.toFixed(1)) : 4;
+                } else {
+                    // Fourth slot: current zoom if 8+, otherwise 8
+                    presets[3] = current >= 8 ? parseFloat(current.toFixed(1)) : 8;
+                }
+                
+                return presets;
+            }
 
-    // Crop to zoomed region (centered)
-    const w = vw / zoom;
-    const h = vh / zoom;
-    const sx = (vw - w) / 2;
-    const sy = (vh - h) / 2;
-
-    this.canvas.width = w;
-    this.canvas.height = h;
-    const ctx = this.canvas.getContext('2d');
-    ctx.drawImage(video, sx, sy, w, h, 0, 0, w, h);
-
-    const dataURL = this.canvas.toDataURL('image/jpeg', 0.9);
-    const photo = {
-        id: Date.now(),
-        dataURL: dataURL,
-        timestamp: new Date().toISOString()
-    };
-
-    this.photos.unshift(photo);
-    localStorage.setItem('cameraPhotos', JSON.stringify(this.photos));
-    this.updateGalleryPreview();
-
-    this.captureBtn.style.transform = 'scale(0.9)';
-    setTimeout(() => {
-        this.captureBtn.style.transform = 'scale(1)';
-    }, 100);
-}
             updateZoomButtons() {
-                document.querySelectorAll('.zoom-btn').forEach(btn => {
-                    const zoomLevel = parseFloat(btn.dataset.zoom);
-                    if (zoomLevel === this.currentZoom) {
+                const presets = this.getClosestPresets();
+                const buttons = document.querySelectorAll('.zoom-btn');
+                
+                buttons.forEach((btn, index) => {
+                    const presetValue = presets[index];
+                    btn.dataset.zoom = presetValue;
+                    btn.textContent = `${presetValue}x`;
+                    
+                    if (Math.abs(this.currentZoom - presetValue) < 0.1) {
                         btn.classList.add('active');
                     } else {
                         btn.classList.remove('active');
@@ -588,7 +595,49 @@ async takePhoto() {
                 });
             }
 
+            async takePhoto() {
+                // Flash effect
+                this.flashOverlay.classList.add('active');
+                setTimeout(() => {
+                    this.flashOverlay.classList.remove('active');
+                }, 200);
 
+                // Setup
+                const video = this.video;
+                const zoom = this.currentZoom;
+                const vw = video.videoWidth;
+                const vh = video.videoHeight;
+
+                // Calculate crop area for zoom
+                const scale = 1 / zoom;
+                const w = vw * scale;
+                const h = vh * scale;
+                const sx = (vw - w) / 2;
+                const sy = (vh - h) / 2;
+
+                // Create canvas at full resolution
+                this.canvas.width = w;
+                this.canvas.height = h;
+                const ctx = this.canvas.getContext('2d');
+                ctx.drawImage(video, sx, sy, w, h, 0, 0, w, h);
+
+                const dataURL = this.canvas.toDataURL('image/jpeg', 0.9);
+                const photo = {
+                    id: Date.now(),
+                    dataURL: dataURL,
+                    timestamp: new Date().toISOString(),
+                    zoomLevel: this.currentZoom
+                };
+
+                this.photos.unshift(photo);
+                localStorage.setItem('cameraPhotos', JSON.stringify(this.photos));
+                this.updateGalleryPreview();
+
+                this.captureBtn.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    this.captureBtn.style.transform = 'scale(1)';
+                }, 100);
+            }
 
             async toggleVideoRecording() {
                 if (!this.isRecording) {
@@ -646,6 +695,8 @@ async takePhoto() {
 
                 try {
                     await this.requestCameraAccess();
+                    // Reset zoom when switching cameras
+                    this.setZoom(1);
                 } catch (error) {
                     this.showError('Failed to switch camera');
                 }
@@ -759,10 +810,12 @@ async takePhoto() {
                 } else {
                     mediaElement = document.createElement('img');
                     mediaElement.src = photo.dataURL;
+                    mediaElement.style.maxWidth = 'min(90%, 800px)';
+                    mediaElement.style.maxHeight = 'min(80%, 600px)';
+                    mediaElement.style.width = 'auto';
+                    mediaElement.style.height = 'auto';
                 }
                 
-                mediaElement.style.maxWidth = '90%';
-                mediaElement.style.maxHeight = '80%';
                 mediaElement.style.objectFit = 'contain';
                 
                 const closeBtn = document.createElement('button');
