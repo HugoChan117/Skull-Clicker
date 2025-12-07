@@ -537,27 +537,10 @@
                     Math.pow(touch2.clientY - touch1.clientY, 2)
                 );
             }
- // Replace setZoom function
 setZoom(zoom) {
     this.currentZoom = zoom;
     this.video.style.transform = `scale(${zoom})`;
-    // If browser supports camera zoom API, use it
-    if (this.stream) {
-        const track = this.stream.getVideoTracks()[0];
-        if (track.getCapabilities && track.getCapabilities().zoom) {
-            const capabilities = track.getCapabilities();
-            let absoluteZoom = zoom;
-            if (capabilities.zoom) {
-                const minZoom = capabilities.zoom.min || 1;
-                const maxZoom = capabilities.zoom.max || 8;
-                absoluteZoom = minZoom + (zoom - 1) * (maxZoom - minZoom) / 7;
-                absoluteZoom = Math.min(maxZoom, Math.max(minZoom, absoluteZoom));
-            }
-            track.applyConstraints({
-                advanced: [{ zoom: absoluteZoom }]
-            }).catch(console.error);
-        }
-    }
+    // That's all! Ignore camera track zoom APIs.
 }
 
 // Replace takePhoto function
