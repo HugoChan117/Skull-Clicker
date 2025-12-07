@@ -568,8 +568,8 @@
                 // Front camera: only one button, toggles between 1x and 2x
                 const btn = document.createElement('button');
                 btn.className = 'zoom-btn active';
-                btn.dataset.zoom = this.currentZoom < 1.9 ? 1 : 2;
-                btn.textContent = `${this.currentZoom < 1.9 ? "1x" : "2x"}`;
+                btn.dataset.zoom = this.currentZoom < 1.5 ? 2 : 1;
+                btn.textContent = `${this.currentZoom < 1.5 ? "2x" : "1x"}`;
                 zoomControls.appendChild(btn);
             } else {
                 // Back camera: regular multi-button zoom
