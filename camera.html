@@ -499,11 +499,11 @@
                         break;
                     case 'ArrowUp':
                         e.preventDefault();
-                        this.setZoom(Math.min(this.currentZoom * 1.05, this.maxZoom));
+                        this.setZoom(Math.min(this.currentZoom * 1.1, this.maxZoom));
                         break;
                     case 'ArrowDown':
                         e.preventDefault();
-                        this.setZoom(Math.max(this.currentZoom / 1.05, 1));
+                        this.setZoom(Math.max(this.currentZoom / 1.1, 1));
                         break;
                 }
             });
@@ -568,8 +568,8 @@
                 // Front camera: only one button, toggles between 1x and 2x
                 const btn = document.createElement('button');
                 btn.className = 'zoom-btn active';
-                btn.dataset.zoom = this.currentZoom < 2 ? 2 : 1;
-                btn.textContent = `${this.currentZoom < 2 ? "1x" : "2x"}`;
+                btn.dataset.zoom = this.currentZoom < 1.9 ? 2 : 1;
+                btn.textContent = `${this.currentZoom < 1.9 ? "2x" : "1x"}`;
                 zoomControls.appendChild(btn);
             } else {
                 // Back camera: regular multi-button zoom
@@ -578,7 +578,7 @@
                     const btn = document.createElement('button');
                     btn.className = 'zoom-btn';
                     btn.dataset.zoom = presetValue;
-                    btn.textContent = `${presetValue}${presetValue > 1 ? "x" : "x"}`;
+                    btn.textContent = `${presetValue}x`;
                     if (Math.abs(this.currentZoom - presetValue) < 0.1) {
                         btn.classList.add('active');
                     }
