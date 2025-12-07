@@ -366,10 +366,10 @@
             </div>
             
             <div class="zoom-controls">
-                <button class="zoom-btn" data-zoom="1">1x</button>
-                <button class="zoom-btn" data-zoom="2">2x</button>
-                <button class="zoom-btn" data-zoom="4">4x</button>
-                <button class="zoom-btn" data-zoom="8">8x</button>
+                <button class="zoom-btn" data-zoom="1">1</button>
+                <button class="zoom-btn" data-zoom="2">2</button>
+                <button class="zoom-btn" data-zoom="4">4</button>
+                <button class="zoom-btn" data-zoom="8">8</button>
             </div>
             
             <div class="controls-row">
@@ -576,7 +576,7 @@
                 buttons.forEach((btn, index) => {
                     const presetValue = presets[index];
                     btn.dataset.zoom = presetValue;
-                    btn.textContent = `${presetValue}x`;
+                    btn.textContent = `${presetValue}`;
                     
                     if (Math.abs(this.currentZoom - presetValue) < 0.1) {
                         btn.classList.add('active');
