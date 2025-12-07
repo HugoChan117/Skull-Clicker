@@ -569,7 +569,7 @@
                 const btn = document.createElement('button');
                 btn.className = 'zoom-btn active';
                 btn.dataset.zoom = this.currentZoom < 2 ? 2 : 1;
-                btn.textContent = `${this.currentZoom < 2 ? "2x" : "1x"}`;
+                btn.textContent = `${this.currentZoom < 2 ? "1x" : "2x"}`;
                 zoomControls.appendChild(btn);
             } else {
                 // Back camera: regular multi-button zoom
@@ -578,7 +578,7 @@
                     const btn = document.createElement('button');
                     btn.className = 'zoom-btn';
                     btn.dataset.zoom = presetValue;
-                    btn.textContent = `${presetValue}${presetValue > 1 ? "x" : ""}`;
+                    btn.textContent = `${presetValue}${presetValue > 1 ? "x" : "x"}`;
                     if (Math.abs(this.currentZoom - presetValue) < 0.1) {
                         btn.classList.add('active');
                     }
