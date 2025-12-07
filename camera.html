@@ -543,7 +543,7 @@
 
             setZoom(zoom) {
                 this.currentZoom = Math.min(Math.max(zoom, 1), this.maxZoom);
-                this.video.style.transform = `scale(${this.currentZoom})`;
+                this.video.style.transform = `scale(${this.currentZoom}x)`;
                 this.updateZoomButtons();
             }
 
