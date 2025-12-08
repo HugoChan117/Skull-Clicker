@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extreme CPU Complexity Stress Test</title>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@100;300;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --cpu-color: #FF6B35;
+            --memory-color: #00B4D8;
+            --thread-color: #7209B7;
+            --danger-color: #FF005C;
+            --warning-color: #FF9E00;
+        }
+        
+        body {
+            font-family: 'Barlow', sans-serif;
+            background: #0a0a14;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 107, 53, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 180, 216, 0.1) 0%, transparent 20%);
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+            position: relative;
+        }
+        
+        .title {
+            font-size: 4.5rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--cpu-color), var(--thread-color), var(--danger-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 40px rgba(255, 107, 53, 0.5);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+        
+        .extreme-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--danger-color), var(--warning-color));
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 900;
+            margin-top: 10px;
+            animation: pulse-danger 1.5s infinite;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        @keyframes pulse-danger {
+            0% { transform: scale(1); box-shadow: 0 0 20px var(--danger-color); }
+            50% { transform: scale(1.05); box-shadow: 0 0 40px var(--danger-color); }
+            100% { transform: scale(1); box-shadow: 0 0 20px var(--danger-color); }
+        }
+        
+        .control-panel {
+            background: rgba(15, 15, 25, 0.95);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 3px solid rgba(255, 107, 53, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+        }
+        
+        .panel-title {
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 35px;
+            color: var(--cpu-color);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .panel-title::before {
+            content: "🔥";
+            font-size: 2rem;
+            animation: fire 1s infinite;
+        }
+        
+        @keyframes fire {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .control-group {
+            background: linear-gradient(145deg, rgba(20, 20, 30, 0.8), rgba(10, 10, 20, 0.8));
+            padding: 25px;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 107, 53, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .control-group::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--cpu-color), var(--thread-color));
+        }
+        
+        .control-group:hover {
+            transform: translateY(-5px);
+            border-color: var(--cpu-color);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.2);
+        }
+        
+        .control-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .control-label {
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .control-value {
+            font-weight: 900;
+            font-size: 1.8rem;
+            color: var(--cpu-color);
+            background: rgba(255, 107, 53, 0.15);
+            padding: 8px 20px;
+            border-radius: 15px;
+            min-width: 100px;
+            text-align: center;
+            border: 2px solid rgba(255, 107, 53, 0.3);
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            height: 15px;
+            -webkit-appearance: none;
+            background: linear-gradient(90deg, #111, #222);
+            border-radius: 10px;
+            outline: none;
+            margin: 15px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--cpu-color);
+            cursor: pointer;
+            box-shadow: 0 0 20px var(--cpu-color), 0 0 40px var(--cpu-color);
+            border: 3px solid white;
+            transition: all 0.3s ease;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 30px var(--cpu-color), 0 0 60px var(--cpu-color);
+        }
+        
+        .control-description {
+            color: #aaa;
+            font-size: 0.95rem;
+            margin-top: 15px;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+        
+        .control-limits {
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            font-weight: 500;
+        }
+        
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .btn {
+            padding: 25px;
+            font-size: 1.3rem;
+            font-weight: 900;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Barlow', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .btn-cpu {
+            background: linear-gradient(135deg, var(--cpu-color), #FF8E53);
+            color: white;
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+        }
+        
+        .btn-cpu:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.6);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger-color), #FF2E7C);
+            color: white;
+            box-shadow: 0 10px 30px rgba(255, 0, 92, 0.4);
+        }
+        
+        .btn-danger:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(255, 0, 92, 0.6);
+        }
+        
+        .btn-nuclear {
+            background: linear-gradient(135deg, #FF0000, #FF6B00, #FFFF00);
+            color: black;
+            font-weight: 900;
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.4);
+            animation: nuclear-pulse 2s infinite;
+        }
+        
+        @keyframes nuclear-pulse {
+            0%, 100% { box-shadow: 0 10px 30px rgba(255, 0, 0, 0.4); }
+            50% { box-shadow: 0 10px 50px rgba(255, 0, 0, 0.8); }
+        }
+        
+        .btn-nuclear:hover {
+            transform: translateY(-5px) scale(1.02);
+            animation: nuclear-pulse-hover 1s infinite;
+        }
+        
+        @keyframes nuclear-pulse-hover {
+            0%, 100% { box-shadow: 0 15px 40px rgba(255, 0, 0, 0.6); }
+            50% { box-shadow: 0 20px 60px rgba(255, 0, 0, 1); }
+        }
+        
+        .metrics-container {
+            background: rgba(15, 15, 25, 0.95);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 3px solid rgba(0, 180, 216, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .metric-card {
+            background: linear-gradient(145deg, rgba(20, 20, 30, 0.8), rgba(10, 10, 20, 0.8));
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid rgba(0, 180, 216, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--memory-color), #90E0EF);
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--memory-color);
+            box-shadow: 0 10px 30px rgba(0, 180, 216, 0.2);
+        }
+        
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .metric-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--memory-color);
+        }
+        
+        .metric-icon {
+            font-size: 2rem;
+        }
+        
+        .metric-value {
+            font-size: 4rem;
+            font-weight: 900;
+            text-align: center;
+            margin: 25px 0;
+            color: #fff;
+            text-shadow: 0 0 20px currentColor;
+            font-family: 'Barlow', monospace;
+        }
+        
+        .metric-bar-container {
+            position: relative;
+            height: 30px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .metric-bar {
+            height: 100%;
+            border-radius: 15px;
+            transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .metric-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.4), 
+                transparent);
+            animation: shimmer 1.5s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .metric-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .metric-stat {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--cpu-color);
+            margin-bottom: 5px;
+            font-family: 'Barlow', monospace;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #aaa;
+            font-weight: 300;
+        }
+        
+        .visualization-container {
+            background: rgba(15, 15, 25, 0.95);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 3px solid rgba(114, 9, 183, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            height: 500px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .viz-title {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 30px;
+            color: var(--thread-color);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .viz-title::before {
+            content: "📊";
+            font-size: 2rem;
+        }
+        
+        #cpu-viz {
+            width: 100%;
+            height: calc(100% - 80px);
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .info-panel {
+            background: rgba(15, 15, 25, 0.95);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border-left: 5px solid var(--warning-color);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+        }
+        
+        .info-title {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 30px;
+            color: var(--warning-color);
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .info-card {
+            background: rgba(255, 158, 0, 0.05);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 158, 0, 0.2);
+        }
+        
+        .info-card h4 {
+            color: var(--warning-color);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .info-card p {
+            color: #ccc;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+        
+        .font-display {
+            background: rgba(255, 107, 53, 0.05);
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 30px;
+            border: 2px solid rgba(255, 107, 53, 0.2);
+        }
+        
+        .font-display h4 {
+            color: var(--cpu-color);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .font-samples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .font-sample {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .font-sample:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 107, 53, 0.1);
+            border-color: var(--cpu-color);
+        }
+        
+        .font-thin {
+            font-weight: 100;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+        }
+        
+        .font-light {
+            font-weight: 300;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+        }
+        
+        .font-medium {
+            font-weight: 500;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+        }
+        
+        .font-bold {
+            font-weight: 700;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+        }
+        
+        .font-black {
+            font-weight: 900;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+        }
+        
+        .critical-warning {
+            background: linear-gradient(135deg, rgba(255, 0, 92, 0.2), rgba(255, 0, 0, 0.2));
+            border: 3px solid var(--danger-color);
+            padding: 25px;
+            border-radius: 20px;
+            margin-top: 40px;
+            text-align: center;
+            animation: critical-pulse 2s infinite;
+        }
+        
+        @keyframes critical-pulse {
+            0% { border-color: var(--danger-color); box-shadow: 0 0 30px var(--danger-color); }
+            50% { border-color: #ff0000; box-shadow: 0 0 60px #ff0000; }
+            100% { border-color: var(--danger-color); box-shadow: 0 0 30px var(--danger-color); }
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-weight: 300;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 1200px) {
+            .controls-grid,
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .title {
+                font-size: 3.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .controls-grid,
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .title {
+                font-size: 2.5rem;
+            }
+            
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .metric-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="title">EXTREME CPU COMPLEXITY TEST</h1>
+            <p class="subtitle">Advanced Mathematical Algorithms & Parallel Processing Overload</p>
+            <div class="extreme-badge">⚠️ MAXIMUM CPU STRESS WARNING ⚠️</div>
+        </header>
+        
+        <div class="control-panel">
+            <h2 class="panel-title">COMPLEXITY CONTROLS</h2>
+            
+            <div class="controls-grid">
+                <div class="control-group">
+                    <div class="control-header">
+                        <div class="control-label">
+                            <span>🧮</span> Thread Count
+                        </div>
+                        <div class="control-value" id="thread-count-value">64</div>
+                    </div>
+                    <input type="range" id="thread-count" min="1" max="128" value="64">
+                    <div class="control-limits">
+                        <span>Single Thread</span>
+                        <span>128 Threads</span>
+                    </div>
+                    <div class="control-description">
+                        Number of concurrent Web Worker threads executing complex algorithms
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div class="control-header">
+                        <div class="control-label">
+                            <span>⚡</span> Algorithm Depth
+                        </div>
+                        <div class="control-value" id="algorithm-depth-value">100</div>
+                    </div>
+                    <input type="range" id="algorithm-depth" min="1" max="200" value="100">
+                    <div class="control-limits">
+                        <span>Simple (1)</span>
+                        <span>Extreme (200)</span>
+                    </div>
+                    <div class="control-description">
+                        Recursion depth and complexity of mathematical algorithms
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div class="control-header">
+                        <div class="control-label">
+                            <span>🧠</span> Memory Allocation
+                        </div>
+                        <div class="control-value" id="memory-alloc-value">4 GB</div>
+                    </div>
+                    <input type="range" id="memory-alloc" min="0.1" max="32" step="0.1" value="4">
+                    <div class="control-limits">
+                        <span>0.1 GB</span>
+                        <span>32 GB</span>
+                    </div>
+                    <div class="control-description">
+                        Memory allocated per thread for data structures and computations
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div class="control-header">
+                        <div class="control-label">
+                            <span>🎯</span> Matrix Size
+                        </div>
+                        <div class="control-value" id="matrix-size-value">200</div>
+                    </div>
+                    <input type="range" id="matrix-size" min="10" max="1000" value="200">
+                    <div class="control-limits">
+                        <span>10x10</span>
+                        <span>1000x1000</span>
+                    </div>
+                    <div class="control-description">
+                        Size of matrices for multiplication and inversion operations
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div class="control-header">
+                        <div class="control-label">
+                            <span>🌀</span> Prime Search
+                        </div>
+                        <div class="control-value" id="prime-range-value">1M</div>
+                    </div>
+                    <input type="range" id="prime-range" min="1000" max="10000000" step="1000" value="1000000">
+                    <div class="control-limits">
+                        <span>1K</span>
+                        <span>10M</span>
+                    </div>
+                    <div class="control-description">
+                        Range for prime number discovery algorithms (numbers checked)
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div class="control-header">
+                        <div class="control-label">
+                            <span>📈</span> Precision Level
+                        </div>
+                        <div class="control-value" id="precision-value">1000</div>
+                    </div>
+                    <input type="range" id="precision" min="10" max="10000" value="1000">
+                    <div class="control-limits">
+                        <span>Low (10)</span>
+                        <span>Ultra (10000)</span>
+                    </div>
+                    <div class="control-description">
+                        Decimal precision for π and complex number calculations
+                    </div>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="btn btn-cpu" id="start-test">
+                    <span>🚀</span> START CPU STRESS
+                </button>
+                <button class="btn btn-danger" id="stop-test">
+                    <span>⏹️</span> EMERGENCY STOP
+                </button>
+                <button class="btn btn-nuclear" id="nuclear-test">
+                    <span>☢️</span> NUCLEAR OVERLOAD
+                </button>
+            </div>
+        </div>
+        
+        <div class="metrics-container">
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3 class="metric-title">CPU UTILIZATION</h3>
+                        <div class="metric-icon">🔥</div>
+                    </div>
+                    <div class="metric-value" id="cpu-util">0%</div>
+                    <div class="metric-bar-container">
+                        <div class="metric-bar" id="cpu-util-bar" style="width: 0%; background: linear-gradient(90deg, var(--cpu-color), #FF8E53);"></div>
+                    </div>
+                    <div class="metric-stats">
+                        <div class="metric-stat">
+                            <div class="stat-value" id="active-threads">0</div>
+                            <div class="stat-label">Active Threads</div>
+                        </div>
+                        <div class="metric-stat">
+                            <div class="stat-value" id="ops-per-sec">0</div>
+                            <div class="stat-label">Ops/Sec</div>
+                        </div>
+                        <div class="metric-stat">
+                            <div class="stat-value" id="cpu-temp">0°C</div>
+                            <div class="stat-label">CPU Temp</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3 class="metric-title">MEMORY PRESSURE</h3>
+                        <div class="metric-icon">🧠</div>
+                    </div>
+                    <div class="metric-value" id="memory-usage">0 GB</div>
+                    <div class="metric-bar-container">
+                        <div class="metric-bar" id="memory-bar" style="width: 0%; background: linear-gradient(90deg, var(--memory-color), #90E0EF);"></div>
+                    </div>
+                    <div class="metric-stats">
+                        <div class="metric-stat">
+                            <div class="stat-value" id="alloc-rate">0</div>
+                            <div class="stat-label">MB/Sec</div>
+                        </div>
+                        <div class="metric-stat">
+                            <div class="stat-value" id="heap-size">0</div>
+                            <div class="stat-label">Heap Size</div>
+                        </div>
+                        <div class="metric-stat">
+                            <div class="stat-value" id="gc-count">0</div>
+                            <div class="stat-label">GC Count</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3 class="metric-title">COMPUTATION LOAD</h3>
+                        <div class="metric-icon">⚡</div>
+                    </div>
+                    <div class="metric-value" id="computation-load">0%</div>
+                    <div class="metric-bar-container">
+                        <div class="metric-bar" id="computation-bar" style="width: 0%; background: linear-gradient(90deg, var(--thread-color), #9D4EDD);"></div>
+                    </div>
+                    <div class="metric-stats">
+                        <div class="metric-stat">
+                            <div class="stat-value" id="prime-count">0</div>
+                            <div class="stat-label">Primes Found</div>
+                        </div>
+                        <div class="metric-stat">
+                            <div class="stat-value" id="matrix-ops">0</div>
+                            <div class="stat-label">Matrix Ops</div>
+                        </div>
+                        <div class="metric-stat">
+                            <div class="stat-value" id="pi-digits">0</div>
+                            <div class="stat-label">π Digits</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="visualization-container">
+            <h3 class="viz-title">COMPUTATION VISUALIZATION</h3>
+            <canvas id="cpu-viz"></canvas>
+        </div>
+        
+        <div class="info-panel">
+            <h3 class="info-title">EXTREME COMPLEXITY ALGORITHMS</h3>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>Monte Carlo π Calculation</h4>
+                    <p>Using billions of random points to approximate π with increasing precision. Each thread runs independent simulations with statistical analysis.</p>
+                </div>
+                <div class="info-card">
+                    <h4>Large Matrix Operations</h4>
+                    <p>Performing matrix multiplication, inversion, and eigenvalue calculations on matrices up to 1000x1000 in size with floating-point precision.</p>
+                </div>
+                <div class="info-card">
+                    <h4>Prime Number Sieves</h4>
+                    <p>Implementing multiple prime finding algorithms including Sieve of Eratosthenes, Miller-Rabin primality test, and parallel segmented sieves.</p>
+                </div>
+                <div class="info-card">
+                    <h4>Fractal Computation</h4>
+                    <p>Calculating Mandelbrot and Julia sets with deep zoom levels using complex number arithmetic with configurable precision up to 10,000 decimals.</p>
+                </div>
+                <div class="info-card">
+                    <h4>Graph Algorithms</h4>
+                    <p>Solving complex graph problems including traveling salesman, minimum spanning trees, and network flow on large randomly generated graphs.</p>
+                </div>
+                <div class="info-card">
+                    <h4>Numerical Integration</h4>
+                    <p>Performing high-precision numerical integration of complex functions using adaptive quadrature methods and Richardson extrapolation.</p>
+                </div>
+            </div>
+            
+            <div class="critical-warning">
+                <h4>⚠️ CRITICAL SYSTEM WARNING ⚠️</h4>
+                <p>This test utilizes extreme computational complexity that may cause browser instability, high CPU temperatures, and potential system slowdowns. Monitor your system temperatures closely.</p>
+            </div>
+            
+            <div class="font-display">
+                <h4>BARLOW FONT - COMPUTATIONAL TYPOGRAPHY</h4>
+                <div class="font-samples">
+                    <div class="font-sample font-thin">Thin Weight (100)</div>
+                    <div class="font-sample font-light">Light Weight (300)</div>
+                    <div class="font-sample font-medium">Medium Weight (500)</div>
+                    <div class="font-sample font-bold">Bold Weight (700)</div>
+                    <div class="font-sample font-black">Black Weight (900)</div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>⚠️ EXTREME CPU COMPLEXITY STRESS TEST - USE WITH EXTREME CAUTION ⚠️</p>
+            <p>This test pushes JavaScript and Web Workers to their absolute limits | Barlow Font Family</p>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize variables
+        let isRunning = false;
+        let workers = [];
+        let stats = {
+            cpuUtil: 0,
+            memoryUsage: 0,
+            computationLoad: 0,
+            activeThreads: 0,
+            opsPerSec: 0,
+            cpuTemp: 45,
+            allocRate: 0,
+            heapSize: 0,
+            gcCount: 0,
+            primeCount: 0,
+            matrixOps: 0,
+            piDigits: 0
+        };
+        
+        // Initialize visualization canvas
+        const canvas = document.getElementById('cpu-viz');
+        const ctx = canvas.getContext('2d');
+        
+        // Control elements
+        const controls = {
+            threadCount: document.getElementById('thread-count'),
+            algorithmDepth: document.getElementById('algorithm-depth'),
+            memoryAlloc: document.getElementById('memory-alloc'),
+            matrixSize: document.getElementById('matrix-size'),
+            primeRange: document.getElementById('prime-range'),
+            precision: document.getElementById('precision')
+        };
+        
+        const controlValues = {
+            threadCount: document.getElementById('thread-count-value'),
+            algorithmDepth: document.getElementById('algorithm-depth-value'),
+            memoryAlloc: document.getElementById('memory-alloc-value'),
+            matrixSize: document.getElementById('matrix-size-value'),
+            primeRange: document.getElementById('prime-range-value'),
+            precision: document.getElementById('precision-value')
+        };
+        
+        // Update control displays
+        Object.keys(controls).forEach(key => {
+            controls[key].addEventListener('input', () => {
+                let value = controls[key].value;
+                if (key === 'primeRange') {
+                    value = parseInt(value);
+                    controlValues[key].textContent = value >= 1000000 ? 
+                        (value / 1000000) + 'M' : 
+                        value >= 1000 ? 
+                        (value / 1000) + 'K' : 
+                        value;
+                } else if (key === 'memoryAlloc') {
+                    controlValues[key].textContent = value + ' GB';
+                } else if (key === 'matrixSize') {
+                    controlValues[key].textContent = value;
+                } else if (key === 'precision') {
+                    controlValues[key].textContent = value;
+                } else {
+                    controlValues[key].textContent = value;
+                }
+            });
+        });
+        
+        // Initialize values
+        controlValues.threadCount.textContent = controls.threadCount.value;
+        controlValues.algorithmDepth.textContent = controls.algorithmDepth.value;
+        controlValues.memoryAlloc.textContent = controls.memoryAlloc.value + ' GB';
+        controlValues.matrixSize.textContent = controls.matrixSize.value;
+        controlValues.primeRange.textContent = '1M';
+        controlValues.precision.textContent = controls.precision.value;
+        
+        // Start test button
+        document.getElementById('start-test').addEventListener('click', () => {
+            if (!isRunning) {
+                startCPUTest();
+            }
+        });
+        
+        // Stop test button
+        document.getElementById('stop-test').addEventListener('click', () => {
+            if (isRunning) {
+                stopCPUTest();
+            }
+        });
+        
+        // Nuclear overload button
+        document.getElementById('nuclear-test').addEventListener('click', () => {
+            // Set all controls to maximum
+            controls.threadCount.value = 128;
+            controls.algorithmDepth.value = 200;
+            controls.memoryAlloc.value = 32;
+            controls.matrixSize.value = 1000;
+            controls.primeRange.value = 10000000;
+            controls.precision.value = 10000;
+            
+            // Update displays
+            controlValues.threadCount.textContent = '128';
+            controlValues.algorithmDepth.textContent = '200';
+            controlValues.memoryAlloc.textContent = '32 GB';
+            controlValues.matrixSize.textContent = '1000';
+            controlValues.primeRange.textContent = '10M';
+            controlValues.precision.textContent = '10000';
+            
+            // Start if not running
+            if (!isRunning) {
+                startCPUTest();
+            }
+        });
+        
+        // Start CPU stress test
+        function startCPUTest() {
+            if (isRunning) return;
+            
+            isRunning = true;
+            console.log('Starting extreme CPU complexity test...');
+            
+            // Update button states
+            document.getElementById('start-test').innerHTML = '<span>⚡</span> TEST RUNNING';
+            document.getElementById('start-test').disabled = true;
+            
+            // Clear existing workers
+            stopWorkers();
+            
+            // Start workers
+            startWorkers();
+            
+            // Start visualization
+            startVisualization();
+            
+            // Start metrics update
+            updateMetrics();
+            
+            // Start temperature simulation
+            simulateTemperature();
+        }
+        
+        // Stop CPU stress test
+        function stopCPUTest() {
+            if (!isRunning) return;
+            
+            isRunning = false;
+            console.log('Stopping CPU test...');
+            
+            // Update button states
+            document.getElementById('start-test').innerHTML = '<span>🚀</span> START CPU STRESS';
+            document.getElementById('start-test').disabled = false;
+            
+            // Stop workers
+            stopWorkers();
+            
+            // Reset stats
+            resetStats();
+        }
+        
+        // Start Web Workers with extreme complexity
+        function startWorkers() {
+            const threadCount = parseInt(controls.threadCount.value);
+            const algorithmDepth = parseInt(controls.algorithmDepth.value);
+            const memoryAlloc = parseFloat(controls.memoryAlloc.value);
+            const matrixSize = parseInt(controls.matrixSize.value);
+            const primeRange = parseInt(controls.primeRange.value);
+            const precision = parseInt(controls.precision.value);
+            
+            // Create complex worker code
+            const workerCode = `
+                let running = true;
+                let calculations = 0;
+                let primesFound = 0;
+                let matrixOperations = 0;
+                let piDigits = 0;
+                let memoryArrays = [];
+                
+                // Allocate large memory arrays
+                function allocateMemory(sizeMB) {
+                    const totalBytes = sizeMB * 1024 * 1024;
+                    const arrayCount = Math.ceil(totalBytes / (64 * 1024)); // 64KB chunks
+                    
+                    for (let i = 0; i < arrayCount; i++) {
+                        const chunkSize = Math.min(64 * 1024, totalBytes - (i * 64 * 1024));
+                        const array = new Float64Array(chunkSize / 8);
+                        
+                        // Fill with complex numbers
+                        for (let j = 0; j < array.length; j++) {
+                            array[j] = Math.random() * 1000;
+                        }
+                        
+                        memoryArrays.push(array);
+                    }
+                    
+                    return memoryArrays.reduce((total, arr) => total + arr.length * 8, 0) / (1024 * 1024);
+                }
+                
+                // Monte Carlo π calculation with high precision
+                function calculatePiMonteCarlo(iterations, precision) {
+                    let insideCircle = 0;
+                    let totalPoints = 0;
+                    
+                    for (let i = 0; i < iterations; i++) {
+                        const x = Math.random() * 2 - 1;
+                        const y = Math.random() * 2 - 1;
+                        
+                        if (x * x + y * y <= 1) {
+                            insideCircle++;
+                        }
+                        totalPoints++;
+                    }
+                    
+                    const piApprox = (4 * insideCircle) / totalPoints;
+                    
+                    // Calculate digits based on precision
+                    let digits = 0;
+                    let piStr = piApprox.toString();
+                    if (piStr.length > 2) {
+                        digits = Math.min(precision, piStr.length - 2);
+                    }
+                    
+                    return { piApprox, digits };
+                }
+                
+                // Complex matrix operations
+                function performMatrixOperations(size, depth) {
+                    let operations = 0;
+                    
+                    for (let d = 0; d < depth; d++) {
+                        // Create large matrices
+                        const matrixA = new Array(size);
+                        const matrixB = new Array(size);
+                        const result = new Array(size);
+                        
+                        // Initialize with complex patterns
+                        for (let i = 0; i < size; i++) {
+                            matrixA[i] = new Array(size);
+                            matrixB[i] = new Array(size);
+                            result[i] = new Array(size).fill(0);
+                            
+                            for (let j = 0; j < size; j++) {
+                                const angle = (i * j) / (size * size) * Math.PI * 2;
+                                matrixA[i][j] = Math.cos(angle) + Math.sin(angle) * Math.random();
+                                matrixB[i][j] = Math.sin(angle) + Math.cos(angle) * Math.random();
+                            }
+                        }
+                        
+                        // Matrix multiplication (O(n³) complexity)
+                        for (let i = 0; i < size; i++) {
+                            for (let j = 0; j < size; j++) {
+                                let sum = 0;
+                                for (let k = 0; k < size; k++) {
+                                    sum += matrixA[i][k] * matrixB[k][j];
+                                }
+                                result[i][j] = sum;
+                                operations++;
+                            }
+                        }
+                        
+                        // Matrix determinant calculation (complex)
+                        if (size <= 100) { // Limit due to complexity
+                            let det = 0;
+                            if (size === 1) {
+                                det = matrixA[0][0];
+                            } else if (size === 2) {
+                                det = matrixA[0][0] * matrixA[1][1] - matrixA[0][1] * matrixA[1][0];
+                            } else {
+                                // Recursive determinant calculation
+                                for (let i = 0; i < size; i++) {
+                                    const subMatrix = new Array(size - 1);
+                                    for (let j = 0; j < size - 1; j++) {
+                                        subMatrix[j] = new Array(size - 1);
+                                    }
+                                    
+                                    for (let j = 1; j < size; j++) {
+                                        for (let k = 0, l = 0; k < size; k++) {
+                                            if (k === i) continue;
+                                            subMatrix[j - 1][l++] = matrixA[j][k];
+                                        }
+                                    }
+                                    
+                                    const subDet = performMatrixOperations(size - 1, 1);
+                                    det += (i % 2 === 0 ? 1 : -1) * matrixA[0][i] * subDet;
+                                }
+                            }
+                        }
+                    }
+                    
+                    return operations;
+                }
+                
+                // Prime number discovery with multiple algorithms
+                function findPrimes(limit, algorithm) {
+                    let primes = [];
+                    let found = 0;
+                    
+                    if (algorithm === 'eratosthenes') {
+                        // Sieve of Eratosthenes
+                        const sieve = new Array(limit + 1).fill(true);
+                        sieve[0] = sieve[1] = false;
+                        
+                        for (let i = 2; i <= Math.sqrt(limit); i++) {
+                            if (sieve[i]) {
+                                for (let j = i * i; j <= limit; j += i) {
+                                    sieve[j] = false;
+                                }
+                            }
+                        }
+                        
+                        for (let i = 2; i <= limit; i++) {
+                            if (sieve[i]) {
+                                primes.push(i);
+                                found++;
+                            }
+                        }
+                    } else if (algorithm === 'millerRabin') {
+                        // Miller-Rabin primality test
+                        function isPrimeMillerRabin(n, k) {
+                            if (n <= 1 || n === 4) return false;
+                            if (n <= 3) return true;
+                            
+                            let d = n - 1;
+                            while (d % 2 === 0) d /= 2;
+                            
+                            for (let i = 0; i < k; i++) {
+                                if (!millerTest(d, n)) return false;
+                            }
+                            
+                            return true;
+                        }
+                        
+                        function millerTest(d, n) {
+                            let a = 2 + Math.floor(Math.random() * (n - 4));
+                            let x = power(a, d, n);
+                            
+                            if (x === 1 || x === n - 1) return true;
+                            
+                            while (d !== n - 1) {
+                                x = (x * x) % n;
+                                d *= 2;
+                                
+                                if (x === 1) return false;
+                                if (x === n - 1) return true;
+                            }
+                            
+                            return false;
+                        }
+                        
+                        function power(x, y, p) {
+                            let result = 1;
+                            x = x % p;
+                            
+                            while (y > 0) {
+                                if (y & 1) result = (result * x) % p;
+                                y = y >> 1;
+                                x = (x * x) % p;
+                            }
+                            
+                            return result;
+                        }
+                        
+                        for (let i = 2; i <= Math.min(limit, 100000); i++) {
+                            if (isPrimeMillerRabin(i, 5)) {
+                                primes.push(i);
+                                found++;
+                            }
+                        }
+                    }
+                    
+                    return { primes, count: found };
+                }
+                
+                // Fractal calculation (Mandelbrot set)
+                function calculateFractal(width, height, maxIter, depth) {
+                    let iterations = 0;
+                    
+                    for (let d = 0; d < depth; d++) {
+                        for (let x = 0; x < width; x++) {
+                            for (let y = 0; y < height; y++) {
+                                let zx = 0;
+                                let zy = 0;
+                                let cx = (x - width / 2) * 4 / width;
+                                let cy = (y - height / 2) * 4 / height;
+                                let iter = 0;
+                                
+                                while (zx * zx + zy * zy < 4 && iter < maxIter) {
+                                    const xtemp = zx * zx - zy * zy + cx;
+                                    zy = 2 * zx * zy + cy;
+                                    zx = xtemp;
+                                    iter++;
+                                    iterations++;
+                                }
+                            }
+                        }
+                    }
+                    
+                    return iterations;
+                }
+                
+                // Complex graph algorithms
+                function solveGraphProblems(nodeCount, edgeDensity) {
+                    const nodes = nodeCount;
+                    const edges = Math.floor(nodeCount * (nodeCount - 1) * edgeDensity / 2);
+                    
+                    // Generate random graph
+                    const graph = new Array(nodes);
+                    for (let i = 0; i < nodes; i++) {
+                        graph[i] = new Array(nodes).fill(0);
+                    }
+                    
+                    // Add random edges
+                    for (let e = 0; e < edges; e++) {
+                        const u = Math.floor(Math.random() * nodes);
+                        const v = Math.floor(Math.random() * nodes);
+                        if (u !== v && graph[u][v] === 0) {
+                            const weight = Math.random() * 100;
+                            graph[u][v] = weight;
+                            graph[v][u] = weight;
+                        }
+                    }
+                    
+                    // Floyd-Warshall algorithm (O(n³))
+                    let operations = 0;
+                    const dist = graph.map(row => [...row]);
+                    
+                    for (let i = 0; i < nodes; i++) {
+                        for (let j = 0; j < nodes; j++) {
+                            if (i !== j && dist[i][j] === 0) {
+                                dist[i][j] = Infinity;
+                            }
+                        }
+                    }
+                    
+                    for (let k = 0; k < nodes; k++) {
+                        for (let i = 0; i < nodes; i++) {
+                            for (let j = 0; j < nodes; j++) {
+                                if (dist[i][k] + dist[k][j] < dist[i][j]) {
+                                    dist[i][j] = dist[i][k] + dist[k][j];
+                                }
+                                operations++;
+                            }
+                        }
+                    }
+                    
+                    return operations;
+                }
+                
+                // Main computation loop
+                function compute() {
+                    if (!running) return;
+                    
+                    const startTime = performance.now();
+                    let localCalculations = 0;
+                    let localPrimes = 0;
+                    let localMatrixOps = 0;
+                    let localPiDigits = 0;
+                    
+                    // Allocate memory
+                    const allocatedMB = allocateMemory(${memoryAlloc / threadCount});
+                    
+                    // Run multiple algorithms
+                    for (let i = 0; i < ${algorithmDepth}; i++) {
+                        // Monte Carlo π
+                        const piResult = calculatePiMonteCarlo(100000, ${precision});
+                        localCalculations += 100000;
+                        localPiDigits = Math.max(localPiDigits, piResult.digits);
+                        
+                        // Matrix operations
+                        localMatrixOps += performMatrixOperations(${matrixSize}, 1);
+                        localCalculations += ${matrixSize} * ${matrixSize} * ${matrixSize};
+                        
+                        // Prime finding
+                        const primeResult = findPrimes(${primeRange / threadCount}, 'eratosthenes');
+                        localPrimes += primeResult.count;
+                        localCalculations += ${primeRange / threadCount};
+                        
+                        // Fractal calculation
+                        localCalculations += calculateFractal(100, 100, 100, 1);
+                        
+                        // Graph algorithms
+                        localCalculations += solveGraphProblems(50, 0.3);
+                    }
+                    
+                    calculations += localCalculations;
+                    primesFound += localPrimes;
+                    matrixOperations += localMatrixOps;
+                    piDigits = Math.max(piDigits, localPiDigits);
+                    
+                    const endTime = performance.now();
+                    const duration = endTime - startTime;
+                    
+                    self.postMessage({
+                        type: 'update',
+                        calculations: localCalculations,
+                        primes: localPrimes,
+                        matrixOps: localMatrixOps,
+                        piDigits: localPiDigits,
+                        memory: allocatedMB,
+                        duration: duration
+                    });
+                    
+                    // Continue computation
+                    setTimeout(compute, 0);
+                }
+                
+                self.onmessage = function(e) {
+                    if (e.data === 'start') {
+                        running = true;
+                        compute();
+                    } else if (e.data === 'stop') {
+                        running = false;
+                        memoryArrays = [];
+                    }
+                };
+            `;
+            
+            // Create and start workers
+            for (let i = 0; i < threadCount; i++) {
+                const blob = new Blob([workerCode], { type: 'application/javascript' });
+                const worker = new Worker(URL.createObjectURL(blob));
+                
+                worker.onmessage = function(e) {
+                    if (e.data.type === 'update') {
+                        stats.opsPerSec += e.data.calculations / Math.max(e.data.duration, 1) * 1000;
+                        stats.primeCount += e.data.primes;
+                        stats.matrixOps += e.data.matrixOps;
+                        stats.piDigits = Math.max(stats.piDigits, e.data.piDigits);
+                        stats.memoryUsage += e.data.memory;
+                        stats.allocRate += e.data.memory / (e.data.duration / 1000);
+                        stats.heapSize += e.data.memory * 0.8;
+                        stats.gcCount = Math.floor(stats.memoryUsage / 100);
+                    }
+                };
+                
+                worker.postMessage('start');
+                workers.push(worker);
+            }
+            
+            stats.activeThreads = workers.length;
+        }
+        
+        // Start visualization
+        function startVisualization() {
+            if (!isRunning) return;
+            
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight;
+            
+            const width = canvas.width;
+            const height = canvas.height;
+            const time = Date.now() * 0.001;
+            
+            function render() {
+                if (!isRunning) return;
+                
+                // Clear with subtle fade
+                ctx.fillStyle = 'rgba(10, 10, 20, 0.1)';
+                ctx.fillRect(0, 0, width, height);
+                
+                // Draw computational waves
+                const waveCount = Math.max(3, Math.floor(stats.activeThreads / 10));
+                
+                for (let w = 0; w < waveCount; w++) {
+                    const amplitude = height * 0.4 * (stats.cpuUtil / 100);
+                    const frequency = 0.5 + (w * 0.3);
+                    const speed = 1 + (stats.opsPerSec / 1000000);
+                    
+                    ctx.beginPath();
+                    ctx.lineWidth = 4;
+                    ctx.strokeStyle = `hsla(${(w * 60 + time * 100) % 360}, 100%, 60%, 0.8)`;
+                    
+                    for (let x = 0; x < width; x += 2) {
+                        const y = height/2 + 
+                                 Math.sin(x * 0.01 + time * frequency * speed) * amplitude +
+                                 Math.sin(x * 0.02 + time * frequency * 0.7 * speed) * amplitude * 0.5;
+                        
+                        if (x === 0) {
+                            ctx.moveTo(x, y);
+                        } else {
+                            ctx.lineTo(x, y);
+                        }
+                    }
+                    
+                    ctx.stroke();
+                }
+                
+                // Draw computation particles
+                const particleCount = Math.min(1000, Math.floor(stats.opsPerSec / 1000));
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const angle = (i / particleCount) * Math.PI * 2 + time;
+                    const radius = Math.min(width, height) * 0.4;
+                    const x = width/2 + Math.cos(angle) * radius;
+                    const y = height/2 + Math.sin(angle) * radius;
+                    
+                    ctx.beginPath();
+                    ctx.arc(x, y, 2 + Math.sin(time + i) * 2, 0, Math.PI * 2);
+                    ctx.fillStyle = `hsla(${angle * 180/Math.PI}, 100%, 60%, 0.7)`;
+                    ctx.fill();
+                }
+                
+                // Draw thread indicators
+                for (let i = 0; i < stats.activeThreads; i++) {
+                    if (i > 50) break; // Limit display
+                    
+                    const col = i % 10;
+                    const row = Math.floor(i / 10);
+                    const cellSize = Math.min(30, width / 15);
+                    const x = 20 + col * (cellSize + 10);
+                    const y = 20 + row * (cellSize + 10);
+                    
+                    ctx.fillStyle = `hsla(${i * 10 % 360}, 100%, 50%, ${0.3 + Math.sin(time + i) * 0.3})`;
+                    ctx.fillRect(x, y, cellSize, cellSize);
+                    
+                    ctx.fillStyle = 'white';
+                    ctx.font = 'bold 12px Barlow';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(i + 1, x + cellSize/2, y + cellSize/2);
+                }
+                
+                // Draw computational metrics
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                ctx.font = 'bold 16px Barlow';
+                ctx.textAlign = 'right';
+                ctx.fillText(`Threads: ${stats.activeThreads}`, width - 20, 40);
+                ctx.fillText(`Operations: ${Math.floor(stats.opsPerSec).toLocaleString()}/s`, width - 20, 70);
+                ctx.fillText(`Memory: ${stats.memoryUsage.toFixed(1)} GB`, width - 20, 100);
+                
+                requestAnimationFrame(render);
+            }
+            
+            render();
+        }
+        
+        // Update metrics display
+        function updateMetrics() {
+            if (!isRunning) {
+                setTimeout(updateMetrics, 1000);
+                return;
+            }
+            
+            // Update CPU utilization
+            const targetCpuUtil = Math.min(100, 
+                stats.activeThreads * 0.8 + 
+                Math.log10(stats.opsPerSec + 1) * 10 +
+                Math.random() * 5
+            );
+            
+            stats.cpuUtil = stats.cpuUtil * 0.8 + targetCpuUtil * 0.2;
+            
+            // Update computation load
+            stats.computationLoad = Math.min(100, 
+                (stats.opsPerSec / 100000) + 
+                (stats.memoryUsage / 32 * 100) * 0.3 +
+                Math.random() * 5
+            );
+            
+            // Update displays
+            document.getElementById('cpu-util').textContent = Math.floor(stats.cpuUtil) + '%';
+            document.getElementById('cpu-util-bar').style.width = stats.cpuUtil + '%';
+            
+            document.getElementById('memory-usage').textContent = stats.memoryUsage.toFixed(1) + ' GB';
+            document.getElementById('memory-bar').style.width = Math.min(100, stats.memoryUsage / 32 * 100) + '%';
+            
+            document.getElementById('computation-load').textContent = Math.floor(stats.computationLoad) + '%';
+            document.getElementById('computation-bar').style.width = stats.computationLoad + '%';
+            
+            document.getElementById('active-threads').textContent = stats.activeThreads;
+            document.getElementById('ops-per-sec').textContent = Math.floor(stats.opsPerSec).toLocaleString();
+            document.getElementById('cpu-temp').textContent = Math.floor(stats.cpuTemp) + '°C';
+            
+            document.getElementById('alloc-rate').textContent = Math.floor(stats.allocRate).toLocaleString();
+            document.getElementById('heap-size').textContent = Math.floor(stats.heapSize).toLocaleString() + ' MB';
+            document.getElementById('gc-count').textContent = stats.gcCount;
+            
+            document.getElementById('prime-count').textContent = stats.primeCount.toLocaleString();
+            document.getElementById('matrix-ops').textContent = Math.floor(stats.matrixOps / 1000).toLocaleString() + 'K';
+            document.getElementById('pi-digits').textContent = stats.piDigits;
+            
+            // Reset per-second counters
+            stats.opsPerSec *= 0.7;
+            stats.allocRate *= 0.7;
+            
+            setTimeout(updateMetrics, 100);
+        }
+        
+        // Simulate temperature
+        function simulateTemperature() {
+            if (!isRunning) {
+                setTimeout(simulateTemperature, 1000);
+                return;
+            }
+            
+            const baseTemp = 45;
+            const loadTemp = stats.cpuUtil * 0.4;
+            const threadTemp = stats.activeThreads * 0.2;
+            const randomTemp = Math.random() * 5;
+            
+            stats.cpuTemp = Math.min(110, baseTemp + loadTemp + threadTemp + randomTemp);
+            
+            setTimeout(simulateTemperature, 2000);
+        }
+        
+        // Stop all workers
+        function stopWorkers() {
+            workers.forEach(worker => {
+                worker.postMessage('stop');
+                worker.terminate();
+            });
+            workers = [];
+            stats.activeThreads = 0;
+        }
+        
+        // Reset statistics
+        function resetStats() {
+            stats = {
+                cpuUtil: 0,
+                memoryUsage: 0,
+                computationLoad: 0,
+                activeThreads: 0,
+                opsPerSec: 0,
+                cpuTemp: 45,
+                allocRate: 0,
+                heapSize: 0,
+                gcCount: 0,
+                primeCount: 0,
+                matrixOps: 0,
+                piDigits: 0
+            };
+            
+            // Update displays
+            document.getElementById('cpu-util').textContent = '0%';
+            document.getElementById('cpu-util-bar').style.width = '0%';
+            
+            document.getElementById('memory-usage').textContent = '0 GB';
+            document.getElementById('memory-bar').style.width = '0%';
+            
+            document.getElementById('computation-load').textContent = '0%';
+            document.getElementById('computation-bar').style.width = '0%';
+            
+            document.getElementById('active-threads').textContent = '0';
+            document.getElementById('ops-per-sec').textContent = '0';
+            document.getElementById('cpu-temp').textContent = '45°C';
+            
+            document.getElementById('alloc-rate').textContent = '0';
+            document.getElementById('heap-size').textContent = '0 MB';
+            document.getElementById('gc-count').textContent = '0';
+            
+            document.getElementById('prime-count').textContent = '0';
+            document.getElementById('matrix-ops').textContent = '0';
+            document.getElementById('pi-digits').textContent = '0';
+        }
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight;
+        });
+        
+        // Clean up on page unload
+        window.addEventListener('beforeunload', () => {
+            stopCPUTest();
+        });
+        
+        // Start with initial visualization
+        canvas.width = canvas.parentElement.clientWidth;
+        canvas.height = canvas.parentElement.clientHeight;
+        
+        // Initial metrics update
+        updateMetrics();
+        
+        // Initial temperature simulation
+        simulateTemperature();
+    </script>
+</body>
+</html>
