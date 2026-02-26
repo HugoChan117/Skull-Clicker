@@ -1,1941 +1,1111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>💀 Skull Clicker™</title>
-<!-- © 2025 hugochan117, Code are copyrighted by HugoChan117, 2025-->
-  
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&display=swap');
-  :root {
-    --bg-color: #f5f5f5;
-    --text-color: #333;
-    --panel-bg: #e0e0e0;
-    --border-color: #888;
-    --header-bg: rgba(0,0,0,0.1);
-    --button-bg: none;
-    --button-hover-scale: 1.1;
-    --upgrade-container-bg: #ff6b6b;
-    --feature-container-bg: #4ecdc4;
-    --autoclicker-container-bg: #ffe66d;
-    --prestige-container-bg: #7bed9f;
-    --save-container-bg: #70a1ff;
-    --feature-button-bg: #2980b9;
-    --feature-button-color: #fff;
-    --save-button-bg: #444;
-    --save-button-hover-bg: #666;
-    --reset-button-bg: #e74c3c;
-    --reset-button-hover-bg: #c0392b;
-    --achievement-bg: #eee;
-    --achievement-border: #ccc;
-    --achievement-unlocked-border: #6c3;
-    --achievement-unlocked-bg: #faffec;
-    --achievement-popup-bg: #fffbe6;
-    --achievement-popup-border: #6c3;
-    --achievements-button-bg: #fff;
-    --achievements-button-color: #222;
-    --achievements-button-border: #888;
-    --achievements-button-open-bg: #faffec;
-    --achievements-button-open-border: #6c3;
-    --alert-bg: #fff;
-    --alert-color: #000;
-    --click-animation-color: rgba(255, 215, 0, 0.7);
-    --particle-size: 8px;
-    --critical-color: #ff0000;
-    --golden-color: #ffd700;
-    --golden-time-color: #ffcc00;
-    --notification-bg: rgba(0, 0, 0, 0.7);
-    --notification-color: #fff;
-    --progress-bar-bg: #ddd;
-    --progress-bar-fill: #4CAF50;
-    --tooltip-bg: rgba(0, 0, 0, 0.8);
-    --tooltip-color: #fff;
-  }
-
-  body.dark-mode {
-    --bg-color: #121212;
-    --text-color: #eee;
-    --panel-bg: #222;
-    --border-color: #555;
-    --header-bg: rgba(255,255,255,0.15);
-    --button-bg: none;
-    --upgrade-container-bg: #d63031;
-    --feature-container-bg: #00b894;
-    --autoclicker-container-bg: #fdcb6e;
-    --prestige-container-bg: #00cec9;
-    --save-container-bg: #0984e3;
-    --feature-button-bg: #3a7bd5;
-    --feature-button-color: #eee;
-    --save-button-bg: #666;
-    --save-button-hover-bg: #888;
-    --reset-button-bg: #c0392b;
-    --reset-button-hover-bg: #e74c3c;
-    --achievement-bg: #333;
-    --achievement-border: #666;
-    --achievement-unlocked-border: #6c3;
-    --achievement-unlocked-bg: #264d00;
-    --achievement-popup-bg: #264d00;
-    --achievement-popup-border: #6c3;
-    --achievements-button-bg: #222;
-    --achievements-button-color: #eee;
-    --achievements-button-border: #555;
-    --achievements-button-open-bg: #264d00;
-    --achievements-button-open-border: #6c3;
-    --alert-bg: #222;
-    --alert-color: #eee;
-    --click-animation-color: rgba(255, 215, 0, 0.5);
-    --critical-color: #ff6b6b;
-    --golden-color: #ffcc00;
-    --golden-time-color: #ffd700;
-    --notification-bg: rgba(255, 255, 255, 0.2);
-    --notification-color: #fff;
-    --progress-bar-bg: #444;
-    --progress-bar-fill: #4CAF50;
-    --tooltip-bg: rgba(255, 255, 255, 0.2);
-    --tooltip-color: #fff;
-  }
-
-  body {
-    font-family: 'Barlow', Arial, sans-serif;
-    color: var(--text-color);
-    background: var(--bg-color);
-    padding: 20px;
-    text-align: center;
-    transition: background-color 0.5s, color 0.5s;
-    min-height: 100vh;
-    position: relative;
-    overflow-x: hidden;
-  }
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
-  }
-
-  h1 {
-    font-size: 2.5em;
-    margin-bottom: 10px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
-
-  #score {
-    font-size: 3em;
-    margin: 20px 0;
-    font-weight: bold;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
-
-  #mainBtn {
-    font-size: 10em;
-    padding: 20px;
-    border: none;
-    background: var(--button-bg);
-    cursor: pointer;
-    transition: transform 0.2s;
-    color: var(--text-color);
-    margin: 20px auto;
-    position: relative;
-    user-select: none;
-    outline: none;
-    border-radius: 50%;
-    width: 200px;
-    height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  }
-  
-  #mainBtn:hover {
-    transform: scale(var(--button-hover-scale));
-  }
-  
-  #mainBtn:active {
-    transform: scale(0.95);
-  }
-
-  #statsDisplay {
-    margin-top: 20px;
-    padding: 20px;
-    background: var(--panel-bg);
-    border-radius: 12px;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left;
-    color: var(--text-color);
-    border: 1px solid var(--border-color);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-
-  /* Containers */
-  .upgrade-container,
-  .feature-container,
-  .autoclicker-container,
-  .prestige-container,
-  .save-container,
-  .achievements-container {
-    margin-top: 30px;
-    width: 100%;
-    max-width: 950px;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 12px;
-    border: 2px solid var(--border-color);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  }
-  
-  .upgrade-container { background-color: var(--upgrade-container-bg); }
-  .feature-container { background-color: var(--feature-container-bg); }
-  .autoclicker-container { background-color: var(--autoclicker-container-bg); }
-  .prestige-container { background-color: var(--prestige-container-bg); }
-  .save-container { background-color: var(--save-container-bg); }
-  .achievements-container {
-    background-color: var(--panel-bg);
-    box-sizing: border-box;
-    padding-bottom: 10px;
-    margin-bottom: 30px;
-  }
-
-  /* Headers */
-  .upgrade-header,
-  .feature-header,
-  .autoclicker-header,
-  .prestige-header,
-  .save-header,
-  .achievements-header {
-    background: var(--header-bg);
-    cursor: pointer;
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 1.3em;
-    font-weight: bold;
-    color: var(--text-color);
-    border-radius: 12px 12px 0 0;
-    user-select: none;
-    transition: background 0.3s;
-  }
-  
-  .upgrade-header:hover,
-  .feature-header:hover,
-  .autoclicker-header:hover,
-  .prestige-header:hover,
-  .save-header:hover,
-  .achievements-header:hover {
-    filter: brightness(1.1);
-  }
-
-  /* Content (collapsed by default except Save & Load) */
-  #upgradesContent,
-  #featuresContent,
-  #autoclickerContent,
-  #prestigeContent,
-  #achievementsContent {
-    display: none;
-    padding: 20px;
-    text-align: left;
-    color: var(--text-color);
-  }
-  
-  #saveContent {
-    display: block;
-    padding: 20px;
-    text-align: center;
-    color: var(--text-color);
-  }
-
-  /* Upgrade grid */
-  .upgrade-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 15px;
-  }
-  
-  @media(max-width: 768px) {
-    .upgrade-grid {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-  
-  @media(max-width: 480px) {
-    .upgrade-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  /* Upgrade buttons */
-  .upgrade.small {
-    font-family: inherit;
-    border-radius: 8px;
-    border: none;
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 15px 10px;
-    font-size: 1em;
-    transition: all 0.2s;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 80px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .upgrade.small:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    filter: brightness(1.1);
-  }
-  
-  .upgrade.small:active {
-    transform: translateY(1px);
-  }
-  
-  .upgrade.small .icon {
-    font-size: 1.5em;
-    margin-bottom: 5px;
-  }
-  
-  .upgrade.small .cost {
-    font-size: 0.9em;
-    margin-top: 5px;
-    opacity: 0.9;
-  }
-
-  /* Feature buttons */
-  button.feature {
-    font-family: inherit;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
-    background-color: var(--feature-button-bg);
-    color: var(--feature-button-color);
-    font-weight: bold;
-    cursor: pointer;
-    margin: 10px 5px;
-    transition: all 0.2s;
-    width: 100%;
-    max-width: 300px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  button.feature:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    filter: brightness(1.1);
-  }
-  
-  button.feature:active {
-    transform: translateY(1px);
-  }
-  
-  .feature-info {
-    margin: 10px 0;
-    padding: 10px;
-    background: rgba(0,0,0,0.1);
-    border-radius: 8px;
-    font-size: 0.95em;
-  }
-
-  /* Autoclicker & Prestige buttons */
-  #autoclickerBuyBtn, #prestigeBuyBtn {
-    font-family: inherit;
-    display: block;
-    margin: 15px auto 0 auto;
-    padding: 12px 30px;
-    border: none;
-    border-radius: 8px;
-    color: #fff;
-    font-weight: bold;
-    font-size: 1.1em;
-    cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  }
-  
-  #autoclickerBuyBtn {
-    background-color: #6c3483;
-  }
-  
-  #autoclickerBuyBtn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    background: #7d3c98;
-  }
-  
-  #autoclickerBuyBtn:active {
-    transform: translateY(1px);
-    background: #512e5f;
-  }
-  
-  #prestigeBuyBtn {
-    background-color: #b03a00;
-  }
-  
-  #prestigeBuyBtn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    background: #c04000;
-  }
-  
-  #prestigeBuyBtn:active {
-    transform: translateY(1px);
-    background: #7a2700;
-  }
-
-  /* Save/Load Buttons */
-  #saveBtn, #loadBtn, #resetBtn {
-    font-family: inherit;
-    padding: 12px 24px;
-    font-size: 1em;
-    border-radius: 8px;
-    margin: 10px 5px;
-    border: none;
-    background: var(--save-button-bg);
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  }
-  
-  #saveBtn:hover, #loadBtn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    background: var(--save-button-hover-bg);
-  }
-  
-  #saveBtn:active, #loadBtn:active {
-    transform: translateY(1px);
-  }
-  
-  #resetBtn {
-    background: var(--reset-button-bg);
-  }
-  
-  #resetBtn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    background: var(--reset-button-hover-bg);
-  }
-  
-  #resetBtn:active {
-    transform: translateY(1px);
-  }
-
-  /* Achievements Button */
-  #achievementsBtn {
-    font-family: inherit;
-    margin-top: 30px;
-    margin-bottom: 0;
-    padding: 16px 36px;
-    font-size: 1.15em;
-    font-weight: bold;
-    color: var(--achievements-button-color);
-    background: var(--achievements-button-bg);
-    border: 2px solid var(--achievements-button-border);
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    outline: none;
-  }
-  
-  #achievementsBtn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-    filter: brightness(1.05);
-  }
-  
-  #achievementsBtn:active {
-    transform: translateY(1px);
-  }
-  
-  #achievementsBtn.open {
-    background: var(--achievements-button-open-bg);
-    border-color: var(--achievements-button-open-border);
-  }
-
-  /* Achievements container */
-  .achievements-container {
-    border-radius: 12px;
-    border: 2px solid var(--border-color);
-    background-color: var(--panel-bg);
-    padding-bottom: 15px;
-    margin-bottom: 30px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  }
-
-  /* Achievements list */
-  .achievements-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 15px;
-    align-items: flex-start;
-    justify-items: center;
-    width: 100%;
-    margin: 0 auto;
-    padding: 0 15px;
-  }
-  
-  @media (max-width: 600px) {
-    .achievements-list {
-      grid-template-columns: 1fr;
-      gap: 10px;
-    }
-  }
-
-  /* Single achievement */
-  .achievement {
-    background: var(--achievement-bg);
-    border-radius: 8px;
-    padding: 15px;
-    width: 100%;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    border: 2px solid var(--achievement-border);
-    position: relative;
-    transition: all 0.3s;
-    opacity: 0.7;
-    filter: grayscale(70%);
-    text-align: left;
-    color: var(--text-color);
-    display: flex;
-    align-items: center;
-  }
-  
-  .achievement.unlocked {
-    border-color: var(--achievement-unlocked-border);
-    background: var(--achievement-unlocked-bg);
-    opacity: 1;
-    filter: none;
-    animation: pop-in 0.4s;
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-  }
-  
-  .achievement .icon {
-    font-size: 2.5em;
-    margin-right: 15px;
-    flex-shrink: 0;
-  }
-  
-  .achievement-text {
-    flex-grow: 1;
-  }
-  
-  .achievement-title {
-    font-weight: bold;
-    font-size: 1.1em;
-    margin-bottom: 5px;
-  }
-  
-  .achievement-description {
-    font-size: 0.9em;
-    opacity: 0.8;
-  }
-  
-  .achievement-progress {
-    height: 4px;
-    background: var(--progress-bar-bg);
-    border-radius: 2px;
-    margin-top: 8px;
-    overflow: hidden;
-  }
-  
-  .achievement-progress-fill {
-    height: 100%;
-    background: var(--progress-bar-fill);
-    width: 0%;
-    transition: width 0.5s;
-  }
-
-  /* Achievement popup */
-  #achievementPopup {
-    display: none;
-    position: fixed;
-    top: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--achievement-popup-bg);
-    color: var(--text-color);
-    border: 2px solid var(--achievement-popup-border);
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-    padding: 20px 36px;
-    z-index: 10000;
-    font-size: 1.3em;
-    min-width: 280px;
-    max-width: 95vw;
-    animation: pop-in 0.5s;
-    text-align: center;
-  }
-  
-  #achievementPopup .icon {
-    font-size: 2.5em;
-    margin-right: 15px;
-    vertical-align: middle;
-  }
-  
-  #achievementPopup .title {
-    font-weight: bold;
-    margin-bottom: 5px;
-    display: block;
-    font-size: 1.2em;
-  }
-  
-  #achievementPopup .description {
-    font-size: 0.9em;
-    opacity: 0.9;
-  }
-
-  @keyframes pop-in {
-    0% { transform: translateX(-50%) scale(0.7); opacity: 0; }
-    80% { transform: translateX(-50%) scale(1.10); opacity: 1; }
-    100% { transform: translateX(-50%) scale(1); opacity: 1; }
-  }
-
-  /* Dark mode toggle button */
-  #darkModeToggle {
-    font-family: inherit;
-    position: fixed;
-    top: 15px;
-    right: 15px;
-    background: var(--achievements-button-bg);
-    color: var(--achievements-button-color);
-    border: 2px solid var(--achievements-button-border);
-    border-radius: 12px;
-    padding: 10px 18px;
-    font-size: 1em;
-    cursor: pointer;
-    z-index: 11000;
-    transition: all 0.3s;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-  
-  #darkModeToggle:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    filter: brightness(1.1);
-  }
-  
-  #darkModeToggle:active {
-    transform: translateY(1px);
-  }
-
-  /* Click animation */
-  .click-effect {
-    position: absolute;
-    pointer-events: none;
-    width: var(--particle-size);
-    height: var(--particle-size);
-    background: var(--click-animation-color);
-    border-radius: 50%;
-    animation: click-animation 1s ease-out forwards;
-    z-index: 1000;
-  }
-  
-  @keyframes click-animation {
-    0% {
-      transform: translate(-50%, -50%) scale(0);
-      opacity: 1;
-    }
-    100% {
-      transform: translate(-50%, -50%) scale(10);
-      opacity: 0;
-    }
-  }
-
-  /* Critical hit effect */
-  .critical-hit {
-    position: absolute;
-    pointer-events: none;
-    font-size: 2em;
-    font-weight: bold;
-    color: var(--critical-color);
-    animation: critical-animation 1s ease-out forwards;
-    z-index: 1000;
-    text-shadow: 0 0 10px rgba(255,0,0,0.7);
-  }
-  
-  @keyframes critical-animation {
-    0% {
-      transform: translate(-50%, -50%) scale(0.5);
-      opacity: 1;
-    }
-    100% {
-      transform: translate(-50%, -50%) scale(2);
-      opacity: 0;
-    }
-  }
-
-  /* Golden time indicator */
-  .golden-time {
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    background: var(--golden-time-color);
-    color: #000;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-weight: bold;
-    z-index: 10000;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    animation: pulse 1.5s infinite;
-    display: none;
-  }
-  
-  @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-  }
-
-  /* Notification system */
-  .notification {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--notification-bg);
-    color: var(--notification-color);
-    padding: 12px 24px;
-    border-radius: 8px;
-    z-index: 10000;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    max-width: 80%;
-    text-align: center;
-    opacity: 0;
-    transition: opacity 0.3s;
-    display: flex;
-    align-items: center;
-  }
-  
-  .notification.show {
-    opacity: 1;
-  }
-  
-  .notification .icon {
-    margin-right: 10px;
-    font-size: 1.5em;
-  }
-
-  /* Tooltip */
-  .tooltip {
-    position: absolute;
-    background: var(--tooltip-bg);
-    color: var(--tooltip-color);
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-size: 0.9em;
-    pointer-events: none;
-    z-index: 1000;
-    opacity: 0;
-    transition: opacity 0.2s;
-    max-width: 250px;
-    text-align: center;
-    transform: translateY(10px);
-  }
-  
-  .tooltip.show {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Golden skull effect */
-  .golden-skull {
-    color: var(--golden-color);
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
-    animation: glow 1.5s infinite alternate;
-  }
-  
-  @keyframes glow {
-    from {
-      text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
-    }
-    to {
-      text-shadow: 0 0 20px rgba(255, 215, 0, 0.9);
-    }
-  }
-
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    body {
-      padding: 15px;
-    }
-    
-    #mainBtn {
-      font-size: 8em;
-      width: 160px;
-      height: 160px;
-    }
-    
-    #score {
-      font-size: 2.5em;
-    }
-    
-    .upgrade-grid {
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    }
-    
-    .achievement {
-      padding: 12px;
-    }
-    
-    .achievement .icon {
-      font-size: 2em;
-      margin-right: 10px;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    #mainBtn {
-      font-size: 6em;
-      width: 120px;
-      height: 120px;
-    }
-    
-    #score {
-      font-size: 2em;
-    }
-    
-    .upgrade-grid {
-      grid-template-columns: 1fr;
-    }
-    
-    .achievement {
-      flex-direction: column;
-      text-align: center;
-    }
-    
-    .achievement .icon {
-      margin-right: 0;
-      margin-bottom: 10px;
-    }
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💀 SKULL CLICKER</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Creepster&family=Eater&family=Nosifer&family=Rubik+Wet+Paint&display=swap');
+        
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            min-height: 100vh;
+            width: 100vw;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #1a0f0a 0%, #2d1a10 50%, #1f0e08 100%);
+            display: flex;
+            flex-direction: column;
+            padding: 12px;
+            position: relative;
+            font-family:  'Creepster', 'Eater', 'Nosifer', cursive;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(45deg, 
+                rgba(100, 50, 20, 0.05) 0px, 
+                rgba(150, 70, 30, 0.08) 50px, 
+                transparent 100px);
+            pointer-events: none;
+            animation: skullDrift 25s linear infinite;
+            z-index: 0;
+        }
+        
+        @keyframes skullDrift {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(5%) translateY(3%); }
+        }
+        
+        .full-game {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 1500px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(2px);
+            border-radius: 50px 50px 30px 30px;
+            background: rgba(30, 15, 10, 0.5);
+            padding: 16px 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8), inset 0 0 50px #3a1e0e;
+            border: 3px solid #6b3f28;
+        }
+        
+        .global-title h1 {
+            font-family: 'Nosifer', 'Eater', cursive;
+            font-weight: 400;
+            font-size: 4.5rem;
+            letter-spacing: 8px;
+            color: #e0b08b;
+            text-shadow: 
+                4px 4px 0 #5a2e1a,
+                8px 8px 0 #2f180d,
+                12px 12px 15px #000000,
+                0 0 20px #ff7b24;
+            word-break: break-word;
+            line-height: 1.2;
+            background: linear-gradient(135deg, #ffc79e, #b35e2e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+            transform: scale(1.02) rotate(-1deg);
+            animation: titleSkullGlow 2.5s infinite alternate;
+            filter: drop-shadow(0 0 15px #b84a0e);
+        }
+        
+        @keyframes titleSkullGlow {
+            0% { filter: drop-shadow(0 0 8px #ff7b24); text-shadow: 4px 4px 0 #5a2e1a, 8px 8px 0 #2f180d; }
+            100% { filter: drop-shadow(0 0 30px #ff5100); text-shadow: 6px 6px 0 #7a3a1f, 12px 12px 0 #3b1d0f; }
+        }
+        
+        .page-tabs {
+            display: flex;
+            gap: 15px;
+            margin: 10px 0 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            background: #2f1d12;
+            border: 3px solid #b56e3e;
+            color: #ffd7b5;
+            font-family: 'Eater', 'Creepster', cursive;
+            font-weight: bold;
+            font-size: 1.6rem;
+            padding: 10px 28px;
+            border-radius: 40px 15px 40px 15px;
+            box-shadow: 0 8px 0 #4f2b16, 0 10px 20px #0a0502;
+            cursor: pointer;
+            transition: 0.08s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            backdrop-filter: blur(4px);
+            text-shadow: 2px 2px 0 #2f180a;
+        }
+        
+        .tab-btn.active {
+            background: #5e3a23;
+            transform: translateY(5px) scale(1.02);
+            box-shadow: 0 3px 0 #6b3a1c, 0 15px 25px #ff8800;
+            border-color: #ffaa5e;
+            color: #fff2d8;
+        }
+        
+        .page { display: none; width: 100%; flex:1; flex-direction: column; }
+        .page.active-page { display: flex; }
+        
+        .global-resource {
+            background: #2c1a0edd;
+            backdrop-filter: blur(8px);
+            border-radius: 60px 20px 60px 20px;
+            padding: 12px 25px;
+            margin: 0 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 4px solid #b87a4c;
+            box-shadow: inset 0 -5px 0 #4f2e19, 0 10px 0 #2d170c, 0 15px 25px black;
+            color: #ffeac2;
+            font-family: 'Nosifer', cursive;
+            font-weight: bold;
+            font-size: 2.4rem;
+            text-shadow: 3px 3px 0 #3f1f0e;
+            background-image: linear-gradient(145deg, #543a26, #2c1b10);
+        }
+        
+        .global-resource .resource-icon { 
+            font-size: 2.8rem; 
+            background: #4d3221; 
+            padding: 8px 35px; 
+            border-radius: 50px 15px 50px 15px; 
+            border: 3px solid #d68f55; 
+            filter: drop-shadow(0 0 10px #ff9f4b);
+        }
+        
+        .global-resource .resource-value {
+            background: #1c120b;
+            padding: 8px 35px;
+            border-radius: 15px 50px 15px 50px;
+            border: 3px solid #e09f62;
+            font-size: 2.8rem;
+            background-image: radial-gradient(circle at 30% 35%, #5e3a21, #1e130c);
+            font-family: 'Rubik Wet Paint', cursive;
+            letter-spacing: 3px;
+        }
+        
+        .main-click-area { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            flex:1; 
+            margin: 15px 0 25px; 
+        }
+        
+        .click-area {
+            background: radial-gradient(circle at 40% 30%, #7a4f33, #2f1a0d);
+            width: 350px; 
+            height: 350px;
+            border-radius: 50% 30% 50% 30%;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            box-shadow: 
+                0 25px 0 #3d2315, 
+                0 45px 45px #0a0502, 
+                inset 0 -15px 25px #ca7f42,
+                inset 0 15px 25px #ffbc7a;
+            border: 12px solid #492e1b;
+            transition: transform 0.08s, box-shadow 0.1s;
+            cursor: pointer;
+            font-size: 6rem; 
+            font-weight: bold; 
+            color: #ffe0b5; 
+            text-shadow: 6px 8px 0 #271609, 8px 10px 0 #00000080;
+            margin: 10px 0 20px; 
+            position: relative; 
+            overflow: hidden;
+            animation: skullPulse 2s infinite alternate;
+            transform: rotate(2deg);
+        }
+        
+        @keyframes skullPulse {
+            0% { 
+                box-shadow: 0 25px 0 #3d2315, 0 45px 45px #0a0502, inset 0 -15px 25px #ca7f42, 0 0 15px #ff8c42; 
+            }
+            100% { 
+                box-shadow: 0 25px 0 #4f2d1b, 0 50px 55px #150b06, inset 0 -18px 30px #ffa558, 0 0 40px #ff6a00; 
+            }
+        }
+        
+        .click-area::after {
+            content: '💀';
+            position: absolute; 
+            top: -50%; 
+            left: -50%; 
+            width: 200%; 
+            height: 200%;
+            background: radial-gradient(circle, #fff1d0 5%, transparent 70%); 
+            opacity: 0.3; 
+            transform: rotate(20deg);
+            pointer-events: none;
+        }
+        
+        .click-area:active {
+            transform: translateY(18px) scale(1.08) rotate(0deg);
+            box-shadow: 0 7px 0 #3d2315, 0 40px 40px #1f1008, 0 0 60px #ffae5e;
+            transition: transform 0.03s;
+        }
+        
+        .inline-stats {
+            font-size: 2rem; 
+            background: #2b1c12dd; 
+            border-radius: 60px 20px 60px 20px; 
+            padding: 18px 35px;
+            border: 4px solid #d6904f; 
+            display: flex; 
+            justify-content: center; 
+            gap: 50px;
+            color: #ffddbb; 
+            font-family: 'Eater', cursive;
+            font-weight: bold; 
+            flex-wrap: wrap; 
+            box-shadow: 0 10px 0 #4b311f, inset 0 0 30px #b15e28;
+            backdrop-filter: blur(3px);
+        }
+        
+        .inline-stats span { 
+            background: #1b130ee0; 
+            color: #ffeaca; 
+            padding: 10px 35px; 
+            border-radius: 40px 10px 40px 10px; 
+            border: 3px solid #ffb471; 
+            font-size: 2rem;
+            font-family: 'Rubik Wet Paint', cursive;
+        }
+        
+        .combo-meter {
+            background: #22150edd; 
+            border-radius: 40px 10px 40px 10px; 
+            padding: 12px 35px; 
+            border: 4px solid #e6944c;
+            font-size: 2.5rem; 
+            font-family: 'Nosifer', cursive;
+            font-weight: bold; 
+            color: #ffe2b5; 
+            display: flex; 
+            align-items: center;
+            gap: 30px; 
+            box-shadow: 0 10px 0 #5b351f, 0 0 25px #ff964f; 
+            margin: 5px 0 20px; 
+            backdrop-filter: blur(3px);
+        }
+        
+        .achievements-panel { 
+            background: #3d2b1be0; 
+            border-radius: 50px 15px 50px 15px; 
+            padding: 20px; 
+            margin:15px 0; 
+            border:4px solid #e29b5a; 
+            max-height:350px; 
+            overflow-y:auto; 
+            font-family: 'Creepster', cursive;
+        }
+        
+        .achievement-entry { 
+            background: #2a1f14; 
+            color:#ffdbb8; 
+            padding:12px 20px; 
+            margin:8px 0; 
+            border-radius:30px 10px 30px 10px; 
+            display:flex; 
+            align-items:center; 
+            gap:15px; 
+            font-size:1.5rem; 
+            border:2px solid #f9a762;
+            font-family: 'Eater', cursive;
+        }
+        
+        .shop-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            gap: 20px; 
+            margin: 20px 0; 
+        }
+        
+        .upgrade-card { 
+            background: linear-gradient(160deg, #4d3825, #2f1d12); 
+            border-radius: 40px 15px 40px 15px; 
+            padding: 18px 8px 15px; 
+            border: 4px solid #e09f5e; 
+            box-shadow: 0 12px 0 #4f311e, 0 12px 25px #140b06; 
+            transition:0.08s; 
+            color:#ffddbb; 
+            display:flex; 
+            flex-direction:column; 
+            align-items:center; 
+            position:relative; 
+            font-size:1.1rem;
+            font-family: 'Creepster', cursive;
+            transform: rotate(-0.5deg);
+        }
+        
+        .upgrade-card.disabled { 
+            opacity:0.5; 
+            filter:grayscale(0.9); 
+            pointer-events:none; 
+            box-shadow:0 8px 0 #3e291b; 
+            transform:translateY(4px);
+        }
+        
+        .upgrade-card.locked-tier { 
+            opacity:0.3; 
+            filter:grayscale(1); 
+            pointer-events:none;
+            background: #2a1e14;
+        }
+        
+        .upgrade-icon { 
+            font-size: 3.2rem; 
+            filter: drop-shadow(0 0 10px #ffa558);
+        }
+        
+        .upgrade-icon img { 
+            width: 3.2rem; 
+            height: 3.2rem; 
+            border-radius: 50% 20% 50% 20%; 
+            border: 4px solid #f0a35e; 
+            background:#38291e; 
+            object-fit:cover; 
+        }
+        
+        .upgrade-name { 
+            font-size:1.4rem; 
+            background:#3f2b1ce0; 
+            border-radius:30px 8px 30px 8px; 
+            color:#ffeac5; 
+            padding:6px 18px; 
+            margin:8px 0; 
+            font-family: 'Nosifer', cursive;
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+        }
+        
+        .cost-display { 
+            background:#261b12; 
+            color:#ffdbb0; 
+            padding:6px 20px; 
+            border-radius:30px 8px 30px 8px; 
+            font-size:1.5rem; 
+            font-weight: 700;
+            border:3px solid #faa459; 
+            margin:8px 0; 
+            font-family: 'Barlow Condensed', 'Rubik Wet Paint', cursive;
+        }
+        
+        .settings-panel { 
+            background:#3b2a1de0; 
+            border-radius: 60px 20px 60px 20px; 
+            padding: 30px; 
+            border: 5px solid #d69253; 
+            box-shadow: 0 15px 0 #432f20, 0 15px 35px #050302;
+        }
+        
+        .skull-btn { 
+            background:#6e4a31; 
+            border:4px solid #ffbd7a; 
+            padding:15px 35px; 
+            border-radius:50px 15px 50px 15px; 
+            font-family: 'Eater', cursive;
+            font-weight:bold; 
+            font-size:1.7rem; 
+            box-shadow:0 10px 0 #3e2b1b; 
+            cursor:pointer; 
+            margin:0 8px;
+            color: #ffddbb;
+            text-shadow: 2px 2px 0 #2b1a0e;
+        }
+        
+        .skull-btn:active { 
+            transform:translateY(7px); 
+            box-shadow:0 3px 0 #3e2b1b;
+        }
+        
+        .floating-crit { 
+            position:fixed; 
+            font-family: 'Nosifer', cursive;
+            font-weight:bold; 
+            color:#ffae5e; 
+            text-shadow:0 0 25px #ff3300,0 0 40px #ff8800; 
+            pointer-events:none; 
+            font-size:3.8rem; 
+            z-index:9999; 
+            animation:floatUp 1s ease-out forwards; 
+            white-space:nowrap;
+        }
+        
+        @keyframes floatUp {
+            0% { opacity:1; transform:translateY(0) scale(1) rotate(0deg); }
+            100% { opacity:0; transform:translateY(-180px) scale(2.2) rotate(10deg); }
+        }
+        
+        .import-export-panel {
+            display:flex; 
+            gap:15px; 
+            margin:20px 0; 
+            flex-wrap:wrap; 
+            justify-content:center;
+        }
+        
+        .import-export-panel input { 
+            background:#1f1610; 
+            border:3px solid #f6a35b; 
+            border-radius:50px 10px 50px 10px; 
+            padding:15px 25px; 
+            font-size:1.3rem; 
+            color:#fff2d8; 
+            width:350px;
+            font-family: 'Creepster', cursive;
+        }
+        
+        .extra-stat { 
+            font-size:2rem; 
+            background:#3c2b1c; 
+            padding:20px; 
+            border-radius:50px 15px 50px 15px; 
+            margin-top:25px; 
+            border:3px solid #f0a459;
+            font-family: 'Rubik Wet Paint', cursive;
+            color: #ffeac2;
+        }
+        
+        footer { 
+            font-size:1.4rem; 
+            color:#cc9f75; 
+            text-shadow:2px 2px 0 #2f1d12;
+            font-family: 'Creepster', cursive;
+            letter-spacing: 2px;
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        .storage-info {
+            font-size: 1.4rem;
+            color: #e6b88a;
+            margin-top: 15px;
+            font-family: 'Eater', cursive;
+        }
+        /* prestige page style */
+        .prestige-card {
+            background: #3a281ce0; border-radius: 40px; padding: 25px;
+            border: 5px solid #bb7a4b; box-shadow: 0 15px 0 #5f3f28;
+            font-size: 2rem; color: #ffdbb5; text-align: center;
+            margin: 20px 0; font-family: 'Nosifer', cursive;
+        }
+        .prestige-btn {
+            background: #7e4f32; border: 5px solid #f9b574;
+            padding: 20px 45px; font-size: 2.8rem; border-radius: 80px 20px 80px 20px;
+            box-shadow: 0 15px 0 #4d321f; transition:0.08s;
+            cursor:pointer; margin-top:20px;
+        }
+        .prestige-btn:active { transform:translateY(10px); box-shadow:0 5px 0 #4d321f; }
+        .prestige-btn.disabled { opacity:0.4; pointer-events:none; filter:grayscale(0.8); }
+        .prestige-icon { font-size:4rem; filter:drop-shadow(0 0 15px gold); }
+        .prestige-desc { font-size:1.8rem; background:#2d1f14; border-radius: 30px; padding:15px; margin: 15px 0; border:3px solid #efb072; }
+    </style>
 </head>
 <body>
-<div class="container">
-  <h1>💀 Skull Clicker™</h1>
-  <button id="darkModeToggle" aria-pressed="false" aria-label="Toggle dark mode">Dark Mode</button>
-  
-  <div class="golden-time" id="goldenTimeIndicator">GOLDEN TIME! 2x Points!</div>
-  
-  <div id="score">0</div>
-  <button id="mainBtn" aria-label="Main click button">💀</button>
-  
-  <div id="statsDisplay"></div>
+<div class="full-game">
+    <div class="global-title"><h1>💀 SKULL CLICKER</h1></div>
 
-  <!-- Achievements -->
-  <button id="achievementsBtn" class="open">Achievements</button>
-  
-  <div class="achievements-container" id="achievementsContainer" role="region" aria-label="Achievements">
-    <div class="achievements-header" id="achievementsHeader" role="button" tabindex="0" aria-expanded="false" aria-controls="achievementsContent">Achievements ▼</div>
-    <div class="achievements-content" id="achievementsContent" aria-hidden="true">
-      <div class="achievements-list" id="achievementsList"></div>
+    <div class="page-tabs">
+        <button class="tab-btn active" id="tabMain">💀 MAIN</button>
+        <button class="tab-btn" id="tabUpgrade">⬆️ BONE UPGRADES</button>
+        <button class="tab-btn" id="tabPrestige">👑 BONE PRESTIGE</button>  <!-- new tab -->
+        <button class="tab-btn" id="tabAchievements">🏆 SKULL ACHIEVES</button>
+        <button class="tab-btn" id="tabStats">⚙️ CATACOMBS</button>
     </div>
-  </div>
 
-  <div id="achievementPopup" role="alert" aria-live="assertive" aria-atomic="true"></div>
-
-  <!-- Upgrades -->
-  <div class="upgrade-container" id="upgradesContainer">
-    <div class="upgrade-header" id="upgradesHeader" role="button" tabindex="0" aria-expanded="false" aria-controls="upgradesContent">Upgrades ▼</div>
-    <div class="upgrade-content" id="upgradesContent" aria-hidden="true">
-      <div class="upgrade-grid" id="upgradeGrid"></div>
+    <div class="global-resource">
+        <span class="resource-icon">🦴</span>
+        <span class="resource-value" id="globalBoneDisplay">0</span>
     </div>
-  </div>
-
-  <!-- Facilities -->
-  <div class="feature-container" id="featuresContainer">
-    <div class="feature-header" id="featuresHeader" role="button" tabindex="0" aria-expanded="false" aria-controls="featuresContent">Facilities ▼</div>
-    <div class="feature-content" id="featuresContent" aria-hidden="true">
-      <div class="feature-group">
-        <button id="factoryBtn" class="feature">Buy Factory</button>
-        <div id="factoryInfo" class="feature-info">Factory Level: 0<br>Benefit: +0%</div>
-      </div>
-      <div class="feature-group">
-        <button id="bankBtn" class="feature">Upgrade Bank</button>
-        <div id="bankInfo" class="feature-info">Bank Level: 0<br>Benefit: +0%</div>
-      </div>
-      <div class="feature-group">
-        <button id="hotelBtn" class="feature">Upgrade Hotel</button>
-        <div id="hotelInfo" class="feature-info">Hotel Level: 0<br>Benefit: +0%</div>
-      </div>
-      <div class="feature-group">
-        <button id="shopBtn" class="feature">Upgrade Shop</button>
-        <div id="shopInfo" class="feature-info">Shop Level: 0<br>Benefit: +0%</div>
-      </div>
+    <div id="pageMain" class="page active-page">
+        <div class="main-click-area">
+            <div class="combo-meter">
+                <span>💀 BONE COMBO</span>
+                <span class="combo-value" id="comboDisplay">0</span>
+                <span id="comboPercentDisplay">(+0%)</span>
+            </div>
+            <div class="click-area" id="clickButton">💀<br>SKULL</div>
+            <div class="inline-stats">
+                <span id="clickPowerStatMain">👆 1 /click</span>
+                <span id="totalClicksStatMain">🖱️ 0</span>
+            </div>
+        </div>
     </div>
-  </div>
-
-  <!-- Auto Clicker -->
-  <div class="autoclicker-container" id="autoclickerContainer">
-    <div class="autoclicker-header" id="autoclickerHeader" role="button" tabindex="0" aria-expanded="false" aria-controls="autoclickerContent">Auto Clicker ▼</div>
-    <div class="autoclicker-content" id="autoclickerContent" aria-hidden="true">
-      <div id="autoclickerInfo">Level: 0<br>Effect: +0/sec<br>Cost: 100</div>
-      <button id="autoclickerBuyBtn">Buy Auto Clicker</button>
+    <div id="pageUpgrade" class="page">
+        <div class="shop-grid" id="upgradeGrid"></div>
     </div>
-  </div>
-
-  <!-- Prestige -->
-  <div class="prestige-container" id="prestigeContainer">
-    <div class="prestige-header" id="prestigeHeader" role="button" tabindex="0" aria-expanded="false" aria-controls="prestigeContent">Prestige ▼</div>
-    <div class="prestige-content" id="prestigeContent" aria-hidden="true">
-      <div id="prestigeInfo">Level: 0/12<br>Bonus Multiplier: x1<br>Cost: 1T</div>
-      <button id="prestigeBuyBtn">Buy Prestige</button>
+    <div id="pagePrestige" class="page">
+        <div class="settings-panel" style="text-align:center;">
+            <div class="prestige-icon">👑💀👑</div>
+            <h2 style="font-size:3.2rem;color:#ffbd7a;font-family:'Nosifer';">BONE PRESTIGE</h2>
+            <div class="prestige-card" id="prestigeInfo">
+                <div>Current prestige level: <span id="prestigeLevelSpan">0</span></div>
+                <div>Multiplier: <span id="prestigeMultSpan">1.00</span>x</div>
+                <div>Next bonus: +25% → <span id="nextPrestigeMultSpan">1.25</span>x</div>
+                <div>Prestige cost: <span id="prestigeCostSpan">300</span> 🦴</div>
+            </div>
+            <div class="prestige-desc">
+                ✨ Resets bones & upgrades, but gain permanent 1.25x bonus.<br>
+                Each prestige increases cost by 20x (300 → 6k → 120k …).<br>
+                Prestige also reveals ONE more hidden upgrade (tier locked).
+                Max level 30
+            </div>
+            <div class="prestige-btn" id="prestigeActionBtn">💀 CLAIM PRESTIGE 💀</div>
+            <div class="storage-info" id="prestigeMessage">Become stronger...</div>
+        </div>
     </div>
-  </div>
-
-  <!-- Save/Load -->
-  <div class="save-container" id="saveContainer">
-    <div class="save-header" id="saveHeader" role="button" tabindex="0" aria-expanded="true" aria-controls="saveContent">Save & Load ▲</div>
-    <div class="save-content" id="saveContent" aria-hidden="false">
-      <button id="saveBtn">Save Game</button>
-      <button id="loadBtn">Load Game</button>
-      <button id="resetBtn">Full Reset</button>
-      <div id="lastSavedInfo" style="margin-top: 10px; font-size: 0.9em; color: var(--text-color);"></div>
+    <div id="pageAchievements" class="page">
+        <div class="settings-panel">
+            <h2 style="font-size:2.8rem; color:#ffb371; font-family:'Nosifer';">🏆 BONE ACHIEVEMENTS</h2>
+            <div class="achievements-panel" id="achievementsList">loading...</div>
+        </div>
     </div>
-  </div>
-</div>
-
-<div id="notificationArea"></div>
-
-  <div id="versionReminder" style="display:none; position:fixed; top:0; left:0; width:100%; background:#ffd700; color:#222; font-weight:bold; z-index:20000; padding:18px 10px; text-align:center; box-shadow:0 2px 6px rgba(0,0,0,0.18);">
-  🚨 New Version Available! <a href="https://hugochan117.github.io/Skull-Clicker/%F0%9F%92%80Clicker%E2%84%A2V2.html" style="color:#1565c0; text-decoration:underline;">Click here to play 💀Clicker™ V2!</a>
-  <button id="closeVersionReminder" style="margin-left:18px; background:#fff; color:#222; border:1px solid #aaa; border-radius:8px; font-weight:bold; padding:5px 12px; cursor:pointer;">×</button>
+    <div id="pageStats" class="page">
+        <div class="settings-panel">
+            <div class="totals-list" id="statsDetail">loading stats ...</div>
+            <div class="import-export-panel">
+                <input type="text" id="importField" placeholder="paste skull save" />
+                <button class="skull-btn" id="exportBtn">📤 EXPORT</button>
+                <button class="skull-btn" id="importBtn">📥 IMPORT</button>
+            </div>
+            <div>
+                <button class="skull-btn" id="saveGameBtn">💾 SAVE</button>
+                <button class="skull-btn" id="loadGameBtn">📂 LOAD</button>
+                <button class="skull-btn" id="resetGameBtn">⚠️ RESET</button>
+            </div>
+            <div class="storage-info" id="saveStatus">💀 bone vault ready</div>
+            <div class="extra-stat" id="statsClickPower">⚡ skull power: 0</div>
+        </div>
+    </div>
 </div>
 
 <script>
-// DARK MODE TOGGLE
-const darkModeBtn = document.getElementById('darkModeToggle');
-darkModeBtn.addEventListener('click', () => {
-  document.body.classList.toggle('dark-mode');
-  const isDark = document.body.classList.contains('dark-mode');
-  darkModeBtn.textContent = isDark ? 'Light Mode' : 'Dark Mode';
-  darkModeBtn.setAttribute('aria-pressed', isDark);
-});
+(function() {
+    let bones = 0.0;
+    let totalManualClicks = 0;
+    let prestigeLevel = 0;
+    const PRESTIGE_BASE_COST = 300;       // in bones
+    const PRESTIGE_COST_MULT = 20;        // x20 per level match upgrade tiers
+    const PRESTIGE_BONUS_PER_LEVEL = 1.25;  // multiplier x1.25 multiplactive per level to retain balance
 
-// Toggle section helper function for headers + content
-function toggleSection(headerId, contentId) {
-  const header = document.getElementById(headerId);
-  const content = document.getElementById(contentId);
+    function getPrestigeMultiplier() {
+        return Math.pow(PRESTIGE_BONUS_PER_LEVEL, prestigeLevel);
+    }
 
-  function toggle() {
-    const expanded = content.style.display === 'block';
-    if (expanded) {
-      content.style.display = 'none';
-      header.textContent = header.textContent.replace('▲', '▼');
-      header.setAttribute('aria-expanded', 'false');
-      content.setAttribute('aria-hidden', 'true');
+    function getPrestigeCost() {
+        return PRESTIGE_BASE_COST * Math.pow(PRESTIGE_COST_MULT, prestigeLevel);
+    }
+
+// x20cost per tier
+    const upgrades = [
+        { id: 'bone1',    name: 'BONE COB',       icon: '🦴', basePower: 1,        baseCost: 20,       desc: '+1/click' },
+        { id: 'bone2',    name: 'SKULL HOE',      icon: '⛏️', basePower: 12,       baseCost: 400,      desc: '+12/click' },
+        { id: 'bone3',    name: 'BONE SPRINKLER', icon: '💧', basePower: 140,      baseCost: 8000,     desc: '+140/click' },
+        { id: 'bone4',    name: 'SKULL TRACTOR',  icon: '🚜', basePower: 1700,     baseCost: 160000,   desc: '+1700/click' },
+        { id: 'bone5',    name: 'BONE COMBINE',   icon: '⚙️', basePower: 20000,    baseCost: 3200000,  desc: '+20k/click' },
+        { id: 'bone6',    name: 'SKULL NANO',     icon: '🧬', basePower: 240000,   baseCost: 64000000, desc: '+240k/click' },
+        { id: 'bone7',    name: 'BONE QUANTUM',   icon: '🔮', basePower: 2900000,  baseCost: 1280000000, desc: '+2.9M/click' },
+        { id: 'bone8',    name: 'SKULL FUSION',   icon: '⚡', basePower: 35000000, baseCost: 25600000000, desc: '+35M/click' },
+        { id: 'bone9',    name: 'GALACTIC SKULL', icon: '🌌', basePower: 450000000, baseCost: 512000000000, desc: '+450M/click' },
+        { id: 'bone10',   name: 'VOID REAPER',    icon: '👾', basePower: 5600000000, baseCost: 10240000000000, desc: '+5.6B/click' },
+        { id: 'bone11',   name: 'COSMIC SKULL',   icon: '🛸', basePower: 72000000000, baseCost: 204800000000000, desc: '+72B/click' },
+        { id: 'bone12',   name: 'SHADOW AVATAR',  icon: '🦅', basePower: 900000000000, baseCost: 4096000000000000, desc: '+900B/click' }, 
+        { id: 'bone13',   name: 'STELLAR SKULL',  icon: '🌠', basePower: 12000000000000, baseCost: 8.192e+16, desc: '+12T/click' },
+        { id: 'bone14',   name: 'COSMIC REAPER',  icon: '☄️', basePower: 150000000000000, baseCost: 1.6384e+18, desc: '+150T/click' },
+        { id: 'bone15',   name: 'VOID ENGINE',    icon: '🌀', basePower: 2000000000000000, baseCost: 3.2768e+19, desc: '+2Qa/click' },
+        { id: 'bone16',   name: 'SKULL FORGE',    icon: '⭐', basePower: 2.5e+16, baseCost: 6.5536e+20, desc: '+25Qa/click' },
+        { id: 'bone17',   name: 'BONE WHISPERER', icon: '🐋', basePower: 3e+17, baseCost: 1.31072e+22, desc: '+300Qa/click' },
+        { id: 'bone18',   name: 'ANCIENT SKULL',  icon: '👤', basePower: 3.6e+18, baseCost: 2.62144e+23, desc: '+3.6Qi/click' },
+        { id: 'bone19',   name: 'COSMIC NEXUS',   icon: '🌐', basePower: 5e+19, baseCost: 5.24288e+24, desc: '+50 Qi/click' },
+        { id: 'bone20',   name: 'DIVINE SKULL',   icon: '👑', basePower: 6.5e+20, baseCost: 1.048576e+26, desc: '+650 Qi/click' },
+        { id: 'bone21',   name: 'COSMIC OVERLORD', icon: '👁️', basePower: 8e+21, baseCost: 2.097152e+27, desc: '+8 Sx/click' },
+        { id: 'bone22',   name: 'BONE GOD',       icon: '🗿', basePower: 1.05e+23, baseCost: 4.194304e28, desc: '+105 Sx/click' },
+        { id: 'bone23',   name: 'ETHEREAL SKULL', icon: '🌀', basePower: 1.30e+24, baseCost: 8.388608e29, desc: '+1.30 Sp/click' }, 
+        { id: 'bone24',   name: 'SOUL REAPER',   icon: '👻', basePower: 1.55e+25, baseCost: 1.6777216e31, desc: '+15 Sp/click' },
+        { id: 'bone25',    name: 'BONE HIVE',       icon: '🐝', basePower: 2.0e+26, baseCost: 3.3554432e32, desc: '+200 Sp/click' },
+        { id: 'bone26',    name: 'SKULL INFERNO',   icon: '🔥', basePower: 2.5e+27, baseCost: 6.7108864e33, desc: '+2.5 Oc/click' },
+        { id: 'bone27',    name: 'BONE SINGULARITY', icon: '⚫', basePower: 3.1e+28, baseCost: 1.34217728e35, desc: '+31 Oc/click' },
+        { id: 'bone28',    name: 'SKULL SUPERNOVA', icon: '💥', basePower: 4e+29, baseCost: 2.68435456e36, desc: '+400 Oc/click' },
+        { id: 'bone29',    name: 'BONE BIG BANG',   icon: '💫', basePower: 5.5e+30, baseCost: 5.36870912e37, desc: '+5.5 No/click' },
+        { id: 'bone30',    name: 'SKULL GOD',       icon: '😈', basePower: 7.2e+31, baseCost: 1.073741824e39, desc: '+72 No/click' },
+        { id: 'bone31',    name: 'JABEL',    icon: '🧙', basePower: 1e+40, baseCost: 7.7179689e+48, desc: '+10 Dd/click', imageUrl: 'https://kingshotdata.com/wp-content/uploads/2025/03/jabel.webp'}
+    ];
+
+    let levels = {};
+    upgrades.forEach(u => levels[u.id] = 0);
+
+    function isUpgradeVisibleByPrestige(index) {
+        return index < 1 + prestigeLevel;   // at P0 only index0 visible; P1 shows index0,1; P2 shows index0,1,2 etc.
+    }
+
+    function isUpgradeUnlockedByTier(index) {
+        if (index === 0) return true; // first always buyable if visible
+        if (index >= 1 + prestigeLevel) return false; // completely hidden, but we block via locked-tier later
+        const requiredId = upgrades[index-1].id;
+        return levels[requiredId] >= 1;
+    }
+
+    let combo = 0;
+    const MAX_COMBO = 50;
+    const COMBO_DECAY_MS = 500; // 0.5 seconds
+    let comboTimer = null;
+    let lastClickTime = 0;
+    function comboPercent() { return Math.min(combo * 2, 100); }
+    function comboMultiplier() { return 1 + comboPercent() / 100; }
+    function increaseCombo() { combo = Math.min(combo + 1, MAX_COMBO); resetComboTimer(); updateComboUI(); }
+    function resetComboTimer() { if (comboTimer) clearTimeout(comboTimer); comboTimer = setTimeout(() => { combo = 0; updateComboUI(); comboTimer = null; }, COMBO_DECAY_MS); }
+    function updateComboUI() {
+        const el = document.getElementById('comboDisplay'); if(el) el.innerText = combo;
+        const pctEl = document.getElementById('comboPercentDisplay'); if(pctEl) pctEl.innerText = `(+${comboPercent()}%)`;
+    }
+
+    function getCritMultiplier() {
+        const r = Math.random() * 10000;
+        if (r < 1) return 1000;      // 0.01%
+        if (r < 11) return 25;        // 0.1%
+        if (r < 111) return 5;        // 1%
+        if (r < 611) return 2;        // 5%
+        return 1;
+    }
+    
+    function spawnFloatingText(message, isCrit) {
+        const span = document.createElement('div');
+        span.className = 'floating-crit';
+        span.innerText = message;
+        span.style.left = (Math.random() * 60 + 20) + '%';
+        span.style.top = '50%';
+        if (message.includes('1000x')) span.style.color = '#ff00aa'; 
+        else if (message.includes('25x')) span.style.color = '#ff4400';
+        else if (message.includes('5x')) span.style.color = '#ff9900';
+        document.body.appendChild(span);
+        setTimeout(() => span.remove(), 800);
+    }
+
+    function baseClickPowerRaw() {
+        let sum = 1;
+        for (let u of upgrades) sum += getPowerFor(u);
+        return sum;
+    }
+
+    function getPowerFor(upgrade) {
+        const lvl = levels[upgrade.id];
+        if (lvl === 0) return 0;
+        return upgrade.basePower * Math.pow(1.25, lvl - 1);
+    }
+    
+    function getNextCost(upgrade) {
+        const lvl = levels[upgrade.id];
+        return Math.floor(upgrade.baseCost * Math.pow(1.32, lvl));
+    }
+    
+    function baseClickPower() {
+        return baseClickPowerRaw();
+    }
+    
+    function totalClickPower() {
+        return baseClickPower() * comboMultiplier() * getPrestigeMultiplier();
+    }
+
+function formatNumber(num) {
+    if (num === Infinity) return '∞';
+    if (num === undefined || num === null) return '0';
+    if (num < 1000000) {
+        return Math.floor(num).toLocaleString('en-US');
+    }
+
+    const suffixes = [
+        '', 'Thousand', 'Million', 'Billion', 'Trillion', 'Quadrillion', 
+        'Quintillion', 'Sextillion', 'Septillion', 'Octillion', 'Nonillion', 
+        'Decillion', 'Undecillion', 'Duodecillion', 'Tredecillion', 
+        'Quattuordecillion', 'Quindecillion', 'Sexdecillion', 'Septendecillion', 
+        'Octodecillion', 'Novemdecillion', 'Vigintillion'
+    ];
+    
+    let tier = 0;
+    let tempNum = num;
+    while (tempNum >= 1000 && tier < suffixes.length - 1) {
+        tempNum /= 1000;
+        tier++;
+    }
+
+    let formatted;
+    if (tempNum < 10) {
+        formatted = tempNum.toFixed(2);  // 1.23 Million
+    } else if (tempNum < 100) {
+        formatted = tempNum.toFixed(1);  // 12.3 Million
     } else {
-      content.style.display = 'block';
-      header.textContent = header.textContent.replace('▼', '▲');
-      header.setAttribute('aria-expanded', 'true');
-      content.setAttribute('aria-hidden', 'false');
+        formatted = Math.floor(tempNum).toString(); 
     }
-  }
-
-  header.addEventListener('click', toggle);
-  header.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      toggle();
+    
+    // Clean up trailing .0
+    if (formatted.endsWith('.0')) {
+        formatted = formatted.slice(0, -2);
     }
-  });
+    
+    return `${formatted} ${suffixes[tier]}`.trim();
 }
 
-// Initialize toggles for all sections
-['upgradesHeader', 'featuresHeader', 'autoclickerHeader', 'prestigeHeader', 'saveHeader', 'achievementsHeader'].forEach(id => {
-  const contentId = id.replace('Header', 'Content');
-  toggleSection(id, contentId);
-});
-
-// Achievements button toggle
-document.getElementById('achievementsBtn').addEventListener('click', function() {
-  const container = document.getElementById('achievementsContainer');
-  const header = document.getElementById('achievementsHeader');
-  const content = document.getElementById('achievementsContent');
-  
-  if (content.style.display === 'block') {
-    content.style.display = 'none';
-    header.textContent = 'Achievements ▼';
-    header.setAttribute('aria-expanded', 'false');
-    content.setAttribute('aria-hidden', 'true');
-    this.classList.remove('open');
-  } else {
-    content.style.display = 'block';
-    header.textContent = 'Achievements ▲';
-    header.setAttribute('aria-expanded', 'true');
-    content.setAttribute('aria-hidden', 'false');
-    this.classList.add('open');
-  }
-});
-
-// ----- Achievements System -----
 const achievements = [
-  // Click achievements
-  { id: 'first_click', icon: '👆', title: 'First Click', description: 'Click the skull for the first time', condition: (g) => g.clicks >= 1, unlocked: false, progress: (g) => g.clicks >= 1 ? 1 : g.clicks },
-  { id: 'hundred_clicks', icon: '💯', title: 'Century', description: 'Reach 100 clicks', condition: (g) => g.clicks >= 100, unlocked: false, progress: (g) => Math.min(g.clicks / 100, 1) },
-  { id: 'thousand_clicks', icon: '👍', title: 'Grand Master', description: 'Reach 1,000 clicks', condition: (g) => g.clicks >= 1000, unlocked: false, progress: (g) => Math.min(g.clicks / 1000, 1) },
-  { id: 'tenk_clicks', icon: '🎯', title: 'Ten Thousand', description: 'Reach 10,000 clicks', condition: g => g.clicks >= 10000, unlocked: false, progress: (g) => Math.min(g.clicks / 10000, 1) },
-  { id: 'hundredk_clicks', icon: '🔥', title: 'Hundred Thousand', description: 'Reach 100,000 clicks', condition: g => g.clicks >= 100000, unlocked: false, progress: (g) => Math.min(g.clicks / 100000, 1) },
-  { id: 'million_clicks', icon: '🏆', title: 'Million Clicks', description: 'Reach 1 million clicks', condition: g => g.clicks >= 1000000, unlocked: false, progress: (g) => Math.min(g.clicks / 1000000, 1) },
-
-  // Score achievements
-  { id: 'ten_thousand_score', icon: '✨', title: 'Score Milestone', description: 'Reach 10,000 points', condition: (g) => g.score >= 1e4, unlocked: false, progress: (g) => Math.min(g.score / 1e4, 1) },
-  { id: 'millionaire', icon: '💰', title: 'Millionaire', description: 'Reach 1 million points', condition: (g) => g.score >= 1e6, unlocked: false, progress: (g) => Math.min(g.score / 1e6, 1) },
-  { id: 'billionaire', icon: '💎', title: 'Billionaire', description: 'Reach 1 billion points', condition: (g) => g.score >= 1e9, unlocked: false, progress: (g) => Math.min(g.score / 1e9, 1) },
-  { id: 'trillionaire', icon: '🪙', title: 'Trillionaire', description: 'Reach 1 trillion points', condition: (g) => g.score >= 1e12, unlocked: false, progress: (g) => Math.min(g.score / 1e12, 1) },
-  { id: 'quadrillionaire', icon: '💸', title: 'Quadrillionaire', description: 'Reach 1 quadrillion points', condition: (g) => g.score >= 1e15, unlocked: false, progress: (g) => Math.min(g.score / 1e15, 1) },
-  { id: 'sextillionaire', icon: '🥇', title: 'Sextillionaire', description: 'Reach 1 sextillion points', condition: (g) => g.score >= 1e21, unlocked: false, progress: (g) => Math.min(g.score / 1e21, 1) },
-  { id: 'octillionaire', icon: '🦾', title: 'Octillionaire', description: 'Reach 1 octillion points', condition: (g) => g.score >= 1e27, unlocked: false, progress: (g) => Math.min(g.score / 1e27, 1) },
-  { id: 'decillionaire', icon: '🌌', title: 'Decillionaire', description: 'Reach 1 decillion points', condition: (g) => g.score >= 1e33, unlocked: false, progress: (g) => Math.min(g.score / 1e33, 1) },
-
-  // Upgrade/facility/autoclicker
-  { id: 'first_upgrade', icon: '🔼', title: 'Upgrader', description: 'Purchase your first upgrade', condition: (g) => g.baseMultiplier > 1, unlocked: false, progress: (g) => g.baseMultiplier > 1 ? 1 : 0 },
-  { id: 'first_factory', icon: '🏭', title: 'Industrialist', description: 'Build your first factory', condition: (g) => g.factoryLevel >= 1, unlocked: false, progress: (g) => Math.min(g.factoryLevel, 1) },
-  { id: 'max_factory', icon: '🏭', title: 'Factory Master', description: 'Max out Factory level (100)', condition: (g) => g.factoryLevel >= 100, unlocked: false, progress: (g) => Math.min(g.factoryLevel / 100, 1) },
-  { id: 'first_bank', icon: '🏦', title: 'Banker', description: 'Upgrade your first bank', condition: (g) => g.bankLevel >= 1, unlocked: false, progress: (g) => Math.min(g.bankLevel, 1) },
-  { id: 'max_bank', icon: '🏦', title: 'Banking Mogul', description: 'Max out Bank level (100)', condition: (g) => g.bankLevel >= 100, unlocked: false, progress: (g) => Math.min(g.bankLevel / 100, 1) },
-  { id: 'first_hotel', icon: '🏨', title: 'Hotelier', description: 'Upgrade your first hotel', condition: (g) => g.hotelLevel >= 1, unlocked: false, progress: (g) => Math.min(g.hotelLevel, 1) },
-  { id: 'max_hotel', icon: '🏨', title: 'Hotel Tycoon', description: 'Max out Hotel level (100)', condition: (g) => g.hotelLevel >= 100, unlocked: false, progress: (g) => Math.min(g.hotelLevel / 100, 1) },
-  { id: 'first_shop', icon: '🏪', title: 'Shopkeeper', description: 'Upgrade your first shop', condition: (g) => g.shopLevel >= 1, unlocked: false, progress: (g) => Math.min(g.shopLevel, 1) },
-  { id: 'max_shop', icon: '🏪', title: 'Shopping Empire', description: 'Max out Shop level (100)', condition: (g) => g.shopLevel >= 100, unlocked: false, progress: (g) => Math.min(g.shopLevel / 100, 1) },
-  { id: 'first_autoclicker', icon: '🤖', title: 'Automator', description: 'Purchase your first auto clicker', condition: (g) => g.autoclickerLevel >= 1, unlocked: false, progress: (g) => Math.min(g.autoclickerLevel, 1) },
-  { id: 'fifty_autoclickers', icon: '🛠️', title: 'Automation Factory', description: 'Buy 50 auto clickers', condition: (g) => g.autoclickerLevel >= 50, unlocked: false, progress: (g) => Math.min(g.autoclickerLevel / 50, 1) },
-  { id: 'max_autoclicker', icon: '🤖', title: 'Robot Overlord', description: 'Max out Auto Clicker level (200)', condition: (g) => g.autoclickerLevel >= 200, unlocked: false, progress: (g) => Math.min(g.autoclickerLevel / 200, 1) },
-
-  // Prestige
-  { id: 'first_prestige', icon: '🔄', title: 'Ascended', description: 'Prestige for the first time', condition: (g) => g.prestigeLevel >= 1, unlocked: false, progress: (g) => Math.min(g.prestigeLevel, 1) },
-  { id: 'third_prestige', icon: '🔄', title: 'Ascended III', description: 'Prestige for the third time', condition: (g) => g.prestigeLevel >= 3, unlocked: false, progress: (g) => Math.min(g.prestigeLevel / 3, 1) },
-  { id: 'max_prestige', icon: '👑', title: 'Supreme Being', description: 'Reach maximum prestige level (12)', condition: (g) => g.prestigeLevel >= 12, unlocked: false, progress: (g) => Math.min(g.prestigeLevel / 12, 1) },
-
-  // Special achievements
-  { id: 'critical_hit', icon: '💥', title: 'Critical Hit!', description: 'Get a critical hit', condition: (g) => g.criticalHits >= 1, unlocked: false, progress: (g) => Math.min(g.criticalHits, 1) },
-  { id: 'golden_time', icon: '🌟', title: 'Golden Moment', description: 'Experience golden time', condition: (g) => g.goldenTimeExperienced >= 1, unlocked: false, progress: (g) => Math.min(g.goldenTimeExperienced, 1) },
-  { id: 'full_reset', icon: '♻️', title: 'Fresh Start', description: 'Perform a full reset once', condition: (g) => g.fullResets >= 1, unlocked: false, progress: (g) => Math.min(g.fullResets, 1) },
+    { id: 'click1', name: 'First Bone', desc: 'Click once', icon: '🖱️', condition: () => totalManualClicks >= 1 },
+    { id: 'click100', name: 'Bone Collector', desc: '100 clicks', icon: '🖱️', condition: () => totalManualClicks >= 100 },
+    { id: 'click1k', name: 'Skull Maniac', desc: '1,000 clicks', icon: '🖱️', condition: () => totalManualClicks >= 1000 },
+    { id: 'click10k', name: 'Bone Emperor', desc: '10,000 clicks', icon: '🖱️', condition: () => totalManualClicks >= 10000 },
+    { id: 'click100k', name: 'Skull Legend', desc: '100,000 clicks', icon: '🖱️', condition: () => totalManualClicks >= 100000 },
+    { id: 'click1m', name: 'Bone Deity', desc: '1,000,000 clicks', icon: '🖱️🔥', condition: () => totalManualClicks >= 1000000 },
+    { id: 'upgrade1', name: 'First Offering', desc: 'Buy first upgrade', icon: '⬆️', condition: () => Object.values(levels).some(lvl => lvl >= 1) },
+    { id: 'upgrade3', name: 'Bone Altar', desc: 'Own 3 upgrades', icon: '⬆️', condition: () => Object.values(levels).filter(lvl => lvl >= 1).length >= 3 },
+    { id: 'upgrade5', name: 'Skull Shrine', desc: 'Own 5 upgrades', icon: '⬆️', condition: () => Object.values(levels).filter(lvl => lvl >= 1).length >= 5 },
+    { id: 'upgrade10', name: 'Skull Throne', desc: 'Own 10 upgrades', icon: '⬆️', condition: () => Object.values(levels).filter(lvl => lvl >= 1).length >= 10 },
+    { id: 'upgrade15', name: 'Bone Cathedral', desc: 'Own 15 upgrades', icon: '⬆️', condition: () => Object.values(levels).filter(lvl => lvl >= 1).length >= 15 },
+    { id: 'upgrade20', name: 'Necropolis', desc: 'Own 20 upgrades', icon: '⬆️', condition: () => Object.values(levels).filter(lvl => lvl >= 1).length >= 20 },
+    { id: 'upgrade31', name: 'Bone Apocalypse', desc: 'Own all 31 upgrades', icon: '⬆️💀', condition: () => Object.values(levels).filter(lvl => lvl >= 1).length >= 31 },
+    { id: 'combo10', name: 'Bone Rush', desc: 'Reach 10 combo', icon: '⚡', condition: () => combo >= 10 },
+    { id: 'combo25', name: 'Bone Frenzy', desc: 'Reach 25 combo', icon: '⚡', condition: () => combo >= 25 },
+    { id: 'combo50', name: 'Skull Rampage', desc: 'Reach 50 combo', icon: '⚡', condition: () => combo >= 50 },
+    { id: 'crit2', name: 'Lucky Break', desc: 'Get a 2x critical', icon: '🍀', condition: () => false }, 
+    { id: 'crit5', name: 'Critical Mass', desc: 'Get a 5x critical', icon: '🍀🔥', condition: () => false },
+    { id: 'crit25', name: 'Lucky Skull!', desc: 'Get a 25x critical', icon: '🍀💀', condition: () => false },
+    { id: 'crit1000', name: 'ONE IN A MILLION', desc: 'Get a 1000x critical', icon: '💀✨', condition: () => false },
+    { id: 'bones1k', name: 'Bone Pile', desc: 'Have 1,000 bones at once', icon: '🦴', condition: () => bones >= 1000 },
+    { id: 'bones1m', name: 'Millionare', desc: 'Have 1 million bones at once', icon: '🦴⛰️', condition: () => bones >= 1000000 },
+    { id: 'bones1b', name: 'Bone Planet', desc: 'Have 1 billion bones at once', icon: '🦴🌍', condition: () => bones >= 1000000000 },
+    { id: 'bones1t', name: 'Bone Galaxy', desc: 'Have 1 trillion bones at once', icon: '🦴🌌', condition: () => bones >= 1000000000000 },
+    { id: 'prestige1', name: 'Bone Ascension', desc: 'Prestige for the first time', icon: '👑', condition: () => prestigeLevel >= 1 },
+    { id: 'prestige2', name: 'Skull Walker', desc: 'Reach prestige level 2', icon: '👑💀', condition: () => prestigeLevel >= 2 },
+    { id: 'prestige3', name: 'Bone Lich', desc: 'Reach prestige level 3', icon: '👑🧙', condition: () => prestigeLevel >= 3 },
+    { id: 'prestige4', name: 'Necromancer', desc: 'Reach prestige level 4', icon: '👑🔮', condition: () => prestigeLevel >= 4 },
+    { id: 'prestige5', name: 'Necro Overlord', desc: 'Reach prestige level 5', icon: '👑⚡', condition: () => prestigeLevel >= 5 },
+    { id: 'prestige10', name: 'Bone Emperor', desc: 'Reach prestige level 10', icon: '👑👑', condition: () => prestigeLevel >= 10 },
+    { id: 'prestige15', name: 'Skull God', desc: 'Reach prestige level 15', icon: '👑💫', condition: () => prestigeLevel >= 15 },
+    { id: 'prestige20', name: 'Death Itself', desc: 'Reach prestige level 20', icon: '👑🦇', condition: () => prestigeLevel >= 20 },
+    { id: 'prestige25', name: 'BONE APEX', desc: 'Reach prestige level 25', icon: '👑🔥', condition: () => prestigeLevel >= 25 },
+    { id: 'prestige30', name: 'MAX PRESTIGE', desc: 'Reach prestige level 30', icon: '👑🔥', condition: () => prestigeLevel >= 30 },
+    { id: 'perfectcrit', name: 'Cosmic Alignment', desc: 'Get a 1000x crit with 50 combo', icon: '🌠', condition: () => false }, // manual
+    { id: 'firsthidden', name: 'Unveiled', desc: 'Unlock your first hidden upgrade', icon: '👁️', condition: () => prestigeLevel >= 1 && Object.values(levels).filter(lvl => lvl >= 1).length >= 2 },
+    { id: 'fullpower', name: 'Ultimate Skull', desc: 'Own the Necromancer upgrade', icon: '🧙💀', condition: () => levels['bone31'] >= 1 },
 ];
 
-// Add fullResets to game state
-let fullResets = 0;
-let criticalHits = 0;
-let goldenTimeExperienced = 0;
+    let unlockedAchievements = [];
 
-function renderAchievements() {
-  const container = document.getElementById('achievementsList');
-  container.innerHTML = "";
-  achievements.forEach(ach => {
-    const el = document.createElement('div');
-    el.className = 'achievement' + (ach.unlocked ? ' unlocked' : '');
-    
-    const progress = ach.progress ? ach.progress(game) : 0;
-    const progressBar = ach.progress && !ach.unlocked ? `
-      <div class="achievement-progress">
-        <div class="achievement-progress-fill" style="width: ${progress * 100}%"></div>
-      </div>
-    ` : '';
-    
-    el.innerHTML = `
-      <span class="icon">${ach.icon}</span>
-      <div class="achievement-text">
-        <div class="achievement-title">${ach.title}</div>
-        <div class="achievement-description">${ach.description}</div>
-        ${progressBar}
-      </div>
-    `;
-    
-    // Add tooltip for locked achievements
-    if (!ach.unlocked) {
-      const tooltip = document.createElement('div');
-      tooltip.className = 'tooltip';
-      tooltip.textContent = `Progress: ${Math.round(progress * 100)}%`;
-      el.appendChild(tooltip);
-      
-      el.addEventListener('mouseenter', () => {
-        tooltip.classList.add('show');
-      });
-      
-      el.addEventListener('mouseleave', () => {
-        tooltip.classList.remove('show');
-      });
+    function checkAchievements() {
+        let changed = false;
+        achievements.forEach(ach => {
+            if (!unlockedAchievements.includes(ach.id) && ach.condition()) {
+                unlockedAchievements.push(ach.id);
+                changed = true;
+                spawnFloatingText('🏆 ' + ach.name, true);
+            }
+        });
+        if (changed) renderAchievements();
     }
-    
-    container.appendChild(el);
-  });
-}
+    function checkCrit25() { if (!unlockedAchievements.includes('crit25')) { unlockedAchievements.push('crit25'); renderAchievements(); spawnFloatingText('🏆 Lucky Skull!', true); } }
+    function checkCrit1000() { if (!unlockedAchievements.includes('crit1000')) { unlockedAchievements.push('crit1000'); renderAchievements(); spawnFloatingText('🏆 ONE IN A MILLION', true); } }
 
-function showAchievementPopup(ach) {
-  const popup = document.getElementById('achievementPopup');
-  popup.innerHTML = `
-    <span class="icon">${ach.icon}</span>
-    <span class="title">Achievement Unlocked!</span>
-    <div class="description">${ach.title}: ${ach.description}</div>
-  `;
-  popup.style.display = 'block';
-  
-  // Play sound if available
-  if (typeof Audio !== 'undefined') {
-    const sound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3');
-    sound.volume = 0.3;
-    sound.play().catch(e => console.log('Audio play failed:', e));
-  }
-  
-  setTimeout(() => {
-    popup.style.display = 'none';
-  }, 3000);
-}
-
-function checkAchievements() {
-  let anyNew = false;
-  achievements.forEach(ach => {
-    if (!ach.unlocked && ach.condition(game)) {
-      ach.unlocked = true;
-      showAchievementPopup(ach);
-      anyNew = true;
+    function renderAchievements() {
+        const container = document.getElementById('achievementsList');
+        if (!container) return;
+        let html = '';
+        achievements.forEach(ach => {
+            const unlocked = unlockedAchievements.includes(ach.id);
+            html += `<div class="achievement-entry" style="${unlocked ? '' : 'opacity:0.6;'}">
+                <span class="achievement-icon">${ach.icon}</span>
+                <span class="achievement-desc"><b>${ach.name}</b>: ${ach.desc}</span>
+                <span class="achievement-reward">${unlocked ? '✅' : '🔒'}</span>
+            </div>`;
+        });
+        container.innerHTML = html;
     }
-  });
-  if (anyNew) renderAchievements();
-}
 
-// ----- Main Game Variables -----
-let score = 0;
-let baseMultiplier = 1;
-let factoryLevel = 0;
-const maxLevel = 100;
-let bankLevel = 0;
-let hotelLevel = 0;
-let shopLevel = 0;
-let autoclickerLevel = 0;
-let autoclickerBaseCost = 100;
-let prestigeLevel = 0;
-const prestigeMaxLevel = 12;
-const prestigeBaseCost = 1e12;
-let prestigeCost = prestigeBaseCost;
-let clicks = 0;
+    const grid = document.getElementById('upgradeGrid');
+    function renderUpgrades() {
+        grid.innerHTML = '';
+        upgrades.forEach((up, idx) => {
+            if (!isUpgradeVisibleByPrestige(idx)) return; 
 
-// Golden time variables
-let goldenTimeActive = false;
-let goldenTimeEnd = 0;
-let goldenTimeChance = 0.0005; // 0.05% chance per click
-let goldenTimeDuration = 30000; // 30 seconds
+            const level = levels[up.id];
+            const cost = getNextCost(up);
+            const power = getPowerFor(up);
+            const tierUnlocked = isUpgradeUnlockedByTier(idx);
+            
+            let cardClass = 'upgrade-card';
+            if (!tierUnlocked) cardClass += ' locked-tier';
+            else if (bones < cost) cardClass += ' disabled';
 
-// Critical hit variables
-let criticalHitChance = 0.05; // 5% base chance
-let criticalHitMultiplier = 2; // 2x multiplier
+            const card = document.createElement('div');
+            card.className = cardClass;
+            card.dataset.id = up.id;
 
-// For achievements system and reset count
-const game = {
-  get score() { return score; },
-  get baseMultiplier() { return baseMultiplier; },
-  get factoryLevel() { return factoryLevel; },
-  get bankLevel() { return bankLevel; },
-  get hotelLevel() { return hotelLevel; },
-  get shopLevel() { return shopLevel; },
-  get autoclickerLevel() { return autoclickerLevel; },
-  get prestigeLevel() { return prestigeLevel; },
-  get clicks() { return clicks; },
-  get fullResets() { return fullResets; },
-  get criticalHits() { return criticalHits; },
-  get goldenTimeExperienced() { return goldenTimeExperienced; }
-};
+            let iconHtml = `<div class="upgrade-icon">${up.icon}</div>`;
+            if (idx === 30 && up.imageUrl) { 
+                iconHtml = `<div class="upgrade-icon"><img src="${up.imageUrl}" alt="ethereal skull" onerror="this.onerror=null; this.parentNode.innerHTML='🧙';"></div>`;
+            }
 
-// Format Number
-function formatNumber(n) {
-  if (n >= 1e60) return (n / 1e60).toFixed(2)+'Nd';
-  if (n >= 1e57) return (n / 1e57).toFixed(2)+'od';
-  if (n >= 1e54) return (n / 1e54).toFixed(2)+'Sd';
-  if (n >= 1e51) return (n / 1e51).toFixed(2)+'sd';
-  if (n >= 1e48) return (n / 1e48).toFixed(2)+'Qd';
-  if (n >= 1e45) return (n / 1e45).toFixed(2)+'qd';
-  if (n >= 1e42) return (n / 1e42).toFixed(2)+'Td';
-  if (n >= 1e39) return (n / 1e39).toFixed(2)+'Dd';
-  if (n >= 1e36) return (n / 1e36).toFixed(2)+'U';
-  if (n >= 1e33) return (n / 1e33).toFixed(2)+'D';
-  if (n >= 1e30) return (n / 1e30).toFixed(2)+'N';
-  if (n >= 1e27) return (n / 1e27).toFixed(2)+'o';
-  if (n >= 1e24) return (n / 1e24).toFixed(2)+'S';
-  if (n >= 1e21) return (n / 1e21).toFixed(2)+'s';
-  if (n >= 1e18) return (n / 1e18).toFixed(2)+'Q';
-  if (n >= 1e15) return (n / 1e15).toFixed(2)+'q';
-  if (n >= 1e12) return (n / 1e12).toFixed(2)+'T';
-  if (n >= 1e9) return (n / 1e9).toFixed(2)+'B';
-  if (n >= 1e6) return (n / 1e6).toFixed(2)+'M';
-  if (n >= 1e3) return (n / 1e3).toFixed(2)+'K';
-  return Math.round(n).toString();
-}
+            let powerDisplay = (level === 0) ? 'locked' : `+${formatNumber(power)}/click`;
+            let nextPower = (level === 0) ? up.basePower : up.basePower * Math.pow(1.25, level);
+            let nextPowerStr = `next +${formatNumber(nextPower)}`;
 
-// ----- Click Effects -----
-function createClickEffect(x, y, isCritical = false) {
-  if (isCritical) {
-    const crit = document.createElement('div');
-    crit.className = 'critical-hit';
-    crit.textContent = 'CRITICAL!';
-    crit.style.left = `${x}px`;
-    crit.style.top = `${y}px`;
-    document.body.appendChild(crit);
-    
-    setTimeout(() => {
-      crit.remove();
-    }, 1000);
-  } else {
-    const effect = document.createElement('div');
-    effect.className = 'click-effect';
-    effect.style.left = `${x}px`;
-    effect.style.top = `${y}px`;
-    document.body.appendChild(effect);
-    
-    setTimeout(() => {
-      effect.remove();
-    }, 1000);
-  }
-}
-
-// ----- Golden Time System -----
-function activateGoldenTime() {
-  goldenTimeActive = true;
-  goldenTimeEnd = Date.now() + goldenTimeDuration;
-  goldenTimeExperienced++;
-  
-  // Update UI
-  const indicator = document.getElementById('goldenTimeIndicator');
-  indicator.style.display = 'block';
-  indicator.textContent = `GOLDEN TIME! ${criticalHitMultiplier}x Points!`;
-  
-  // Change skull color
-  document.getElementById('mainBtn').classList.add('golden-skull');
-  
-  // Show notification
-  showNotification('🌟 Golden Time Activated! Points are doubled!', '🌟');
-  
-  // Check achievements
-  checkAchievements();
-  
-  // Set timeout to end golden time
-  setTimeout(() => {
-    if (goldenTimeActive) {
-      endGoldenTime();
+            card.innerHTML = `
+                ${iconHtml}
+                <div class="upgrade-name">${up.name}</div>
+                <div class="upgrade-level">lvl ${level}</div>
+                <div class="upgrade-desc">${powerDisplay}</div>
+                <div class="cost-display">🦴 ${formatNumber(cost)}</div>
+                <div class="preview-note" style="font-size:0.9rem;">${nextPowerStr}</div>
+            `;
+            
+            if (tierUnlocked) {
+                card.addEventListener('click', (e) => { e.stopPropagation(); buyUpgrade(up.id); });
+            }
+            
+            grid.appendChild(card);
+        });
     }
-  }, goldenTimeDuration);
-}
 
-function endGoldenTime() {
-  goldenTimeActive = false;
-  
-  // Update UI
-  document.getElementById('goldenTimeIndicator').style.display = 'none';
-  document.getElementById('mainBtn').classList.remove('golden-skull');
-  
-  // Show notification
-  showNotification('Golden Time has ended.', '⏱️');
-}
-
-function checkGoldenTime() {
-  if (goldenTimeActive && Date.now() >= goldenTimeEnd) {
-    endGoldenTime();
-  }
-}
-
-// ----- Notification System -----
-function showNotification(message, icon = 'ℹ️') {
-  const notificationArea = document.getElementById('notificationArea');
-  const notification = document.createElement('div');
-  notification.className = 'notification';
-  notification.innerHTML = `<span class="icon">${icon}</span> ${message}`;
-  notificationArea.appendChild(notification);
-  
-  // Show notification
-  setTimeout(() => {
-    notification.classList.add('show');
-  }, 10);
-  
-  // Hide after 3 seconds
-  setTimeout(() => {
-    notification.classList.remove('show');
-    
-    // Remove after fade out
-    setTimeout(() => {
-      notification.remove();
-    }, 300);
-  }, 3000);
-}
-
-// ----- Upgrades -----
-const upgrades = [
-  { icon: '🍓', power: '+1', cost: 20, description: 'Small boost to your clicking power' },
-  { icon: '🍒', power: '+10', cost: 400, description: 'Moderate boost to your clicking power' },
-  { icon: '🍎', power: '+100', cost: 8e3, description: 'Significant boost to your clicking power' },
-  { icon: '🍅', power: '+1e03(1K)', cost: 1.6e5, description: 'Major boost to your clicking power' },
-  { icon: '🌶️', power: '+1e04(10K)', cost: 3.2e6, description: 'Huge boost to your clicking power' },
-  { icon: '🍉', power: '+1e05(100K)', cost: 6.4e7, description: 'Massive boost to your clicking power' },
-  { icon: '🍑', power: '+1e06(1M)', cost: 2.56e9, description: 'Enormous boost to your clicking power' },
-  { icon: '🍊', power: '+1e07(10M)', cost: 1.03e11, description: 'Gigantic boost to your clicking power' },
-  { icon: '🥕', power: '+1e08(100M)', cost: 4.13e12, description: 'Colossal boost to your clicking power' },
-  { icon: '🥭', power: '+1e09(1B)', cost: 1.61e14, description: 'Titanic boost to your clicking power' },
-  { icon: '🍍', power: '+1e10(10B)', cost: 6.44e15, description: 'Legendary boost to your clicking power' },
-  { icon: '🍌', power: '+1e11(100B)', cost: 2.76e17, description: 'Mythical boost to your clicking power' },
-  { icon: '🌽', power: '+1e12(1T)', cost: 1.04e19, description: 'Godly boost to your clicking power' },
-  { icon: '🍋', power: '+1e13(10T)', cost: 4.17e20, description: 'Divine boost to your clicking power' },
-  { icon: '🍈', power: '+1e14(100T)', cost: 1.68e22, description: 'Celestial boost to your clicking power' },
-  { icon: '🍐', power: '+1e15(1q)', cost: 6.72e23, description: 'Cosmic boost to your clicking power' },
-  { icon: '🫛', power: '+1e16(10q)', cost: 2.88e25, description: 'Universal boost to your clicking power' },
-  { icon: '🥬', power: '+1e17(100q)', cost: 1.37e27, description: 'Multiversal boost to your clicking power' },
-  { icon: '🫑', power: '+1e18(1Q)', cost: 6.95e28, description: 'Omniversal boost to your clicking power' },
-  { icon: '🍏', power: '+1e19(10Q)', cost: 2.78e30, description: 'Infinite boost to your clicking power' },
-  { icon: '🥝', power: '+1e20(100Q)', cost: 1.28e32, description: 'Ultimate boost to your clicking power' },
-  { icon: '🥑', power: '+1e21(1s)', cost: 5.12e33, description: 'Final boost to your clicking power' },
-  { icon: '🫒', power: '+1e22(10s)', cost: 2.05e35, description: 'Absolute boost to your clicking power' },
-  { icon: '🥦', power: '+1e23(100s)', cost: 8.20e36, description: 'Supreme boost to your clicking power' },
-  { icon: '🫐', power: '+1e24(1S)', cost: 3.28e38, description: 'Transcendent boost to your clicking power' },
-  { icon: '🍇', power: '+1e25(10S)', cost: 1.32e40, description: 'Eternal boost to your clicking power' },
-  { icon: '🍆', power: '+1e26(100S)', cost: 5.28e41, description: 'Primordial boost to your clicking power' },
-  { icon: '🍠', power: '+1e27(1o)', cost: 2.24e43, description: 'Ancient boost to your clicking power' },
-  { icon: '🥥', power: '+1e28(10o)', cost: 9.96e44, description: 'Arcane boost to your clicking power' },
-  { icon: '🥔', power: '+1e29(100o)', cost: 3.84e46, description: 'Mystical boost to your clicking power' },
-  { icon: '🧅', power: '+1e30(1N)', cost: 1.56e48, description: 'Enigmatic boost to your clicking power' },
-  { icon: '🫚', power: '+1e31(10N)', cost: 6.24e49, description: 'Unfathomable boost to your clicking power' },
-];
-
-const baseUpgradeCosts = upgrades.map(u => u.cost);
-
-// Color gradient for upgrades
-function lerp(a, b, t) { return a + (b - a) * t; }
-const startColor = { r: 231, g: 76, b: 60 }; // Red
-const midColor = { r: 155, g: 89, b: 182 }; // Purple
-const endColor = { r: 41, g: 128, b: 185 }; // Blue
-const upgradeColors = [];
-
-for (let i = 0; i < upgrades.length; i++) {
-  let t = i / (upgrades.length - 1);
-  let r, g, b;
-  
-  if (t < 0.5) {
-    t = t * 2;
-    r = Math.round(lerp(startColor.r, midColor.r, t));
-    g = Math.round(lerp(startColor.g, midColor.g, t));
-    b = Math.round(lerp(startColor.b, midColor.b, t));
-  } else {
-    t = (t - 0.5) * 2;
-    r = Math.round(lerp(midColor.r, endColor.r, t));
-    g = Math.round(lerp(midColor.g, endColor.g, t));
-    b = Math.round(lerp(midColor.b, endColor.b, t));
-  }
-  
-  upgradeColors.push(`rgb(${r},${g},${b})`);
-}
-
-const upgradeGrid = document.getElementById('upgradeGrid');
-upgrades.forEach((u, idx) => {
-  const btn = document.createElement('button');
-  btn.className = 'upgrade small';
-  btn.style.backgroundColor = upgradeColors[idx];
-  btn.style.color = '#fff';
-  btn.innerHTML = `
-    <span class="icon">${u.icon}</span>
-    <span>${u.power} Power</span>
-    <span class="cost">Cost: ${formatNumber(u.cost)}</span>
-  `;
-  
-  // Add tooltip
-  const tooltip = document.createElement('div');
-  tooltip.className = 'tooltip';
-  tooltip.textContent = u.description;
-  btn.appendChild(tooltip);
-  
-  btn.addEventListener('mouseenter', () => {
-    tooltip.classList.add('show');
-  });
-  
-  btn.addEventListener('mouseleave', () => {
-    tooltip.classList.remove('show');
-  });
-  
-  btn.addEventListener('click', () => {
-    if (score >= u.cost) {
-      score -= u.cost;
-      const num = parseFloat(u.power);
-      baseMultiplier += num;
-      u.cost = Math.ceil(u.cost * 1.15);
-      btn.innerHTML = `
-        <span class="icon">${u.icon}</span>
-        <span>${u.power} Power</span>
-        <span class="cost">Cost: ${formatNumber(u.cost)}</span>
-      `;
-      updateAll();
-      checkAchievements();
-      autoSave();
-      showNotification(`Purchased ${u.icon} ${u.power} Power Upgrade!`, '🔼');
-    } else {
-      showNotification('Not enough points for this upgrade!', '❌');
-    }
-  });
-  
-  upgradeGrid.appendChild(btn);
-});
-
-// ----- Facilities -----
-const factoryBtn = document.getElementById('factoryBtn');
-function getFactoryCost(level) { return Math.pow((level + 9), 13) / 1e7; }
-function updateFactoryInfo() {
-  document.getElementById('factoryInfo').innerHTML = `Factory Level: ${factoryLevel}<br>Benefit: +${factoryLevel * 20}%`;
-}
-factoryBtn.addEventListener('click', () => {
-  if (factoryLevel >= maxLevel) {
-    showNotification('Factory is at maximum level!', '🏭');
-    return;
-  }
-  const cost = getFactoryCost(factoryLevel + 1);
-  if (score >= cost) {
-    score -= cost;
-    factoryLevel++;
-    updateFactoryInfo();
-    updateAll();
-    checkAchievements();
-    autoSave();
-    showNotification(`Factory upgraded to level ${factoryLevel}! (+${factoryLevel * 20}%)`, '🏭');
-  } else {
-    showNotification('Not enough points to upgrade Factory!', '❌');
-  }
-});
-
-const bankBtn = document.getElementById('bankBtn');
-function getBankCost(level) { return Math.pow((level + 9), 15) / 1e3; }
-function updateBankInfo() {
-  document.getElementById('bankInfo').innerHTML = `Bank Level: ${bankLevel}<br>Benefit: +${bankLevel * 30}%`;
-}
-bankBtn.addEventListener('click', () => {
-  if (bankLevel >= maxLevel) {
-    showNotification('Bank is at maximum level!', '🏦');
-    return;
-  }
-  const cost = getBankCost(bankLevel + 1);
-  if (score >= cost) {
-    score -= cost;
-    bankLevel++;
-    updateBankInfo();
-    updateAll();
-    checkAchievements();
-    autoSave();
-    showNotification(`Bank upgraded to level ${bankLevel}! (+${bankLevel * 30}%)`, '🏦');
-  } else {
-    showNotification('Not enough points to upgrade Bank!', '❌');
-  }
-});
-
-const hotelBtn = document.getElementById('hotelBtn');
-function getHotelCost(level) { return Math.pow((level + 9), 17) * 10; }
-function updateHotelInfo() {
-  document.getElementById('hotelInfo').innerHTML = `Hotel Level: ${hotelLevel}<br>Benefit: +${hotelLevel * 45}%`;
-}
-hotelBtn.addEventListener('click', () => {
-  if (hotelLevel >= maxLevel) {
-    showNotification('Hotel is at maximum level!', '🏨');
-    return;
-  }
-  const cost = getHotelCost(hotelLevel + 1);
-  if (score >= cost) {
-    score -= cost;
-    hotelLevel++;
-    updateHotelInfo();
-    updateAll();
-    checkAchievements();
-    autoSave();
-    showNotification(`Hotel upgraded to level ${hotelLevel}! (+${hotelLevel * 45}%)`, '🏨');
-  } else {
-    showNotification('Not enough points to upgrade Hotel!', '❌');
-  }
-});
-
-const shopBtn = document.getElementById('shopBtn');
-function getShopUpgradeCost(level) { return Math.pow((level + 9), 19) * 1e5; }
-function updateShopInfo() {
-  document.getElementById('shopInfo').innerHTML = `Shop Level: ${shopLevel}<br>Benefit: +${shopLevel * 60}%`;
-}
-shopBtn.addEventListener('click', () => {
-  if (shopLevel >= 100) {
-    showNotification('Shop is at maximum level!', '🏪');
-    return;
-  }
-  const cost = getShopUpgradeCost(shopLevel + 1);
-  if (score >= cost) {
-    score -= cost;
-    shopLevel++;
-    updateShopInfo();
-    updateAll();
-    checkAchievements();
-    autoSave();
-    showNotification(`Shop upgraded to level ${shopLevel}! (+${shopLevel * 60}%)`, '🏪');
-  } else {
-    showNotification('Not enough points to upgrade Shop!', '❌');
-  }
-});
-
-// ----- Autoclicker -----
-const autoclickerMaxLevel = 200;
-function getAutoclickerCost(level) {
-  return Math.round(autoclickerBaseCost * Math.pow(1.2, level));
-}
-function getAutoclickerEffectPerSec() {
-  if (autoclickerLevel === 0) return 0;
-  return getTotalMultiplier() * (autoclickerLevel * 0.03);
-}
-function updateAutoclickerInfo() {
-  const effect = getAutoclickerEffectPerSec();
-  let cost = getAutoclickerCost(autoclickerLevel + 1);
-  let info = `Level: ${autoclickerLevel}/200<br>`;
-  info += `Effect: +${formatNumber(effect)}/sec (${autoclickerLevel * 3}%)<br>`;
-  info += autoclickerLevel < autoclickerMaxLevel
-    ? `Cost: ${formatNumber(cost)}`
-    : `Max Level`;
-  document.getElementById('autoclickerInfo').innerHTML = info;
-
-  const btn = document.getElementById('autoclickerBuyBtn');
-  if (autoclickerLevel < autoclickerMaxLevel) {
-    btn.textContent = `Buy Auto Clicker (${formatNumber(cost)})`;
-    btn.disabled = false;
-  } else {
-    btn.textContent = `Max Level Reached!`;
-    btn.disabled = true;
-  }
-}
-
-document.getElementById('autoclickerBuyBtn').addEventListener('click', () => {
-  const nextCost = getAutoclickerCost(autoclickerLevel + 1);
-  if (autoclickerLevel >= autoclickerMaxLevel) return;
-  if (score >= nextCost) {
-    score -= nextCost;
-    autoclickerLevel++;
-    updateAutoclickerInfo();
-    updateAll();
-    checkAchievements();
-    autoSave();
-    showNotification(`Auto Clicker upgraded to level ${autoclickerLevel}!`, '🤖');
-  } else {
-    showNotification('Not enough points to buy Auto Clicker!', '❌');
-  }
-});
-
-// ----- Prestige -----
-function getPrestigeBonus() {
-  return Math.pow(4, prestigeLevel);
-}
-function updatePrestigeInfo() {
-  const bonus = getPrestigeBonus();
-  document.getElementById('prestigeInfo').innerHTML = `
-    Level: ${prestigeLevel}/${prestigeMaxLevel}<br>
-    Bonus Multiplier: x${bonus.toLocaleString()}<br>
-    Cost: ${prestigeLevel < prestigeMaxLevel ? formatNumber(prestigeCost) : 'Max Level'}
-  `;
-  const btn = document.getElementById('prestigeBuyBtn');
-  if (prestigeLevel >= prestigeMaxLevel) {
-    btn.textContent = 'Max Prestige Level Reached!';
-    btn.disabled = true;
-  } else {
-    btn.textContent = `Buy Prestige (${formatNumber(prestigeCost)})`;
-    btn.disabled = false;
-  }
-}
-
-document.getElementById('prestigeBuyBtn').addEventListener('click', () => {
-  if (prestigeLevel >= prestigeMaxLevel) return;
-  if (score >= prestigeCost) {
-    score -= prestigeCost;
-    prestigeLevel++;
-    prestigeCost *= 10000;
-    resetOnPrestige();
-    updatePrestigeInfo();
-    updateAll();
-    checkAchievements();
-    autoSave();
-    showNotification(`Prestiged to level ${prestigeLevel}! Multiplier: x${getPrestigeBonus()}`, '🔄');
-  } else {
-    showNotification('Not enough points to Prestige!', '❌');
-  }
-});
-
-// ----- Main Click Button -----
-document.getElementById('mainBtn').addEventListener('click', function(e) {
-  // Check for critical hit
-  const isCritical = Math.random() < criticalHitChance;
-  const multiplier = isCritical ? criticalHitMultiplier : 1;
-  const pointsGained = getTotalMultiplier() * (goldenTimeActive ? 2 : 1) * multiplier;
-  
-  score += pointsGained;
-  clicks++;
-  
-  // Create click effect
-  const rect = this.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const y = e.clientY - rect.top;
-  createClickEffect(e.clientX, e.clientY, isCritical);
-  
-  // Check for golden time activation
-  if (!goldenTimeActive && Math.random() < goldenTimeChance) {
-    activateGoldenTime();
-  }
-  
-  if (isCritical) {
-    criticalHits++;
-    showNotification(`CRITICAL HIT! +${formatNumber(pointsGained)} points!`, '💥');
-  }
-  
-  updateAll();
-  checkAchievements();
-  autoSave();
-});
-
-// ----- Calculate Total Multiplier -----
-function getTotalMultiplier() {
-  const factoryFactor = 1 + (factoryLevel * 0.20);
-  const bankFactor = 1 + (bankLevel * 0.30);
-  const hotelFactor = 1 + (hotelLevel * 0.45);
-  const shopFactor = 1 + (shopLevel * 0.60);
-  return baseMultiplier * factoryFactor * bankFactor * hotelFactor * shopFactor * getPrestigeBonus();
-}
-
-// ----- Update All UI -----
-function updateAll() {
-  document.getElementById('score').textContent = formatNumber(score);
-
-  const factoryFactor = 1 + (factoryLevel * 0.20);
-  const bankFactor = 1 + (bankLevel * 0.30);
-  const hotelFactor = 1 + (hotelLevel * 0.45);
-  const shopFactor = 1 + (shopLevel * 0.60);
-
-  const totalMultiplier = baseMultiplier * factoryFactor * bankFactor * hotelFactor * shopFactor * getPrestigeBonus();
-
-  const statusHTML = `
-    <strong>Score:</strong> ${formatNumber(score)}<br>
-    <strong>Base Multiplier:</strong> x${formatNumber(baseMultiplier)}<br>
-    <strong>Factory Level:</strong> ${factoryLevel}/100 (+${(factoryLevel * 20)}%)<br>
-    <strong>Bank Level:</strong> ${bankLevel}/100 (+${bankLevel * 30}%)<br>
-    <strong>Hotel Level:</strong> ${hotelLevel}/100 (+${hotelLevel * 45}%)<br>
-    <strong>Shop Level:</strong> ${shopLevel}/100 (+${shopLevel * 60}%)<br>
-    <strong>Prestige Level:</strong> ${prestigeLevel}/12 (Bonus x${getPrestigeBonus().toLocaleString()})<br>
-    <strong>Total Multiplier:</strong> x${formatNumber(totalMultiplier)}<br>
-    <strong>Clicks:</strong> ${clicks}<br>
-    <strong>Auto Clicker:</strong> +${formatNumber(getAutoclickerEffectPerSec())}/sec<br>
-    ${goldenTimeActive ? '<strong style="color: var(--golden-color);">GOLDEN TIME ACTIVE! 2x Points!</strong>' : ''}
-  `;
-  document.getElementById('statsDisplay').innerHTML = statusHTML;
-
-  updateFactoryInfo();
-  updateBankInfo();
-  updateHotelInfo();
-  updateShopInfo();
-  updateAutoclickerInfo();
-  updatePrestigeInfo();
-}
-
-// ----- Reset on Prestige -----
-function resetOnPrestige() {
-  score = 0;
-  baseMultiplier = 1;
-  factoryLevel = 0;
-  bankLevel = 0;
-  hotelLevel = 0;
-  shopLevel = 0;
-  autoclickerLevel = 0;
-  autoclickerBaseCost = 100;
-  clicks = 0;
-
-  for (let i = 0; i < upgrades.length; i++) {
-    upgrades[i].cost = baseUpgradeCosts[i];
-    const btn = upgradeGrid.children[i];
-    btn.innerHTML = `
-      <span class="icon">${upgrades[i].icon}</span>
-      <span>${upgrades[i].power} Power</span>
-      <span class="cost">Cost: ${formatNumber(upgrades[i].cost)}</span>
-    `;
-  }
-  updateFactoryInfo();
-  updateBankInfo();
-  updateHotelInfo();
-  updateShopInfo();
-  updateAutoclickerInfo();
-}
-
-// ----- Cost update interval for facilities and shop buttons -----
-setInterval(() => {
-  if (factoryLevel < maxLevel) {
-    factoryBtn.textContent = `Buy Factory (${formatNumber(getFactoryCost(factoryLevel + 1))})`;
-  } else {
-    factoryBtn.textContent = `Factory max level!`;
-    factoryBtn.disabled = true;
-  }
-  
-  if (bankLevel < maxLevel) {
-    bankBtn.textContent = `Upgrade Bank (${formatNumber(getBankCost(bankLevel + 1))})`;
-  } else {
-    bankBtn.textContent = `Bank max level!`;
-    bankBtn.disabled = true;
-  }
-  
-  if (hotelLevel < maxLevel) {
-    hotelBtn.textContent = `Upgrade Hotel (${formatNumber(getHotelCost(hotelLevel + 1))})`;
-  } else {
-    hotelBtn.textContent = `Hotel max level!`;
-    hotelBtn.disabled = true;
-  }
-  
-  if (shopLevel < 100) {
-    shopBtn.textContent = `Upgrade Shop (${formatNumber(getShopUpgradeCost(shopLevel + 1))})`;
-  } else {
-    shopBtn.textContent = `Shop max level!`;
-    shopBtn.disabled = true;
-  }
-  
-  // Check golden time
-  checkGoldenTime();
-}, 100);
-
-// ----- Autoclicker points gain per 10ms -----
-let autoclickerRemainder = 0;
-setInterval(() => {
-  if (autoclickerLevel > 0) {
-    const perSecondGain = getTotalMultiplier() * (autoclickerLevel * 0.03) * (goldenTimeActive ? 2 : 1);
-    const per10MsGain = perSecondGain / 100;
-    autoclickerRemainder += per10MsGain;
-    const addPoints = Math.floor(autoclickerRemainder);
-    if (addPoints > 0) {
-      score += addPoints;
-      autoclickerRemainder -= addPoints;
-      updateAll();
-      checkAchievements();
-      autoSave();
-    }
-  }
-}, 10);
-
-// ----- Save/Load logic -----
-function getSaveData() {
-  return {
-    score,
-    baseMultiplier,
-    factoryLevel,
-    bankLevel,
-    hotelLevel,
-    shopLevel,
-    autoclickerLevel,
-    prestigeLevel,
-    prestigeCost,
-    upgrades: upgrades.map(u => ({ cost: u.cost })),
-    clicks,
-    achievements: achievements.map(a => !!a.unlocked),
-    lastSaved: Date.now(),
-    fullResets,
-    criticalHits,
-    goldenTimeExperienced,
-    goldenTimeActive,
-    goldenTimeEnd
-  };
-}
-
-function setSaveData(data) {
-  if (!data || typeof data !== 'object') return;
-  score = data.score || 0;
-  baseMultiplier = data.baseMultiplier || 1;
-  factoryLevel = data.factoryLevel || 0;
-  bankLevel = data.bankLevel || 0;
-  hotelLevel = data.hotelLevel || 0;
-  shopLevel = data.shopLevel || 0;
-  autoclickerLevel = data.autoclickerLevel || 0;
-  prestigeLevel = data.prestigeLevel || 0;
-  prestigeCost = data.prestigeCost || prestigeBaseCost;
-  clicks = data.clicks || 0;
-  fullResets = data.fullResets || 0;
-  criticalHits = data.criticalHits || 0;
-  goldenTimeExperienced = data.goldenTimeExperienced || 0;
-  goldenTimeActive = data.goldenTimeActive || false;
-  goldenTimeEnd = data.goldenTimeEnd || 0;
-  
-  if (Array.isArray(data.upgrades)) {
-    for (let i = 0; i < upgrades.length; i++) {
-      if (data.upgrades[i]) upgrades[i].cost = data.upgrades[i].cost;
-      const btn = upgradeGrid.children[i];
-      btn.innerHTML = `
-        <span class="icon">${upgrades[i].icon}</span>
-        <span>${upgrades[i].power} Power</span>
-        <span class="cost">Cost: ${formatNumber(upgrades[i].cost)}</span>
-      `;
-    }
-  }
-  
-  if (Array.isArray(data.achievements)) {
-    for (let i = 0; i < achievements.length; i++) {
-      achievements[i].unlocked = !!data.achievements[i];
-    }
-  }
-  
-  // Handle golden time from save
-  if (goldenTimeActive) {
-    const timeLeft = goldenTimeEnd - Date.now();
-    if (timeLeft > 0) {
-      activateGoldenTime();
-      setTimeout(() => {
-        if (goldenTimeActive) {
-          endGoldenTime();
+    function buyUpgrade(id) {
+        const up = upgrades.find(u => u.id === id);
+        if (!up) return;
+        const cost = getNextCost(up);
+        if (bones >= cost) {
+            bones -= cost;
+            levels[id] += 1;
+            fullRefresh();
+            checkAchievements();
+            saveGame();
         }
-      }, timeLeft);
-    } else {
-      goldenTimeActive = false;
     }
-  }
-  
-  renderAchievements();
-}
 
-function saveGame() {
-  localStorage.setItem('skullClickerSave', JSON.stringify(getSaveData()));
-  showNotification('Game saved successfully!', '💾');
-  updateLastSavedInfo();
-}
+    function handleClick(e) {
+        e.preventDefault();
+        const now = Date.now();
+        if (now - lastClickTime <= COMBO_DECAY_MS + 50) increaseCombo();
+        else { combo = 1; resetComboTimer(); }
+        lastClickTime = now;
+        updateComboUI();
 
-function loadGame() {
-  const savestr = localStorage.getItem('skullClickerSave');
-  if (!savestr) {
-    showNotification('No save file found!', '❌');
-    return;
-  }
-  
-  try {
-    const save = JSON.parse(savestr);
-    setSaveData(save);
+        const pureBase = baseClickPowerRaw();  
+        const critMult = getCritMultiplier();
+        if (critMult === 25) checkCrit25();
+        if (critMult === 1000) checkCrit1000();
+        
+        let gain = pureBase * critMult * comboMultiplier() * getPrestigeMultiplier();
+        bones += gain;
+        totalManualClicks++;
 
-    if (save.lastSaved && save.lastSaved < Date.now() && save.autoclickerLevel > 0) {
-      const seconds = Math.floor((Date.now() - save.lastSaved) / 1000);
-      if (seconds > 1) {
-        const idleGain = getTotalMultiplier() * (autoclickerLevel * 0.006) * seconds;
-        const earned = Math.floor(idleGain);
-        score += earned;
-        showNotification(`Welcome back! You earned ${formatNumber(earned)} points while idle (${seconds}s offline).`, '⏱️');
-      }
+        if (critMult > 1) {
+            let msg = critMult === 1000 ? '💀 1,000x 💀' : critMult === 25 ? '🔥25x🔥' : critMult === 5 ? '⚡5x⚡' : '2x';
+            spawnFloatingText(msg, critMult >= 5);
+        }
+        
+        checkAchievements();
+        fullRefresh();
+    }
+
+    document.getElementById('clickButton').addEventListener('click', handleClick);
+    document.getElementById('clickButton').addEventListener('touchstart', (e) => { e.preventDefault(); handleClick(e); }, { passive: false });
+
+    function performPrestige() {
+        const cost = getPrestigeCost();
+        if (bones < cost) {
+            document.getElementById('prestigeMessage').innerText = '❌ not enough bones';
+            return;
+        }
+        if (prestigeLevel >= 30) { // max level 30
+            document.getElementById('prestigeMessage').innerText = '💀 maximum prestige reached';
+            return;
+        }
+        bones = 0;
+        upgrades.forEach(u => levels[u.id] = 0);
+        combo = 0;
+        prestigeLevel++;
+        unlockedAchievements = unlockedAchievements.filter(id => !id.startsWith('prestige')); // keep others, but we want new ones check later
+        // but check after
+        saveGame();
+        fullRefresh();
+        updatePrestigeUI();
+        checkAchievements();
+        document.getElementById('prestigeMessage').innerText = '👑 PRESTIGE GAINED!';
+        spawnFloatingText('PRESTIGE '+prestigeLevel, true);
+    }
+
+    function updatePrestigeUI() {
+        document.getElementById('prestigeLevelSpan').innerText = prestigeLevel;
+        document.getElementById('prestigeMultSpan').innerText = getPrestigeMultiplier().toFixed(2);
+        let nextMult = Math.pow(PRESTIGE_BONUS_PER_LEVEL, prestigeLevel+1);
+        document.getElementById('nextPrestigeMultSpan').innerText = nextMult.toFixed(2);
+        let cost = getPrestigeCost();
+        document.getElementById('prestigeCostSpan').innerHTML = formatNumber(cost);
+        const btn = document.getElementById('prestigeActionBtn');
+        if (bones >= cost && prestigeLevel < 30) btn.classList.remove('disabled');
+        else btn.classList.add('disabled');
+    }
+
+    function fullRefresh() {
+        document.getElementById('globalBoneDisplay').innerText = formatNumber(bones);
+        const clickPow = totalClickPower();
+        document.getElementById('clickPowerStatMain').innerHTML = `👆 ${formatNumber(clickPow)} /click`;
+        document.getElementById('totalClicksStatMain').innerHTML = `🖱️ ${totalManualClicks}`;
+        
+        renderUpgrades();
+        updateStatsPanel();
+        document.getElementById('statsClickPower').innerHTML = `⚡ skull power: ${formatNumber(clickPow)} (prestige ${getPrestigeMultiplier().toFixed(2)}x)`;
+        updateComboUI();
+        renderAchievements();
+        updatePrestigeUI();
+    }
+
+    function updateStatsPanel() {
+        const el = document.getElementById('statsDetail');
+        if (!el) return;
+        const clickPow = totalClickPower();
+        let html = `<b>🦴 BONES:</b> ${formatNumber(bones)}<br>
+                    <b>🖱️ CLICKS:</b> ${totalManualClicks}<br>
+                    <b>👑 PRESTIGE:</b> ${prestigeLevel} (x${getPrestigeMultiplier().toFixed(2)})<br>
+                    <b>⚡ COMBO:</b> ${combo} (${comboPercent()}%)<br>
+                    <b>🏆 ACHIEVEMENTS:</b> ${unlockedAchievements.length}/${achievements.length}<br>
+                    <b>⬆️ UPGRADES OWNED:</b> ${Object.values(levels).filter(lvl => lvl >= 1).length}<br><br>
+                    <b>⬆️ UPGRADE DETAILS:</b><br>`;
+        
+        upgrades.forEach((u, idx) => { 
+            if (levels[u.id] > 0) {
+                html += `&nbsp;&nbsp;${u.icon} ${u.name}: lvl ${levels[u.id]} (${formatNumber(getPowerFor(u))}/click)<br>`;
+            }
+        });
+        
+        html += `<br><b>🔁 TOTAL /CLICK:</b> ${formatNumber(clickPow)}`;
+        el.innerHTML = html;
+    }
+
+    function saveGame() {
+        const saveObj = { 
+            bones, 
+            totalManualClicks, 
+            levels, 
+            unlockedAchievements, 
+            prestigeLevel,
+            version: 'skullPrestige2.0' 
+        };
+        localStorage.setItem('skullClickerSave', JSON.stringify(saveObj));
+        document.getElementById('saveStatus').innerText = '💾 saved ' + new Date().toLocaleTimeString();
     }
     
-    updateLastSavedInfo();
-    showNotification('Game loaded successfully!', '🔃');
-  } catch {
-    showNotification('Corrupted save file!', '❌');
-  }
-  
-  updateAll();
-  checkAchievements();
-}
-
-function updateLastSavedInfo() {
-  const savestr = localStorage.getItem('skullClickerSave');
-  if (savestr) {
-    try {
-      const save = JSON.parse(savestr);
-      if (save.lastSaved) {
-        const lastSavedDate = new Date(save.lastSaved);
-        document.getElementById('lastSavedInfo').textContent =
-          `Last saved: ${lastSavedDate.toLocaleString()}`;
-      }
-    } catch {
-      document.getElementById('lastSavedInfo').textContent = '';
-    }
-  } else {
-    document.getElementById('lastSavedInfo').textContent = '';
-  }
-}
-
-function autoSave() {
-  localStorage.setItem('skullClickerSave', JSON.stringify(getSaveData()));
-  updateLastSavedInfo();
-}
-setInterval(autoSave, 60000);
-
-// ----- Full reset function -----
-function fullReset() {
-  if (confirm('Are you sure you want to delete all saved data and reset the game?\nThis cannot be undone!')) {
-    localStorage.removeItem('skullClickerSave');
-    score = 0;
-    baseMultiplier = 1;
-    factoryLevel = 0;
-    bankLevel = 0;
-    hotelLevel = 0;
-    shopLevel = 0;
-    autoclickerLevel = 0;
-    prestigeLevel = 0;
-    prestigeCost = prestigeBaseCost;
-    clicks = 0;
-    fullResets++;
-    criticalHits = 0;
-    goldenTimeExperienced = 0;
-    goldenTimeActive = false;
-    goldenTimeEnd = 0;
-
-    for (let i = 0; i < upgrades.length; i++) {
-      upgrades[i].cost = baseUpgradeCosts[i];
-      const btn = upgradeGrid.children[i];
-      btn.innerHTML = `
-        <span class="icon">${upgrades[i].icon}</span>
-        <span>${upgrades[i].power} Power</span>
-        <span class="cost">Cost: ${formatNumber(upgrades[i].cost)}</span>
-      `;
+    function loadGame() {
+        const raw = localStorage.getItem('skullClickerSave');
+        if (!raw) { 
+            document.getElementById('saveStatus').innerText = '❌ no save found'; 
+            return; 
+        }
+        try {
+            const loaded = JSON.parse(raw);
+            bones = loaded.bones ?? 0;
+            totalManualClicks = loaded.totalManualClicks ?? 0;
+            if (loaded.levels) {
+                upgrades.forEach(u => levels[u.id] = 0);
+                for (let [id, lvl] of Object.entries(loaded.levels)) {
+                    if (levels.hasOwnProperty(id)) levels[id] = lvl;
+                }
+            }
+            unlockedAchievements = loaded.unlockedAchievements || [];
+            prestigeLevel = loaded.prestigeLevel || 0;
+            combo = 0; 
+            updateComboUI();
+            fullRefresh();
+            document.getElementById('saveStatus').innerText = '📀 loaded from bone vault';
+        } catch (e) { 
+            document.getElementById('saveStatus').innerText = '⚠️ corrupt save'; 
+        }
     }
     
-    achievements.forEach(a => a.unlocked = false);
-    renderAchievements();
+    function resetGame() {
+        if (confirm('Return to the bone pile? All progress lost!')) {
+            bones = 0; 
+            totalManualClicks = 0; 
+            combo = 0;
+            prestigeLevel = 0;
+            upgrades.forEach(u => levels[u.id] = 0);
+            unlockedAchievements = [];
+            fullRefresh();
+            document.getElementById('saveStatus').innerText = '♻️ skull reset';
+            saveGame();
+        }
+    }
+    
+    function exportGame() {
+        const saveObj = { bones, totalManualClicks, levels, unlockedAchievements, prestigeLevel, version: 'skullExport' };
+        document.getElementById('importField').value = JSON.stringify(saveObj);
+        document.getElementById('saveStatus').innerText = '📤 export string ready';
+    }
+    
+    function importGame() {
+        const raw = document.getElementById('importField').value.trim();
+        if (!raw) return;
+        try {
+            const loaded = JSON.parse(raw);
+            bones = loaded.bones ?? 0;
+            totalManualClicks = loaded.totalManualClicks ?? 0;
+            if (loaded.levels) {
+                upgrades.forEach(u => levels[u.id] = 0);
+                for (let [id, lvl] of Object.entries(loaded.levels)) {
+                    if (levels.hasOwnProperty(id)) levels[id] = lvl;
+                }
+            }
+            unlockedAchievements = loaded.unlockedAchievements || [];
+            prestigeLevel = loaded.prestigeLevel || 0;
+            combo = 0; 
+            updateComboUI();
+            fullRefresh();
+            document.getElementById('saveStatus').innerText = '📦 import success';
+            saveGame();
+        } catch (e) { 
+            document.getElementById('saveStatus').innerText = '❌ invalid import'; 
+        }
+    }
 
-    updateAll();
-    showNotification('Game has been fully reset!', '♻️');
-  }
-}
+    setInterval(saveGame, 20000);
 
-document.getElementById('saveBtn').addEventListener('click', saveGame);
-document.getElementById('loadBtn').addEventListener('click', loadGame);
-document.getElementById('resetBtn').addEventListener('click', fullReset);
+    const mainPage = document.getElementById('pageMain');
+    const upgradePage = document.getElementById('pageUpgrade');
+    const prestigePage = document.getElementById('pagePrestige');
+    const achievementsPage = document.getElementById('pageAchievements');
+    const statsPage = document.getElementById('pageStats');
+    const tabMain = document.getElementById('tabMain');
+    const tabUpgrade = document.getElementById('tabUpgrade');
+    const tabPrestige = document.getElementById('tabPrestige');
+    const tabAchievements = document.getElementById('tabAchievements');
+    const tabStats = document.getElementById('tabStats');
+    
+    function setActivePage(active) {
+        [mainPage, upgradePage, prestigePage, achievementsPage, statsPage].forEach(p => p.classList.remove('active-page'));
+        [tabMain, tabUpgrade, tabPrestige, tabAchievements, tabStats].forEach(t => t.classList.remove('active'));
+        
+        if (active === 'main') { 
+            mainPage.classList.add('active-page'); 
+            tabMain.classList.add('active'); 
+        }
+        else if (active === 'upgrade') { 
+            upgradePage.classList.add('active-page'); 
+            tabUpgrade.classList.add('active'); 
+            renderUpgrades(); 
+        }
+        else if (active === 'prestige') { 
+            prestigePage.classList.add('active-page'); 
+            tabPrestige.classList.add('active'); 
+            updatePrestigeUI(); 
+        }
+        else if (active === 'achievements') { 
+            achievementsPage.classList.add('active-page'); 
+            tabAchievements.classList.add('active'); 
+            renderAchievements(); 
+        }
+        else if (active === 'stats') { 
+            statsPage.classList.add('active-page'); 
+            tabStats.classList.add('active'); 
+            updateStatsPanel(); 
+        }
+        fullRefresh();
+    }
+    
+    tabMain.addEventListener('click', () => setActivePage('main'));
+    tabUpgrade.addEventListener('click', () => setActivePage('upgrade'));
+    tabPrestige.addEventListener('click', () => setActivePage('prestige'));
+    tabAchievements.addEventListener('click', () => setActivePage('achievements'));
+    tabStats.addEventListener('click', () => setActivePage('stats'));
 
-window.addEventListener('DOMContentLoaded', () => {
-  // Achievements panel collapsed by default
-  document.getElementById('achievementsContent').style.display = 'none';
-  document.getElementById('achievementsHeader').textContent = 'Achievements ▼';
-  document.getElementById('achievementsHeader').setAttribute('aria-expanded', 'false');
-  document.getElementById('achievementsContent').setAttribute('aria-hidden', 'true');
+    document.getElementById('prestigeActionBtn').addEventListener('click', performPrestige);
+    document.getElementById('saveGameBtn').addEventListener('click', saveGame);
+    document.getElementById('loadGameBtn').addEventListener('click', loadGame);
+    document.getElementById('resetGameBtn').addEventListener('click', resetGame);
+    document.getElementById('exportBtn').addEventListener('click', exportGame);
+    document.getElementById('importBtn').addEventListener('click', importGame);
 
-  // Save & Load expanded by default
-  document.getElementById('saveContent').style.display = 'block';
-  document.getElementById('saveHeader').textContent = 'Save & Load ▲';
-  document.getElementById('saveHeader').setAttribute('aria-expanded', 'true');
-  document.getElementById('saveContent').setAttribute('aria-hidden', 'false');
-
-  prestigeLevel = 0;
-  prestigeCost = prestigeBaseCost;
-
-  renderAchievements();
-  loadGame();
-  updateAll();
-  checkAchievements();
-  autoSave();
-});
-
-  // --- New Version Reminder Banner ---
-document.addEventListener('DOMContentLoaded', function() {
-  const reminder = document.getElementById('versionReminder');
-  const closeBtn = document.getElementById('closeVersionReminder');
-  if (reminder && closeBtn) {
-    // Show the banner
-    reminder.style.display = 'block';
-    // Dismiss banner
-    closeBtn.onclick = function() {
-      reminder.style.display = 'none';
-    };
-  }
-});
-  
+    fullRefresh();
+    setTimeout(() => { 
+        if (localStorage.getItem('skullClickerSave')) loadGame(); 
+    }, 100);
+})();
 </script>
 </body>
 </html>
