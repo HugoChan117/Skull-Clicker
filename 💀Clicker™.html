@@ -692,16 +692,16 @@
 function formatNumber(num) {
     if (num === Infinity) return '∞';
     if (num === undefined || num === null) return '0';
-    if (num < 1000000) {
+    if (num < 100000) {
         return Math.floor(num).toLocaleString('en-US');
     }
 
     const suffixes = [
-        '', 'Thousand', 'Million', 'Billion', 'Trillion', 'Quadrillion', 
-        'Quintillion', 'Sextillion', 'Septillion', 'Octillion', 'Nonillion', 
-        'Decillion', 'Undecillion', 'Duodecillion', 'Tredecillion', 
-        'Quattuordecillion', 'Quindecillion', 'Sexdecillion', 'Septendecillion', 
-        'Octodecillion', 'Novemdecillion', 'Vigintillion'
+        '', 'K', ' Million', ' Billion', ' Trillion', ' Quadrillion', 
+        ' Quintillion', ' Sextillion', ' Septillion', ' Octillion', ' Nonillion', 
+        ' Decillion', ' Undecillion', ' Duodecillion', ' Tredecillion', 
+        ' Quattuordecillion', ' Quindecillion', ' Sexdecillion', ' Septendecillion', 
+        ' Octodecillion', ' Novemdecillion', ' Vigintillion'
     ];
     
     let tier = 0;
@@ -713,9 +713,9 @@ function formatNumber(num) {
 
     let formatted;
     if (tempNum < 10) {
-        formatted = tempNum.toFixed(2);  // 1.23 Million
+        formatted = tempNum.toFixed(2);  
     } else if (tempNum < 100) {
-        formatted = tempNum.toFixed(1);  // 12.3 Million
+        formatted = tempNum.toFixed(1);  
     } else {
         formatted = Math.floor(tempNum).toString(); 
     }
@@ -725,7 +725,7 @@ function formatNumber(num) {
         formatted = formatted.slice(0, -2);
     }
     
-    return `${formatted} ${suffixes[tier]}`.trim();
+    return `${formatted}${suffixes[tier]}`.trim();
 }
 
 const achievements = [
