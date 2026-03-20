@@ -533,7 +533,7 @@
                 ✨ Resets bones & upgrades, but gain permanent 1.25x bonus.<br>
                 Each prestige increases cost by 20x.<br>
                 Prestige also reveals ONE more hidden upgrade (tier locked).
-                Max level 30
+                Max level 31
             </div>
             <div class="prestige-btn" id="prestigeActionBtn">💀 CLAIM PRESTIGE 💀</div>
             <div class="storage-info" id="prestigeMessage">Become stronger...</div>
@@ -569,8 +569,8 @@
     let bones = 0.0;
     let totalManualClicks = 0;
     let prestigeLevel = 0;
-    const PRESTIGE_BASE_COST = 300;    
-    const PRESTIGE_COST_MULT = 20;      
+    const PRESTIGE_BASE_COST = 240;    
+    const PRESTIGE_COST_MULT = 19.9;      
     const PRESTIGE_BONUS_PER_LEVEL = 1.25;  
 
     function getPrestigeMultiplier() {
@@ -612,8 +612,9 @@
         { id: 'bone28',    name: 'SKULL SUPERNOVA', icon: '💥', basePower: 4e+29, baseCost: 2.68435456e36, desc: '+400 Oc/click' },
         { id: 'bone29',    name: 'BONE BIG BANG',   icon: '💫', basePower: 5.5e+30, baseCost: 5.36870912e37, desc: '+5.5 No/click' },
         { id: 'bone30',    name: 'SKULL GOD',       icon: '😈', basePower: 7.2e+31, baseCost: 1.073741824e39, desc: '+72 No/click' },
-        { id: 'bone31',    name: 'JABEL',    icon: '🧙', basePower: 1e+33, baseCost: 2.147483648e+40*2220*2220*22200*13470*3.0016*3.0016, desc: '+1 Dc/click', imageUrl: 'https://kingshotdata.com/wp-content/uploads/2025/03/jabel.webp'} //stack attack defense health troop capacity and bonus all together
-        
+        { id: 'bone31',    name: 'JABEL',    icon: '🧙', basePower: 1e+46, baseCost: 2.147483648e+40*2220*2220*22200*13470*3.0016*3.0016, desc: '+1 Qd/click', imageUrl: 'https://kingshotdata.com/wp-content/uploads/2025/03/jabel.webp'}, //stack attack defense health troop capacity and bonus all together   
+        { id: 'bone32',    name: 'SOUL',     icon: '🤖', basePower: 3e+46, baseCost: 4.294967296e+40*2697*2220*16650*13470*3.0016*3.0016, desc: '+5Qd/click' , imageUrl: 'https://kingshotdata.com/wp-content/uploads/2025/03/saul-kingshot.webp'} //the same
+        // TODO
     ];
 
     let levels = {};
@@ -767,10 +768,10 @@ const achievements = [
     { id: 'prestige15', name: 'Skull God', desc: 'Reach prestige level 15', icon: '👑💫', condition: () => prestigeLevel >= 15 },
     { id: 'prestige20', name: 'Death Itself', desc: 'Reach prestige level 20', icon: '👑🦇', condition: () => prestigeLevel >= 20 },
     { id: 'prestige25', name: 'BONE APEX', desc: 'Reach prestige level 25', icon: '👑🔥', condition: () => prestigeLevel >= 25 },
-    { id: 'prestige30', name: 'MAX PRESTIGE', desc: 'Reach prestige level 30', icon: '👑🔥', condition: () => prestigeLevel >= 30 },
+    { id: 'prestige31', name: 'MAX PRESTIGE', desc: 'Reach prestige level 31', icon: '👑🔥', condition: () => prestigeLevel >= 31 },
     { id: 'perfectcrit', name: 'Cosmic Alignment', desc: 'Get a 1000x crit with 50 combo', icon: '🌠', condition: () => false }, // manual
     { id: 'firsthidden', name: 'Unveiled', desc: 'Unlock your first hidden upgrade', icon: '👁️', condition: () => prestigeLevel >= 1 && Object.values(levels).filter(lvl => lvl >= 1).length >= 2 },
-    { id: 'fullpower', name: 'Ultimate Skull', desc: 'Own the Necromancer upgrade', icon: '🧙💀', condition: () => levels['bone31'] >= 1 },
+    { id: 'fullpower', name: 'Ultimate Skull', desc: 'Own the Jabel upgrade', icon: '🧙💀', condition: () => levels['bone31'] >= 1 },
 ];
 
     let unlockedAchievements = [];
@@ -825,8 +826,12 @@ const achievements = [
 
             let iconHtml = `<div class="upgrade-icon">${up.icon}</div>`;
             if (idx === 30 && up.imageUrl) { 
-                iconHtml = `<div class="upgrade-icon"><img src="${up.imageUrl}" alt="ethereal skull" onerror="this.onerror=null; this.parentNode.innerHTML='🧙';"></div>`;
+                iconHtml = `<div class="upgrade-icon"><img src="${up.imageUrl}" alt="JABEL" onerror="this.onerror=null; this.parentNode.innerHTML='🧙';"></div>`;
             }
+            if (idx === 31 && up.imageUrl) { 
+                iconHtml = `<div class="upgrade-icon"><img src="${up.imageUrl}" alt="SOUL" onerror="this.onerror=null; this.parentNode.innerHTML='🤖';"></div>`;
+            }
+            
 
             let powerDisplay = (level === 0) ? 'locked' : `+${formatNumber(power)}/click`;
             let nextPower = (level === 0) ? up.basePower : up.basePower * Math.pow(1.25, level);
@@ -897,7 +902,7 @@ const achievements = [
             document.getElementById('prestigeMessage').innerText = '❌ not enough bones';
             return;
         }
-        if (prestigeLevel >= 30) { // max level 30
+        if (prestigeLevel >= 31) { // max level 31
             document.getElementById('prestigeMessage').innerText = '💀 maximum prestige reached';
             return;
         }
@@ -923,7 +928,7 @@ const achievements = [
         let cost = getPrestigeCost();
         document.getElementById('prestigeCostSpan').innerHTML = formatNumber(cost);
         const btn = document.getElementById('prestigeActionBtn');
-        if (bones >= cost && prestigeLevel < 30) btn.classList.remove('disabled');
+        if (bones >= cost && prestigeLevel < 31) btn.classList.remove('disabled');
         else btn.classList.add('disabled');
     }
 
