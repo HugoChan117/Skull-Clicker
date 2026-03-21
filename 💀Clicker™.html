@@ -605,13 +605,11 @@
         return PRESTIGE_BASE_COST * Math.pow(PRESTIGE_COST_MULT, prestigeLevel);
     }
     function getAscendMultiplier() {
-    return Math.pow(ASCEND_BONUS_PER_LEVEL, ascendLevel);
-}
-
+        return Math.pow(ASCEND_BONUS_PER_LEVEL, ascendLevel);
+    }
 function getAscendCost() {
     return ASCEND_BASE_COST * Math.pow(ASCEND_COST_MULT, ascendLevel);
 }
-
     const upgrades = [
         { id: 'bone1',    name: 'BONE COB',          icon: '🦴', basePower: 1,        baseCost: 20,       desc: '+1/click' },
         { id: 'bone2',    name: 'SKULL HOE',         icon: '⛏️', basePower: 12,       baseCost: 400,      desc: '+12/click' },
@@ -800,13 +798,13 @@ const achievements = [
     { id: 'prestige20', name: 'Death Itself', desc: 'Reach prestige level 20', icon: '👑🦇', condition: () => prestigeLevel >= 20 },
     { id: 'prestige25', name: 'BONE APEX', desc: 'Reach prestige level 25', icon: '👑🔥', condition: () => prestigeLevel >= 25 },
     { id: 'prestige32', name: 'MAX PRESTIGE', desc: 'Reach prestige level 32 (max)', icon: '👑🔥', condition: () => prestigeLevel >= 32 },
-    { id: 'perfectcrit', name: 'Cosmic Alignment', desc: 'Get a 1000x crit with 50 combo', icon: '🌠', condition: () => false }, // manual
+    { id: 'perfectcrit', name: 'Cosmic Alignment', desc: 'Get a 1000x crit with 50 combo', icon: '🌠', condition: () => false }, 
     { id: 'firsthidden', name: 'Unveiled', desc: 'Unlock your first hidden upgrade', icon: '👁️', condition: () => prestigeLevel >= 1 && Object.values(levels).filter(lvl => lvl >= 1).length >= 2 },
     { id: 'fullpower', name: 'Ultimate Skull', desc: 'Own the Jabel upgrade', icon: '🧙💀', condition: () => levels['bone31'] >= 1 },
     { id: 'fullpower2', name: 'Omega Skull', desc: 'Own the last upgrade', icon: '💀💀💀', condition: () => levels['bone33'] >= 1 },
     { id: 'ascend1', name: 'Transcendent', desc: 'Ascend for the first time', icon: '⭐', condition: () => ascendLevel >= 1 },
-{ id: 'ascend5', name: 'Ascension Master', desc: 'Reach ascend level 5', icon: '⭐💫', condition: () => ascendLevel >= 5 },
-{ id: 'ascend15', name: 'ULTIMATE ASCENSION', desc: 'Max out ascend (level 15)', icon: '⭐🔥', condition: () => ascendLevel >= 15 },
+    { id: 'ascend5', name: 'Ascension Master', desc: 'Reach ascend level 5', icon: '⭐💫', condition: () => ascendLevel >= 5 },
+    { id: 'ascend15', name: 'ULTIMATE ASCENSION', desc: 'Max out ascend (level 15)', icon: '⭐🔥', condition: () => ascendLevel >= 15 },
 ];
 
     let unlockedAchievements = [];
@@ -915,7 +913,7 @@ const achievements = [
         if (critMult === 25) checkCrit25();
         if (critMult === 1000) checkCrit1000();
         
-        let gain = pureBase * critMult * comboMultiplier() * getPrestigeMultiplier();
+        let gain = pureBase * critMult * comboMultiplier() * getPrestigeMultiplier() * getAscendMultiplier();
         bones += gain;
         totalManualClicks++;
 
@@ -967,8 +965,8 @@ const achievements = [
         else btn.classList.add('disabled');
     }
 
-    function performAscend() {
-    const cost = getAscendCost();
+function performAscend() {
+    const cost = getAscendCost();  // fixed: Should have consistent indentation
     if (bones < cost) {
         document.getElementById('ascendMessage').innerText = '❌ not enough bones';
         return;
@@ -1041,18 +1039,19 @@ function updateAscendUI() {
         el.innerHTML = html;
     }
 
-const saveObj = { 
-    bones, 
-    totalManualClicks, 
-    levels, 
-    unlockedAchievements, 
-    prestigeLevel,
-    ascendLevel,  // ADDed
-    version: 'skullPrestige2.0' 
-};
-        localStorage.setItem('skullClickerSave', JSON.stringify(saveObj));
-        document.getElementById('saveStatus').innerText = '💾 saved ' + new Date().toLocaleTimeString();
-    }
+function saveGame() {
+    const saveObj = { 
+        bones, 
+        totalManualClicks, 
+        levels, 
+        unlockedAchievements, 
+        prestigeLevel,
+        ascendLevel,
+        version: 'skullPrestige2.0' 
+    };
+    localStorage.setItem('skullClickerSave', JSON.stringify(saveObj));
+    document.getElementById('saveStatus').innerText = '💾 saved ' + new Date().toLocaleTimeString();
+}
     
     function loadGame() {
         const raw = localStorage.getItem('skullClickerSave');
@@ -1087,6 +1086,7 @@ const saveObj = {
             totalManualClicks = 0; 
             combo = 0;
             prestigeLevel = 0;
+            ascendLevel = 0; 
             upgrades.forEach(u => levels[u.id] = 0);
             unlockedAchievements = [];
             fullRefresh();
@@ -1096,7 +1096,7 @@ const saveObj = {
     }
     
     function exportGame() {
-        const saveObj = { bones, totalManualClicks, levels, unlockedAchievements, prestigeLevel, version: 'skullExport' };
+const saveObj = { bones, totalManualClicks, levels, unlockedAchievements, prestigeLevel, ascendLevel, version: 'skullExport' };
         document.getElementById('importField').value = JSON.stringify(saveObj);
         document.getElementById('saveStatus').innerText = '📤 export string ready';
     }
