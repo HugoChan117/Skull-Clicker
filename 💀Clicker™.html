@@ -533,7 +533,7 @@
             <div class="prestige-desc">
                 ✨ Resets bones & upgrades, but gain permanent 1.2x bonus.<br>
                 Prestige also reveals 1 more hidden upgrade.
-                Max level 32
+                Max level 33
             </div>
             <div class="prestige-btn" id="prestigeActionBtn">💀 CLAIM PRESTIGE 💀</div>
             <div class="storage-info" id="prestigeMessage">Become stronger...</div>
@@ -546,11 +546,11 @@
         <div class="prestige-card" id="ascendInfo">
             <div>Current ascend level: <span id="ascendLevelSpan">0</span></div>
             <div>Multiplier: <span id="ascendMultSpan">1.00</span>x</div>
-            <div>Next bonus: +30% → <span id="nextAscendMultSpan">1.40</span>x</div>
+            <div>Next bonus: +40% → <span id="nextAscendMultSpan">1.40</span>x</div>
             <div>Ascend cost: <span id="ascendCostSpan">1 Billion</span> 🦴</div>
         </div>
         <div class="prestige-desc">
-            💀 Resets bones & upgrades & prestige, but gain permanent 1.3x bonus per level.<br>
+            💀 Resets bones & upgrades & prestige, but gain permanent 1.4x bonus per level.<br>
             Base cost: 10 Million 🦴<br>
             Max level 15
         </div>
@@ -593,8 +593,8 @@
     const PRESTIGE_BONUS_PER_LEVEL = 1.2; 
     let ascendLevel = 0; 
     const ASCEND_BASE_COST = 1e7;   
-    const ASCEND_COST_MULT = 1000;   
-    const ASCEND_BONUS_PER_LEVEL = 1.3; 
+    const ASCEND_COST_MULT = 2000;   
+    const ASCEND_BONUS_PER_LEVEL = 1.4; 
     const MAX_ASCEND_LEVEL = 15;
 
     function getPrestigeMultiplier() {
@@ -643,7 +643,9 @@ function getAscendCost() {
         { id: 'bone30',   name: 'SKULL GOD',           icon: '😈', basePower: 7.2e+31,    baseCost: 1.073741824e39, desc: '+72 No/click' },
         { id: 'bone31',   name: 'JABEL',               icon: '🧙', basePower: 2e+34,      baseCost: 2e+42,          desc: '+20 D/click', imageUrl: 'https://kingshotdata.com/wp-content/uploads/2025/03/jabel.webp'},
         { id: 'bone32',   name: 'SAUL',                icon: '🤖', basePower: 1.2e+35,    baseCost: 1.6e+43,        desc: '+120 D/click' , imageUrl: 'https://kingshotdata.com/wp-content/uploads/2025/03/saul-kingshot.webp'}, 
-        { id: 'bone33',   name: 'GIGGLE INCONTINENCE', icon: '😂', basePower: 1e+60,      baseCost: 7.68e+70,       desc: '+1 V/click' }
+        { id: 'bone33',   name: 'HELGA',               icon: '☠️', basePower: 7.2e+35,    baseCost: 1.2e+44,        desc: '+720 D/click' , imageUrl: 'https://kingshotdata.com/wp-content/uploads/2025/03/helga-kingshot.webp'}, 
+        
+        { id: 'bone34',   name: 'GIGGLE INCONTINENCE', icon: '😂', basePower: 1e+60,      baseCost: 7.68e+70,       desc: '+1 V/click' }
     ];
 
     let levels = {};
@@ -797,7 +799,7 @@ const achievements = [
     { id: 'prestige15', name: 'Skull God', desc: 'Reach prestige level 15', icon: '👑💫', condition: () => prestigeLevel >= 15 },
     { id: 'prestige20', name: 'Death Itself', desc: 'Reach prestige level 20', icon: '👑🦇', condition: () => prestigeLevel >= 20 },
     { id: 'prestige25', name: 'BONE APEX', desc: 'Reach prestige level 25', icon: '👑🔥', condition: () => prestigeLevel >= 25 },
-    { id: 'prestige32', name: 'MAX PRESTIGE', desc: 'Reach prestige level 32 (max)', icon: '👑🔥', condition: () => prestigeLevel >= 32 },
+    { id: 'prestige33', name: 'MAX PRESTIGE', desc: 'Reach prestige level 33 (max)', icon: '👑🔥', condition: () => prestigeLevel >= 33 },
     { id: 'perfectcrit', name: 'Cosmic Alignment', desc: 'Get a 1000x crit with 50 combo', icon: '🌠', condition: () => false }, 
     { id: 'firsthidden', name: 'Unveiled', desc: 'Unlock your first hidden upgrade', icon: '👁️', condition: () => prestigeLevel >= 1 && Object.values(levels).filter(lvl => lvl >= 1).length >= 2 },
     { id: 'fullpower', name: 'Ultimate Skull', desc: 'Own the Jabel upgrade', icon: '🧙💀', condition: () => levels['bone31'] >= 1 },
@@ -863,6 +865,9 @@ const achievements = [
             }
             if (idx === 31 && up.imageUrl) { 
                 iconHtml = `<div class="upgrade-icon"><img src="${up.imageUrl}" alt="SAUL" onerror="this.onerror=null; this.parentNode.innerHTML='🤖';"></div>`;
+            }
+            if (idx === 32 && up.imageUrl) { 
+                iconHtml = `<div class="upgrade-icon"><img src="${up.imageUrl}" alt="HELGA" onerror="this.onerror=null; this.parentNode.innerHTML='☠️';"></div>`;
             }
             
 
@@ -935,7 +940,7 @@ const achievements = [
             document.getElementById('prestigeMessage').innerText = '❌ not enough bones';
             return;
         }
-        if (prestigeLevel >= 32) { // max level 32
+        if (prestigeLevel >= 33) { 
             document.getElementById('prestigeMessage').innerText = '💀 maximum prestige reached';
             return;
         }
@@ -961,12 +966,12 @@ const achievements = [
         let cost = getPrestigeCost();
         document.getElementById('prestigeCostSpan').innerHTML = formatNumber(cost);
         const btn = document.getElementById('prestigeActionBtn');
-        if (bones >= cost && prestigeLevel < 32) btn.classList.remove('disabled');
+        if (bones >= cost && prestigeLevel < 33) btn.classList.remove('disabled');
         else btn.classList.add('disabled');
     }
 
 function performAscend() {
-    const cost = getAscendCost();  // fixed: Should have consistent indentation
+    const cost = getAscendCost();  
     if (bones < cost) {
         document.getElementById('ascendMessage').innerText = '❌ not enough bones';
         return;
