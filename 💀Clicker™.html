@@ -493,7 +493,8 @@
     <div class="page-tabs">
         <button class="tab-btn active" id="tabMain">💀 MAIN</button>
         <button class="tab-btn" id="tabUpgrade">⬆️ BONE UPGRADES</button>
-        <button class="tab-btn" id="tabPrestige">👑 BONE PRESTIGE</button>  <!-- new tab -->
+        <button class="tab-btn" id="tabPrestige">👑 BONE PRESTIGE</button> 
+        <button class="tab-btn" id="tabAscend">💀 SKULL ASCEND</button>
         <button class="tab-btn" id="tabAchievements">🏆 SKULL ACHIEVES</button>
         <button class="tab-btn" id="tabStats">⚙️ CATACOMBS</button>
     </div>
@@ -531,7 +532,6 @@
             </div>
             <div class="prestige-desc">
                 ✨ Resets bones & upgrades, but gain permanent 1.25x bonus.<br>
-                Each prestige increases cost by 20x.<br>
                 Prestige also reveals 1 more hidden upgrade.
                 Max level 32
             </div>
@@ -539,6 +539,25 @@
             <div class="storage-info" id="prestigeMessage">Become stronger...</div>
         </div>
     </div>
+    <div id="pageAscend" class="page">
+    <div class="settings-panel" style="text-align:center;">
+        <div class="prestige-icon">💀✨💀</div>
+        <h2 style="font-size:3.2rem;color:#ff6a00;font-family:'Nosifer';">SKULL ASCEND</h2>
+        <div class="prestige-card" id="ascendInfo">
+            <div>Current ascend level: <span id="ascendLevelSpan">0</span></div>
+            <div>Multiplier: <span id="ascendMultSpan">1.00</span>x</div>
+            <div>Next bonus: +40% → <span id="nextAscendMultSpan">1.40</span>x</div>
+            <div>Ascend cost: <span id="ascendCostSpan">1 Billion</span> 🦴</div>
+        </div>
+        <div class="prestige-desc">
+            💀 Resets bones & upgrades & prestige, but gain permanent 1.4x bonus per level.<br>
+            Base cost: 10 Million 🦴<br>
+            Max level 15
+        </div>
+        <div class="prestige-btn" id="ascendActionBtn">💀 CLAIM ASCEND 💀</div>
+        <div class="storage-info" id="ascendMessage">Transcend your power...</div>
+    </div>
+</div>
     <div id="pageAchievements" class="page">
         <div class="settings-panel">
             <h2 style="font-size:2.8rem; color:#ffb371; font-family:'Nosifer';">🏆 BONE ACHIEVEMENTS</h2>
@@ -572,6 +591,11 @@
     const PRESTIGE_BASE_COST = 300;    
     const PRESTIGE_COST_MULT = 20;      
     const PRESTIGE_BONUS_PER_LEVEL = 1.26; 
+    let ascendLevel = 0;  // New
+    const ASCEND_BASE_COST = 1e7;        // 10M
+    const ASCEND_COST_MULT = 1000;       // x1000 per level
+    const ASCEND_BONUS_PER_LEVEL = 1.4;  // 1.4x per level
+    const MAX_ASCEND_LEVEL = 15;
 
     function getPrestigeMultiplier() {
         return Math.pow(PRESTIGE_BONUS_PER_LEVEL, prestigeLevel);
@@ -580,6 +604,13 @@
     function getPrestigeCost() {
         return PRESTIGE_BASE_COST * Math.pow(PRESTIGE_COST_MULT, prestigeLevel);
     }
+    function getAscendMultiplier() {
+    return Math.pow(ASCEND_BONUS_PER_LEVEL, ascendLevel);
+}
+
+function getAscendCost() {
+    return ASCEND_BASE_COST * Math.pow(ASCEND_COST_MULT, ascendLevel);
+}
 
     const upgrades = [
         { id: 'bone1',    name: 'BONE COB',          icon: '🦴', basePower: 1,        baseCost: 20,       desc: '+1/click' },
@@ -688,10 +719,10 @@
         return baseClickPowerRaw();
     }
     
-    function totalClickPower() {
-        return baseClickPower() * comboMultiplier() * getPrestigeMultiplier();
-    }
-
+function totalClickPower() {
+    return baseClickPower() * comboMultiplier() * getPrestigeMultiplier() * getAscendMultiplier();
+}
+    
 function formatNumber(num) {
     if (num === Infinity) return '∞';
     if (num === undefined || num === null) return '0';
@@ -773,6 +804,9 @@ const achievements = [
     { id: 'firsthidden', name: 'Unveiled', desc: 'Unlock your first hidden upgrade', icon: '👁️', condition: () => prestigeLevel >= 1 && Object.values(levels).filter(lvl => lvl >= 1).length >= 2 },
     { id: 'fullpower', name: 'Ultimate Skull', desc: 'Own the Jabel upgrade', icon: '🧙💀', condition: () => levels['bone31'] >= 1 },
     { id: 'fullpower2', name: 'Omega Skull', desc: 'Own the last upgrade', icon: '💀💀💀', condition: () => levels['bone33'] >= 1 },
+    { id: 'ascend1', name: 'Transcendent', desc: 'Ascend for the first time', icon: '⭐', condition: () => ascendLevel >= 1 },
+{ id: 'ascend5', name: 'Ascension Master', desc: 'Reach ascend level 5', icon: '⭐💫', condition: () => ascendLevel >= 5 },
+{ id: 'ascend15', name: 'ULTIMATE ASCENSION', desc: 'Max out ascend (level 15)', icon: '⭐🔥', condition: () => ascendLevel >= 15 },
 ];
 
     let unlockedAchievements = [];
@@ -933,6 +967,42 @@ const achievements = [
         else btn.classList.add('disabled');
     }
 
+    function performAscend() {
+    const cost = getAscendCost();
+    if (bones < cost) {
+        document.getElementById('ascendMessage').innerText = '❌ not enough bones';
+        return;
+    }
+    if (ascendLevel >= MAX_ASCEND_LEVEL) {
+        document.getElementById('ascendMessage').innerText = '💀 maximum ascend reached';
+        return;
+    }
+    bones = 0;
+    upgrades.forEach(u => levels[u.id] = 0);
+    prestigeLevel = 0;  // Reset prestige too!
+    combo = 0;
+    ascendLevel++;
+    unlockedAchievements = unlockedAchievements.filter(id => !id.startsWith('prestige') && !id.startsWith('ascend'));
+    saveGame();
+    fullRefresh();
+    updateAscendUI();
+    checkAchievements();
+    document.getElementById('ascendMessage').innerText = '💀 ASCEND ACHIEVED!';
+    spawnFloatingText('ASCEND '+ascendLevel, true);
+}
+
+function updateAscendUI() {
+    document.getElementById('ascendLevelSpan').innerText = ascendLevel;
+    document.getElementById('ascendMultSpan').innerText = getAscendMultiplier().toFixed(2);
+    let nextMult = Math.pow(ASCEND_BONUS_PER_LEVEL, ascendLevel+1);
+    document.getElementById('nextAscendMultSpan').innerText = nextMult.toFixed(2);
+    let cost = getAscendCost();
+    document.getElementById('ascendCostSpan').innerHTML = formatNumber(cost);
+    const btn = document.getElementById('ascendActionBtn');
+    if (bones >= cost && ascendLevel < MAX_ASCEND_LEVEL) btn.classList.remove('disabled');
+    else btn.classList.add('disabled');
+}
+    
     function fullRefresh() {
         document.getElementById('globalBoneDisplay').innerText = formatNumber(bones);
         const clickPow = totalClickPower();
@@ -945,6 +1015,7 @@ const achievements = [
         updateComboUI();
         renderAchievements();
         updatePrestigeUI();
+        updateAscendUI();
     }
 
     function updateStatsPanel() {
@@ -954,6 +1025,7 @@ const achievements = [
         let html = `<b>🦴 BONES:</b> ${formatNumber(bones)}<br>
                     <b>🖱️ CLICKS:</b> ${totalManualClicks}<br>
                     <b>👑 PRESTIGE:</b> ${prestigeLevel} (x${getPrestigeMultiplier().toFixed(2)})<br>
+                    <b>⭐ ASCEND:</b> ${ascendLevel} (x${getAscendMultiplier().toFixed(2)})<br>
                     <b>⚡ COMBO:</b> ${combo} (${comboPercent()}%)<br>
                     <b>🏆 ACHIEVEMENTS:</b> ${unlockedAchievements.length}/${achievements.length}<br>
                     <b>⬆️ UPGRADES OWNED:</b> ${Object.values(levels).filter(lvl => lvl >= 1).length}<br><br>
@@ -969,15 +1041,15 @@ const achievements = [
         el.innerHTML = html;
     }
 
-    function saveGame() {
-        const saveObj = { 
-            bones, 
-            totalManualClicks, 
-            levels, 
-            unlockedAchievements, 
-            prestigeLevel,
-            version: 'skullPrestige2.0' 
-        };
+const saveObj = { 
+    bones, 
+    totalManualClicks, 
+    levels, 
+    unlockedAchievements, 
+    prestigeLevel,
+    ascendLevel,  // ADDed
+    version: 'skullPrestige2.0' 
+};
         localStorage.setItem('skullClickerSave', JSON.stringify(saveObj));
         document.getElementById('saveStatus').innerText = '💾 saved ' + new Date().toLocaleTimeString();
     }
@@ -1044,6 +1116,7 @@ const achievements = [
             }
             unlockedAchievements = loaded.unlockedAchievements || [];
             prestigeLevel = loaded.prestigeLevel || 0;
+            ascendLevel = loaded.ascendLevel || 0;
             combo = 0; 
             updateComboUI();
             fullRefresh();
@@ -1059,18 +1132,20 @@ const achievements = [
     const mainPage = document.getElementById('pageMain');
     const upgradePage = document.getElementById('pageUpgrade');
     const prestigePage = document.getElementById('pagePrestige');
+    const ascendPage = document.getElementById('pageAscend');
     const achievementsPage = document.getElementById('pageAchievements');
     const statsPage = document.getElementById('pageStats');
     const tabMain = document.getElementById('tabMain');
     const tabUpgrade = document.getElementById('tabUpgrade');
     const tabPrestige = document.getElementById('tabPrestige');
+    const tabAscend = document.getElementById('tabAscend');
     const tabAchievements = document.getElementById('tabAchievements');
     const tabStats = document.getElementById('tabStats');
     
-    function setActivePage(active) {
-        [mainPage, upgradePage, prestigePage, achievementsPage, statsPage].forEach(p => p.classList.remove('active-page'));
-        [tabMain, tabUpgrade, tabPrestige, tabAchievements, tabStats].forEach(t => t.classList.remove('active'));
-        
+ function setActivePage(active) {
+    [mainPage, upgradePage, prestigePage, achievementsPage, statsPage, ascendPage].forEach(p => p.classList.remove('active-page'));
+    [tabMain, tabUpgrade, tabPrestige, tabAchievements, tabStats, tabAscend].forEach(t => t.classList.remove('active'));
+     
         if (active === 'main') { 
             mainPage.classList.add('active-page'); 
             tabMain.classList.add('active'); 
@@ -1084,6 +1159,11 @@ const achievements = [
             prestigePage.classList.add('active-page'); 
             tabPrestige.classList.add('active'); 
             updatePrestigeUI(); 
+        }
+        else if (active === 'ascend') { 
+            ascendPage.classList.add('active-page'); 
+            tabAscend.classList.add('active'); 
+            updateAscendUI(); 
         }
         else if (active === 'achievements') { 
             achievementsPage.classList.add('active-page'); 
@@ -1101,10 +1181,12 @@ const achievements = [
     tabMain.addEventListener('click', () => setActivePage('main'));
     tabUpgrade.addEventListener('click', () => setActivePage('upgrade'));
     tabPrestige.addEventListener('click', () => setActivePage('prestige'));
+    tabAscend.addEventListener('click', () => setActivePage('ascend'));
     tabAchievements.addEventListener('click', () => setActivePage('achievements'));
     tabStats.addEventListener('click', () => setActivePage('stats'));
 
     document.getElementById('prestigeActionBtn').addEventListener('click', performPrestige);
+    document.getElementById('ascendActionBtn').addEventListener('click', performAscend);
     document.getElementById('saveGameBtn').addEventListener('click', saveGame);
     document.getElementById('loadGameBtn').addEventListener('click', loadGame);
     document.getElementById('resetGameBtn').addEventListener('click', resetGame);
