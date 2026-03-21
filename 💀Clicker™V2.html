@@ -1797,13 +1797,13 @@ function setSaveData(data) {
 }
 
 function saveGame() {
-  localStorage.setItem('skullClickerSave', JSON.stringify(getSaveData()));
+  localStorage.setItem('skullClickerSave2', JSON.stringify(getSaveData()));
   showNotification('Game saved successfully!', '💾');
   updateLastSavedInfo();
 }
 
 function loadGame() {
-  const savestr = localStorage.getItem('skullClickerSave');
+  const savestr = localStorage.getItem('skullClickerSave2');
   if (!savestr) {
     showNotification('No save file found!', '❌');
     return;
@@ -1834,7 +1834,7 @@ function loadGame() {
 }
 
 function updateLastSavedInfo() {
-  const savestr = localStorage.getItem('skullClickerSave');
+  const savestr = localStorage.getItem('skullClickerSave2');
   if (savestr) {
     try {
       const save = JSON.parse(savestr);
@@ -1852,7 +1852,7 @@ function updateLastSavedInfo() {
 }
 
 function autoSave() {
-  localStorage.setItem('skullClickerSave', JSON.stringify(getSaveData()));
+  localStorage.setItem('skullClickerSave2', JSON.stringify(getSaveData()));
   updateLastSavedInfo();
 }
 setInterval(autoSave, 60000);
@@ -1860,7 +1860,7 @@ setInterval(autoSave, 60000);
 // ----- Full reset function -----
 function fullReset() {
   if (confirm('Are you sure you want to delete all saved data and reset the game?\nThis cannot be undone!')) {
-    localStorage.removeItem('skullClickerSave');
+    localStorage.removeItem('skullClickerSave2');
     score = 0;
     baseMultiplier = 1;
     factoryLevel = 0;
