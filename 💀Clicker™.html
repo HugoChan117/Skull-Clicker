@@ -546,11 +546,11 @@
         <div class="prestige-card" id="ascendInfo">
             <div>Current ascend level: <span id="ascendLevelSpan">0</span></div>
             <div>Multiplier: <span id="ascendMultSpan">1.00</span>x</div>
-            <div>Next bonus: +40% → <span id="nextAscendMultSpan">1.40</span>x</div>
+            <div>Next bonus: +30% → <span id="nextAscendMultSpan">1.40</span>x</div>
             <div>Ascend cost: <span id="ascendCostSpan">1 Billion</span> 🦴</div>
         </div>
         <div class="prestige-desc">
-            💀 Resets bones & upgrades & prestige, but gain permanent 1.4x bonus per level.<br>
+            💀 Resets bones & upgrades & prestige, but gain permanent 1.3x bonus per level.<br>
             Base cost: 10 Million 🦴<br>
             Max level 15
         </div>
@@ -591,10 +591,10 @@
     const PRESTIGE_BASE_COST = 300;    
     const PRESTIGE_COST_MULT = 20;      
     const PRESTIGE_BONUS_PER_LEVEL = 1.2; 
-    let ascendLevel = 0;  // New
-    const ASCEND_BASE_COST = 1e7;        // 10M
+    let ascendLevel = 0; 
+    const ASCEND_BASE_COST = 1e7;   
     const ASCEND_COST_MULT = 1000;   
-    const ASCEND_BONUS_PER_LEVEL = 1.4; 
+    const ASCEND_BONUS_PER_LEVEL = 1.3; 
     const MAX_ASCEND_LEVEL = 15;
 
     function getPrestigeMultiplier() {
