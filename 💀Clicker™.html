@@ -620,9 +620,9 @@ function getAscendCost() {
         { id: 'bone7',    name: 'BONE QUANTUM',        icon: '🔮', basePower: 2900000,    baseCost: 1280000000,     desc: '+2.9M/click' },
         { id: 'bone8',    name: 'SKULL FUSION',        icon: '⚡', basePower: 35000000,   baseCost: 25600000000,    desc: '+35M/click' },
         { id: 'bone9',    name: 'GALACTIC SKULL',      icon: '🌌', basePower: 450000000,  baseCost: 512000000000,   desc: '+450M/click' },
-        { id: 'bone10',   name: 'VOID REAPER',         icon: '👾', basePower: 5.6e+9,     baseCost: 1.024e+15,      desc: '+5.6B/click' },
-        { id: 'bone11',   name: 'COSMIC SKULL',        icon: '🛸', basePower: 7.2e+10,    baseCost: 2.048e+16,      desc: '+72B/click' },
-        { id: 'bone12',   name: 'SHADOW AVATAR',       icon: '🦅', basePower: 9e+11,      baseCost: 4.096e+17,      desc: '+900B/click' }, 
+        { id: 'bone10',   name: 'VOID REAPER',         icon: '👾', basePower: 5.6e+9,     baseCost: 1.024e+13,      desc: '+5.6B/click' },
+        { id: 'bone11',   name: 'COSMIC SKULL',        icon: '🛸', basePower: 7.2e+10,    baseCost: 2.048e+14,      desc: '+72B/click' },
+        { id: 'bone12',   name: 'SHADOW AVATAR',       icon: '🦅', basePower: 9e+11,      baseCost: 4.096e+15,      desc: '+900B/click' }, 
         { id: 'bone13',   name: 'STELLAR SKULL',       icon: '🌠', basePower: 1.2e+13,    baseCost: 8.192e+16,      desc: '+12T/click' },
         { id: 'bone14',   name: 'COSMIC REAPER',       icon: '☄️', basePower: 1.5e+14,    baseCost: 1.6384e+18,     desc: '+150T/click' },
         { id: 'bone15',   name: 'VOID ENGINE',         icon: '🌀', basePower: 2e+15,      baseCost: 3.2768e+19,     desc: '+2Qa/click' },
@@ -1077,6 +1077,7 @@ function saveGame() {
             }
             unlockedAchievements = loaded.unlockedAchievements || [];
             prestigeLevel = loaded.prestigeLevel || 0;
+            ascendLevel = loaded.ascendLevel || 0;
             combo = 0; 
             updateComboUI();
             fullRefresh();
