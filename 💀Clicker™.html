@@ -645,7 +645,7 @@ function getAscendCost() {
         { id: 'bone32',   name: 'SAUL',                icon: '🤖', basePower: 1.2e+35,    baseCost: 1.6e+43,        desc: '+120 D/click' , imageUrl: 'https://kingshotdata.com/wp-content/uploads/2025/03/saul-kingshot.webp'}, 
         { id: 'bone33',   name: 'HELGA',               icon: '☠️', basePower: 7.2e+35,    baseCost: 1.2e+44,        desc: '+720 D/click' , imageUrl: 'https://kingshotdata.com/wp-content/uploads/2025/03/helga-kingshot.webp'}, 
         
-        { id: 'bone34',   name: 'GIGGLE INCONTINENCE', icon: '😂', basePower: 1e+60,      baseCost: 7.68e+70,       desc: '+1 V/click' }
+        { id: 'bone34',   name: 'GIGGLE INCONTINENCE', icon: '😂', basePower: 999e+60,    baseCost: 7.68e+70,       desc: +999 Vg/click' }
     ];
 
     let levels = {};
@@ -710,10 +710,11 @@ function getAscendCost() {
         return upgrade.basePower * Math.pow(1.25, lvl - 1);
     }
     
-    function getNextCost(upgrade) {
-        const lvl = levels[upgrade.id];
-        return Math.floor(upgrade.baseCost * Math.pow(1.32, lvl));
-    }
+function getNextCost(upgrade) {
+    const lvl = levels[upgrade.id];
+    const scaleFactor = upgrade.id === 'bone33' ? 1.01 : 1.32;
+    return Math.floor(upgrade.baseCost * Math.pow(scaleFactor, lvl));
+}
     
     function baseClickPower() {
         return baseClickPowerRaw();
