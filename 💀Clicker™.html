@@ -712,7 +712,7 @@ function getAscendCost() {
     
 function getNextCost(upgrade) {
     const lvl = levels[upgrade.id];
-    const scaleFactor = upgrade.id === 'bone33' ? 1.01 : 1.32;
+    const scaleFactor = upgrade.id === 'bone34' ? 1.01 : 1.32;
     return Math.floor(upgrade.baseCost * Math.pow(scaleFactor, lvl));
 }
     
