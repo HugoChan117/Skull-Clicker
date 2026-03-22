@@ -757,7 +757,6 @@ function formatNumber(num) {
         formatted = Math.floor(tempNum).toString(); 
     }
     
-    // Clean up trailing .0
     if (formatted.endsWith('.0')) {
         formatted = formatted.slice(0, -2);
     }
@@ -948,8 +947,7 @@ const achievements = [
         upgrades.forEach(u => levels[u.id] = 0);
         combo = 0;
         prestigeLevel++;
-        unlockedAchievements = unlockedAchievements.filter(id => !id.startsWith('prestige')); // keep others, but we want new ones check later
-        // but check after
+        unlockedAchievements = unlockedAchievements.filter(id => !id.startsWith('prestige'));
         saveGame();
         fullRefresh();
         updatePrestigeUI();
@@ -982,7 +980,7 @@ function performAscend() {
     }
     bones = 0;
     upgrades.forEach(u => levels[u.id] = 0);
-    prestigeLevel = 0;  // Reset prestige too!
+    prestigeLevel = 0; 
     combo = 0;
     ascendLevel++;
     unlockedAchievements = unlockedAchievements.filter(id => !id.startsWith('prestige') && !id.startsWith('ascend'));
