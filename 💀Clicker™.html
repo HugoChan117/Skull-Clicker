@@ -728,11 +728,12 @@ function totalClickPower() {
 }
     
 function formatNumber(num) {
-    if (num === Infinity) return '∞';
+    if (num === Infinity || num >= MAX_NUMBER) return '∞';
     if (num === undefined || num === null) return '0';
+    if (num < 0) return '-' + formatNumber(-num);
     if (num < 100000) {
         let formatted = num.toLocaleString('en-US', { maximumFractionDigits: 2 });
-        formatted = formatted.replace(/\.?0+$/, '');
+        formatted = formatted.replace(/(\.[0-9]*?)0+$/, '$1').replace(/\.$/, '');
         return formatted;
     }
 
@@ -753,6 +754,10 @@ function formatNumber(num) {
         tempNum /= 1000;
         tier++;
     }
+    
+    if (tempNum >= 1000) {
+        return '∞';
+    }
 
     let formatted;
     if (tempNum < 10) {
@@ -763,7 +768,7 @@ function formatNumber(num) {
         formatted = Math.floor(tempNum).toString();
     }
     
-    formatted = formatted.replace(/\.?0+$/, '');
+    formatted = formatted.replace(/(\.[0-9]*?)0+$/, '$1').replace(/\.$/, '');
     
     return `${formatted}${suffixes[tier]}`.trim();
 }
