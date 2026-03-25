@@ -647,8 +647,7 @@ const upgrades = [
     { id: 'bone31',   name: 'JABEL',                 icon: '🧙', basePower: 2e+34,      baseCost: 2e+42,          desc: '+20 D/click', imageUrl: 'https://kingshotdata.com/wp-content/uploads/2025/03/jabel.webp'},
     { id: 'bone32',   name: 'SAUL',                  icon: '🤖', basePower: 1.2e+35,    baseCost: 1.6e+43,        desc: '+120 D/click' , imageUrl: 'https://kingshotdata.com/wp-content/uploads/2025/03/saul-kingshot.webp'}, 
     { id: 'bone33',   name: 'HELGA',                 icon: '☠️', basePower: 7.2e+35,    baseCost: 1.2e+44,        desc: '+720 D/click' , imageUrl: 'https://kingshotdata.com/wp-content/uploads/2025/03/helga-kingshot.webp'},
-
-    { id: 'bone34',   name: 'GIGGLE INCONTINENCE',   icon: '🤣', basePower: 999e+63,    baseCost: Number.MAX_SAFE_INTEGER * 1e+60, desc: '+999 Vg/click' }
+    { id: 'bone34',   name: 'GIGGLE INCONTINENCE',   icon: '😂', basePower: 999e+63,    baseCost: Number.MAX_SAFE_INTEGER * 1e+60, desc: '+999 Vg/click' }
 ];
 
     let levels = {};
@@ -728,13 +727,10 @@ function totalClickPower() {
 }
     
 function formatNumber(num) {
-    if (num === Infinity || num >= MAX_NUMBER) return '∞';
+    if (num === Infinity) return '∞';
     if (num === undefined || num === null) return '0';
-    if (num < 0) return '-' + formatNumber(-num);
     if (num < 100000) {
-        let formatted = num.toLocaleString('en-US', { maximumFractionDigits: 2 });
-        formatted = formatted.replace(/(\.[0-9]*?)0+$/, '$1').replace(/\.$/, '');
-        return formatted;
+        return Math.floor(num).toLocaleString('en-US');
     }
 
     const suffixes = [
@@ -754,21 +750,19 @@ function formatNumber(num) {
         tempNum /= 1000;
         tier++;
     }
-    
-    if (tempNum >= 1000) {
-        return '∞';
-    }
 
     let formatted;
     if (tempNum < 10) {
-        formatted = tempNum.toFixed(2);
+        formatted = tempNum.toFixed(2);  
     } else if (tempNum < 100) {
-        formatted = tempNum.toFixed(1);
+        formatted = tempNum.toFixed(1);  
     } else {
-        formatted = Math.floor(tempNum).toString();
+        formatted = Math.floor(tempNum).toString(); 
     }
     
-    formatted = formatted.replace(/(\.[0-9]*?)0+$/, '$1').replace(/\.$/, '');
+    if (formatted.endsWith('.0')) {
+        formatted = formatted.slice(0, -2);
+    }
     
     return `${formatted}${suffixes[tier]}`.trim();
 }
