@@ -1422,128 +1422,97 @@
   };
 
   // === DATA STRUCTURES ===
-  
-  // Massive upgrade system (100+ upgrades)
   const upgrades = [
-    // Basic upgrades (Page 1)
     { name: "BONE PICKER", baseCost: 15, power: 1, owned: 0, maxOwned: 100, description: "A basic tool for collecting bones from graves." },
     { name: "GRAVE SHOVEL", baseCost: 100, power: 5, owned: 0, maxOwned: 100, description: "Dig deeper into the mysteries of death." },
     { name: "SKULL DETECTOR", baseCost: 500, power: 20, owned: 0, maxOwned: 100, description: "Advanced technology to locate rare skulls." },
     { name: "NECROMANCER STAFF", baseCost: 2500, power: 100, owned: 0, maxOwned: 100, description: "Channel the power of the undead." },
     { name: "DEATH SCYTHE", baseCost: 12000, power: 500, owned: 0, maxOwned: 100, description: "The ultimate tool of the reaper." },
     { name: "SOUL HARVESTER", baseCost: 60000, power: 2500, owned: 0, maxOwned: 100, description: "Extract essence from departed souls." },
-    
-    // Intermediate upgrades (Page 2)
     { name: "PHANTOM BLADE", baseCost: 300000, power: 12000, owned: 0, maxOwned: 100, description: "A weapon forged in the spirit realm." },
     { name: "WRAITH CLOAK", baseCost: 1500000, power: 60000, owned: 0, maxOwned: 100, description: "Become one with the shadows of death." },
     { name: "SPECTRAL CROWN", baseCost: 7500000, power: 300000, owned: 0, maxOwned: 100, description: "Rule over the domain of ghosts." },
     { name: "LICH THRONE", baseCost: 37500000, power: 1500000, owned: 0, maxOwned: 100, description: "Sit upon the throne of eternal undeath." },
     { name: "BANSHEE HORN", baseCost: 187500000, power: 7500000, owned: 0, maxOwned: 100, description: "Summon the wailing spirits of the damned." },
     { name: "VAMPIRE CHALICE", baseCost: 937500000, power: 37500000, owned: 0, maxOwned: 100, description: "Drink deep from the cup of immortality." },
-    
-    // Advanced upgrades (Page 3)
     { name: "DEMON GATE", baseCost: 4687500000, power: 187500000, owned: 0, maxOwned: 100, description: "Open portals to infernal realms." },
     { name: "ANGEL OF DEATH", baseCost: 23437500000, power: 937500000, owned: 0, maxOwned: 100, description: "Command the celestial harbinger of doom." },
     { name: "APOCALYPSE ENGINE", baseCost: 117187500000, power: 4687500000, owned: 0, maxOwned: 100, description: "Bring about the end of worlds." },
     { name: "COSMIC VOID", baseCost: 585937500000, power: 23437500000, owned: 0, maxOwned: 100, description: "Harness the power of empty space itself." },
     { name: "REALITY SHREDDER", baseCost: 2929687500000, power: 117187500000, owned: 0, maxOwned: 100, description: "Tear holes in the fabric of existence." },
     { name: "TIME DESTROYER", baseCost: 14648437500000, power: 585937500000, owned: 0, maxOwned: 100, description: "Unravel the very concept of time." },
-    
-    // Transcendence upgrades (Page 4)
     { name: "SOUL FORGE", baseCost: 1e15, power: 1e12, owned: 0, maxOwned: 100, description: "Craft weapons from pure soul energy." },
     { name: "ESSENCE REFINERY", baseCost: 5e15, power: 5e12, owned: 0, maxOwned: 100, description: "Purify raw essence into concentrated power." },
     { name: "ANTIMATTER REACTOR", baseCost: 2.5e16, power: 2.5e13, owned: 0, maxOwned: 100, description: "Harness the power of antimatter." },
     { name: "QUANTUM PROCESSOR", baseCost: 1.25e17, power: 1.25e14, owned: 0, maxOwned: 100, description: "Process reality at the quantum level." },
     { name: "DIVINE CONDUIT", baseCost: 6.25e17, power: 6.25e14, owned: 0, maxOwned: 100, description: "Channel divine energy through your being." },
     { name: "VOID MANIPULATOR", baseCost: 3.125e18, power: 3.125e15, owned: 0, maxOwned: 100, description: "Bend the void to your will." },
-    
-    // Enlightenment upgrades (Page 5)
     { name: "WISDOM OF AGES", baseCost: 1.5625e19, power: 1.5625e16, owned: 0, maxOwned: 100, description: "Accumulate knowledge across millennia." },
     { name: "OMNISCIENCE CRYSTAL", baseCost: 7.8125e19, power: 7.8125e16, owned: 0, maxOwned: 100, description: "Know all things across all realities." },
     { name: "UNIVERSAL TRUTH", baseCost: 3.90625e20, power: 3.90625e17, owned: 0, maxOwned: 100, description: "Understand the fundamental laws of existence." },
     { name: "ETERNAL WISDOM", baseCost: 1.953125e21, power: 1.953125e18, owned: 0, maxOwned: 100, description: "Wisdom that transcends time and space." },
     { name: "INFINITE KNOWLEDGE", baseCost: 9.765625e21, power: 9.765625e18, owned: 0, maxOwned: 100, description: "Know everything that can be known." },
     { name: "AKASHIC RECORDS", baseCost: 4.8828125e22, power: 4.8828125e19, owned: 0, maxOwned: 100, description: "Access the cosmic library of all existence." },
-    
-    // Ascension upgrades (Page 6)
     { name: "CELESTIAL GATEWAY", baseCost: 2.44140625e23, power: 2.44140625e20, owned: 0, maxOwned: 100, description: "Ascend to higher planes of existence." },
     { name: "SERAPH ENGINE", baseCost: 1.220703125e24, power: 1.220703125e21, owned: 0, maxOwned: 100, description: "Powered by the highest order of angels." },
     { name: "GODHOOD MATRIX", baseCost: 6.103515625e24, power: 6.103515625e21, owned: 0, maxOwned: 100, description: "Achieve true divinity through technology." },
     { name: "OMNIPOTENCE CORE", baseCost: 3.0517578125e25, power: 3.0517578125e22, owned: 0, maxOwned: 100, description: "Unlimited power over all things." },
     { name: "CREATION ENGINE", baseCost: 1.52587890625e26, power: 1.52587890625e23, owned: 0, maxOwned: 100, description: "Create universes with a thought." },
     { name: "ALPHA POINT", baseCost: 7.62939453125e26, power: 7.62939453125e23, owned: 0, maxOwned: 100, description: "The beginning and end of all existence." },
-    
-    // Cosmic upgrades (Page 7)
     { name: "MULTIVERSE CONTROLLER", baseCost: 3.814697265625e27, power: 3.814697265625e24, owned: 0, maxOwned: 100, description: "Control infinite parallel universes." },
     { name: "DIMENSION WEAVER", baseCost: 1.9073486328125e28, power: 1.9073486328125e25, owned: 0, maxOwned: 100, description: "Weave new dimensions into reality." },
     { name: "REALITY ARCHITECT", baseCost: 9.5367431640625e28, power: 9.5367431640625e25, owned: 0, maxOwned: 100, description: "Design and build entire realities." },
     { name: "COSMIC SUPREME", baseCost: 4.76837158203125e29, power: 4.76837158203125e26, owned: 0, maxOwned: 100, description: "Supreme ruler of the cosmic order." },
     { name: "INFINITY ENGINE", baseCost: 2.384185791015625e30, power: 2.384185791015625e27, owned: 0, maxOwned: 100, description: "Harness the power of true infinity." },
     { name: "OMEGA SINGULARITY", baseCost: 1.1920928955078125e31, power: 1.1920928955078125e28, owned: 0, maxOwned: 100, description: "The final point of all existence." },
-    
-    // Ultimate upgrades (Page 8)
     { name: "TRANSCENDENT BEING", baseCost: 5.960464477539063e31, power: 5.960464477539063e28, owned: 0, maxOwned: 100, description: "Become something beyond comprehension." },
     { name: "ABSTRACT CONCEPT", baseCost: 2.9802322387695313e32, power: 2.9802322387695313e29, owned: 0, maxOwned: 100, description: "Exist as a pure abstract concept." },
     { name: "MATHEMATICAL CONSTANT", baseCost: 1.4901161193847656e33, power: 1.4901161193847656e30, owned: 0, maxOwned: 100, description: "Become a fundamental constant of mathematics." },
     { name: "LOGICAL PRINCIPLE", baseCost: 7.450580596923828e33, power: 7.450580596923828e30, owned: 0, maxOwned: 100, description: "Embody the principles of pure logic." },
     { name: "EXISTENTIAL AXIOM", baseCost: 3.725290298461914e34, power: 3.725290298461914e31, owned: 0, maxOwned: 100, description: "Become an axiom of existence itself." },
     { name: "ULTIMATE TRUTH", baseCost: 1.862645149230957e35, power: 1.862645149230957e32, owned: 0, maxOwned: 100, description: "The final truth that underlies all reality." },
-    
-    // Paradox upgrades (Page 9)
     { name: "PARADOX GENERATOR", baseCost: 9.313225746154785e35, power: 9.313225746154785e32, owned: 0, maxOwned: 100, description: "Generate logical paradoxes to break reality." },
     { name: "IMPOSSIBLE MACHINE", baseCost: 4.6566128730773926e36, power: 4.6566128730773926e33, owned: 0, maxOwned: 100, description: "A machine that cannot exist, yet does." },
     { name: "CONTRADICTION CORE", baseCost: 2.3283064365386963e37, power: 2.3283064365386963e34, owned: 0, maxOwned: 100, description: "The heart of all contradictions." },
     { name: "ILLOGICAL LOOP", baseCost: 1.1641532182693481e38, power: 1.1641532182693481e35, owned: 0, maxOwned: 100, description: "A loop that defies all logic." },
     { name: "ABSURD REALITY", baseCost: 5.820766091346741e38, power: 5.820766091346741e35, owned: 0, maxOwned: 100, description: "Reality that makes no sense." },
     { name: "NONSENSE ENGINE", baseCost: 2.9103830456733704e39, power: 2.9103830456733704e36, owned: 0, maxOwned: 100, description: "Powered by pure nonsense." },
-    
-    // Meta upgrades (Page 10)
     { name: "GAME BREAKER", baseCost: 1.4551915228366852e40, power: 1.4551915228366852e37, owned: 0, maxOwned: 100, description: "Break the fourth wall of existence." },
     { name: "CODE MANIPULATOR", baseCost: 7.275957614183426e40, power: 7.275957614183426e37, owned: 0, maxOwned: 100, description: "Manipulate the source code of reality." },
     { name: "DEVELOPER CONSOLE", baseCost: 3.637978807091713e41, power: 3.637978807091713e38, owned: 0, maxOwned: 100, description: "Access the developer tools of the universe." },
     { name: "ADMIN PRIVILEGES", baseCost: 1.8189894035458565e42, power: 1.8189894035458565e39, owned: 0, maxOwned: 100, description: "Full administrative access to existence." },
     { name: "ROOT ACCESS", baseCost: 9.094947017729282e42, power: 9.094947017729282e39, owned: 0, maxOwned: 100, description: "Root-level access to the universe's OS." },
     { name: "UNIVERSAL SUDO", baseCost: 4.547473508864641e43, power: 4.547473508864641e40, owned: 0, maxOwned: 100, description: "Execute any command in reality." },
- 
-  // Index 60-65 (Programming terms - ×5 scaling from index 59)
-{ name: "STACK OVERFLOW", baseCost: 2.2735e44, power: 2.2735e41, owned: 0, maxOwned: 100, description: "Recursively call yourself until reality crashes." },
-{ name: "NULL POINTER", baseCost: 1.13675e45, power: 1.13675e42, owned: 0, maxOwned: 100, description: "Point to nothing, yet command everything." },
-{ name: "MEMORY LEAK", baseCost: 5.68375e45, power: 5.68375e42, owned: 0, maxOwned: 100, description: "Allocate infinite resources without release." },
-{ name: "DEADLOCK DETECTOR", baseCost: 2.841875e46, power: 2.841875e43, owned: 0, maxOwned: 100, description: "Identify and break any deadlock in existence." },
-{ name: "RACE CONDITION", baseCost: 1.4209375e47, power: 1.4209375e44, owned: 0, maxOwned: 100, description: "Make causality race against itself." },
-{ name: "BUFFER OVERFLOW", baseCost: 7.1046875e47, power: 7.1046875e44, owned: 0, maxOwned: 100, description: "Write beyond the boundaries of reality." },
-
-// Index 66-71 (More programming)
-{ name: "GARBAGE COLLECTOR", baseCost: 3.55234375e48, power: 3.55234375e45, owned: 0, maxOwned: 100, description: "Reclaim wasted potential across dimensions." },
-{ name: "COMPILER OPTIMIZER", baseCost: 1.776171875e49, power: 1.776171875e46, owned: 0, maxOwned: 100, description: "Optimize your existence for maximum efficiency." },
-{ name: "INTERPRETER", baseCost: 8.880859375e49, power: 8.880859375e46, owned: 0, maxOwned: 100, description: "Execute reality line by line, bend as you go." },
-{ name: "JIT COMPILER", baseCost: 4.4404296875e50, power: 4.4404296875e47, owned: 0, maxOwned: 100, description: "Compile your power just in time for battle." },
-{ name: "ASSEMBLER", baseCost: 2.22021484375e51, power: 2.22021484375e48, owned: 0, maxOwned: 100, description: "Construct new realities from raw bits." },
-{ name: "DISASSEMBLER", baseCost: 1.110107421875e52, power: 1.110107421875e49, owned: 0, maxOwned: 100, description: "Deconstruct anything into its fundamental components." },
-
-// Index 72-77 (Memory/CPU terms)
-{ name: "HEAP ALLOCATOR", baseCost: 5.550537109375e52, power: 5.550537109375e49, owned: 0, maxOwned: 100, description: "Allocate memory from the cosmic heap." },
-{ name: "STACK FRAME", baseCost: 2.7752685546875e53, power: 2.7752685546875e50, owned: 0, maxOwned: 100, description: "Stack your power frames infinitely deep." },
-{ name: "REGISTER FILE", baseCost: 1.38763427734375e54, power: 1.38763427734375e51, owned: 0, maxOwned: 100, description: "Store unlimited variables in CPU registers." },
-{ name: "CACHE COHERENCY", baseCost: 6.93817138671875e54, power: 6.93817138671875e51, owned: 0, maxOwned: 100, description: "Keep all copies of reality synchronized." },
-{ name: "PIPELINE", baseCost: 3.469085693359375e55, power: 3.469085693359375e52, owned: 0, maxOwned: 100, description: "Execute multiple universe instructions in parallel." },
-{ name: "BRANCH PREDICTOR", baseCost: 1.7345428466796875e56, power: 1.7345428466796875e53, owned: 0, maxOwned: 100, description: "Predict every possible timeline before it happens." },
-
-// Index 78-83 (OS/Concurrency terms)
-{ name: "THREAD SCHEDULER", baseCost: 8.672714233398438e56, power: 8.672714233398438e53, owned: 0, maxOwned: 100, description: "Schedule infinite parallel realities." },
-{ name: "MUTEX LOCK", baseCost: 4.336357116699219e57, power: 4.336357116699219e54, owned: 0, maxOwned: 100, description: "Lock exclusive control over any resource." },
-{ name: "SEMAPHORE", baseCost: 2.1681785583496095e58, power: 2.1681785583496095e55, owned: 0, maxOwned: 100, description: "Signal between dimensions with perfect synchronization." },
-{ name: "BARRIER", baseCost: 1.0840892791748047e59, power: 1.0840892791748047e56, owned: 0, maxOwned: 100, description: "Erect barriers that no force can breach." },
-{ name: "ATOMIC OPERATION", baseCost: 5.420446395874023e59, power: 5.420446395874023e56, owned: 0, maxOwned: 100, description: "Perform indivisible acts that reshape reality." },
-{ name: "TRANSACTION", baseCost: 2.7102231979370115e60, power: 2.7102231979370115e57, owned: 0, maxOwned: 100, description: "Commit or rollback any change to existence." },
-
-// Index 84-89 (Database/SQL terms)
-{ name: "CHECKPOINT", baseCost: 1.3551115989685057e61, power: 1.3551115989685057e58, owned: 0, maxOwned: 100, description: "Save state and restore from any point in time." },
-{ name: "SNAPSHOT ISOLATION", baseCost: 6.775557994842529e61, power: 6.775557994842529e58, owned: 0, maxOwned: 100, description: "View any timeline without affecting it." },
-{ name: "QUERY OPTIMIZER", baseCost: 3.3877789974212645e62, power: 3.3877789974212645e59, owned: 0, maxOwned: 100, description: "Find the optimal path through any problem." },
-{ name: "INDEX SCAN", baseCost: 1.6938894987106322e63, power: 1.6938894987106322e60, owned: 0, maxOwned: 100, description: "Instantly locate any piece of information." },
-{ name: "FULL TABLE SCAN", baseCost: 8.469447493553161e63, power: 8.469447493553161e60, owned: 0, maxOwned: 100, description: "Exhaustively search all possible realities." },
-{ name: "HASH JOIN", baseCost: 4.2347237467765805e64, power: 4.2347237467765805e61, owned: 0, maxOwned: 100, description: "Merge any two universes into one." }
+    { name: "STACK OVERFLOW", baseCost: 2.2735e44, power: 2.2735e41, owned: 0, maxOwned: 100, description: "Recursively call yourself until reality crashes." },
+    { name: "NULL POINTER", baseCost: 1.13675e45, power: 1.13675e42, owned: 0, maxOwned: 100, description: "Point to nothing, yet command everything." },
+    { name: "MEMORY LEAK", baseCost: 5.68375e45, power: 5.68375e42, owned: 0, maxOwned: 100, description: "Allocate infinite resources without release." },
+    { name: "DEADLOCK DETECTOR", baseCost: 2.841875e46, power: 2.841875e43, owned: 0, maxOwned: 100, description: "Identify and break any deadlock in existence." },
+    { name: "RACE CONDITION", baseCost: 1.4209375e47, power: 1.4209375e44, owned: 0, maxOwned: 100, description: "Make causality race against itself." },
+    { name: "BUFFER OVERFLOW", baseCost: 7.1046875e47, power: 7.1046875e44, owned: 0, maxOwned: 100, description: "Write beyond the boundaries of reality." },
+    { name: "GARBAGE COLLECTOR", baseCost: 3.55234375e48, power: 3.55234375e45, owned: 0, maxOwned: 100, description: "Reclaim wasted potential across dimensions." },
+    { name: "COMPILER OPTIMIZER", baseCost: 1.776171875e49, power: 1.776171875e46, owned: 0, maxOwned: 100, description: "Optimize your existence for maximum efficiency." },
+    { name: "INTERPRETER", baseCost: 8.880859375e49, power: 8.880859375e46, owned: 0, maxOwned: 100, description: "Execute reality line by line, bend as you go." },
+    { name: "JIT COMPILER", baseCost: 4.4404296875e50, power: 4.4404296875e47, owned: 0, maxOwned: 100, description: "Compile your power just in time for battle." },
+    { name: "ASSEMBLER", baseCost: 2.22021484375e51, power: 2.22021484375e48, owned: 0, maxOwned: 100, description: "Construct new realities from raw bits." },
+    { name: "DISASSEMBLER", baseCost: 1.110107421875e52, power: 1.110107421875e49, owned: 0, maxOwned: 100, description: "Deconstruct anything into its fundamental components." },
+    { name: "HEAP ALLOCATOR", baseCost: 5.550537109375e52, power: 5.550537109375e49, owned: 0, maxOwned: 100, description: "Allocate memory from the cosmic heap." },
+    { name: "STACK FRAME", baseCost: 2.7752685546875e53, power: 2.7752685546875e50, owned: 0, maxOwned: 100, description: "Stack your power frames infinitely deep." },
+    { name: "REGISTER FILE", baseCost: 1.38763427734375e54, power: 1.38763427734375e51, owned: 0, maxOwned: 100, description: "Store unlimited variables in CPU registers." },
+    { name: "CACHE COHERENCY", baseCost: 6.93817138671875e54, power: 6.93817138671875e51, owned: 0, maxOwned: 100, description: "Keep all copies of reality synchronized." },
+    { name: "PIPELINE", baseCost: 3.469085693359375e55, power: 3.469085693359375e52, owned: 0, maxOwned: 100, description: "Execute multiple universe instructions in parallel." },
+    { name: "BRANCH PREDICTOR", baseCost: 1.7345428466796875e56, power: 1.7345428466796875e53, owned: 0, maxOwned: 100, description: "Predict every possible timeline before it happens." },
+    { name: "THREAD SCHEDULER", baseCost: 8.672714233398438e56, power: 8.672714233398438e53, owned: 0, maxOwned: 100, description: "Schedule infinite parallel realities." },
+    { name: "MUTEX LOCK", baseCost: 4.336357116699219e57, power: 4.336357116699219e54, owned: 0, maxOwned: 100, description: "Lock exclusive control over any resource." },
+    { name: "SEMAPHORE", baseCost: 2.1681785583496095e58, power: 2.1681785583496095e55, owned: 0, maxOwned: 100, description: "Signal between dimensions with perfect synchronization." },
+    { name: "BARRIER", baseCost: 1.0840892791748047e59, power: 1.0840892791748047e56, owned: 0, maxOwned: 100, description: "Erect barriers that no force can breach." },
+    { name: "ATOMIC OPERATION", baseCost: 5.420446395874023e59, power: 5.420446395874023e56, owned: 0, maxOwned: 100, description: "Perform indivisible acts that reshape reality." },
+    { name: "TRANSACTION", baseCost: 2.7102231979370115e60, power: 2.7102231979370115e57, owned: 0, maxOwned: 100, description: "Commit or rollback any change to existence." },
+    { name: "CHECKPOINT", baseCost: 1.3551115989685057e61, power: 1.3551115989685057e58, owned: 0, maxOwned: 100, description: "Save state and restore from any point in time." },
+    { name: "SNAPSHOT ISOLATION", baseCost: 6.775557994842529e61, power: 6.775557994842529e58, owned: 0, maxOwned: 100, description: "View any timeline without affecting it." },
+    { name: "QUERY OPTIMIZER", baseCost: 3.3877789974212645e62, power: 3.3877789974212645e59, owned: 0, maxOwned: 100, description: "Find the optimal path through any problem." },
+    { name: "INDEX SCAN", baseCost: 1.6938894987106322e63, power: 1.6938894987106322e60, owned: 0, maxOwned: 100, description: "Instantly locate any piece of information." },
+    { name: "FULL TABLE SCAN", baseCost: 8.469447493553161e63, power: 8.469447493553161e60, owned: 0, maxOwned: 100, description: "Exhaustively search all possible realities." },
+    { name: "HASH JOIN", baseCost: 4.2347237467765805e64, power: 4.2347237467765805e61, owned: 0, maxOwned: 100, description: "Merge any two universes into one." }
     
 ];
 
