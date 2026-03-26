@@ -1513,118 +1513,92 @@
     { name: "INDEX SCAN", baseCost: 1.6938894987106322e63, power: 1.6938894987106322e60, owned: 0, maxOwned: 100, description: "Instantly locate any piece of information." },
     { name: "FULL TABLE SCAN", baseCost: 8.469447493553161e63, power: 8.469447493553161e60, owned: 0, maxOwned: 100, description: "Exhaustively search all possible realities." },
     { name: "HASH JOIN", baseCost: 4.2347237467765805e64, power: 4.2347237467765805e61, owned: 0, maxOwned: 100, description: "Merge any two universes into one." }
-    
 ];
 
-
-  // Auto-clickers (50+ types)
   const autoClickers = [
-    // Basic auto-clickers
     { name: "Bone Bot", emoji: "🤖", baseCost: 100, baseIncome: 1, owned: 0, upgradeLevel: 0, description: "A simple robot that collects bones." },
     { name: "Skull Drone", emoji: "🦴", baseCost: 1000, baseIncome: 8, owned: 0, upgradeLevel: 0, description: "Autonomous skull-hunting drone." },
     { name: "Ghost Helper", emoji: "👻", baseCost: 8000, baseIncome: 50, owned: 0, upgradeLevel: 0, description: "Friendly ghost that assists in collection." },
     { name: "Necro Assistant", emoji: "🧙", baseCost: 50000, baseIncome: 300, owned: 0, upgradeLevel: 0, description: "Magical assistant specializing in necromancy." },
     { name: "Death Angel", emoji: "😇", baseCost: 300000, baseIncome: 1800, owned: 0, upgradeLevel: 0, description: "Divine being that guides souls to the afterlife." },
-    
-    // Intermediate auto-clickers
     { name: "Reaper Machine", emoji: "☠️", baseCost: 1800000, baseIncome: 10800, owned: 0, upgradeLevel: 0, description: "Automated reaping system." },
     { name: "Soul Harvester", emoji: "🔮", baseCost: 10800000, baseIncome: 64800, owned: 0, upgradeLevel: 0, description: "Harvests souls from the ether." },
     { name: "Phantom Engine", emoji: "🕸️", baseCost: 64800000, baseIncome: 388800, owned: 0, upgradeLevel: 0, description: "Powered by phantom energy." },
     { name: "Wraith Portal", emoji: "🌀", baseCost: 388800000, baseIncome: 2332800, owned: 0, upgradeLevel: 0, description: "Portal that summons wraiths." },
     { name: "Lich Factory", emoji: "🏭", baseCost: 2332800000, baseIncome: 13996800, owned: 0, upgradeLevel: 0, description: "Mass production facility for liches." },
-    
-    // Advanced auto-clickers
     { name: "Void Generator", emoji: "⚫", baseCost: 13996800000, baseIncome: 83980800, owned: 0, upgradeLevel: 0, description: "Generates void energy for skull production." },
     { name: "Cosmic Skull", emoji: "🌌", baseCost: 83980800000, baseIncome: 503884800, owned: 0, upgradeLevel: 0, description: "Skull imbued with cosmic power." },
     { name: "Reality Bender", emoji: "🔧", baseCost: 503884800000, baseIncome: 3023308800, owned: 0, upgradeLevel: 0, description: "Bends reality to produce skulls." },
     { name: "Time Lord", emoji: "⏰", baseCost: 3023308800000, baseIncome: 18139852800, owned: 0, upgradeLevel: 0, description: "Controls time to accelerate production." },
     { name: "Dimension Gate", emoji: "🚪", baseCost: 18139852800000, baseIncome: 108839116800, owned: 0, upgradeLevel: 0, description: "Gateway to skull-rich dimensions." },
-    
-    // Ultimate auto-clickers
     { name: "God Machine", emoji: "⚙️", baseCost: 108839116800000, baseIncome: 653034700800, owned: 0, upgradeLevel: 0, description: "Machine that rivals the gods themselves." },
     { name: "Universe Forge", emoji: "🔨", baseCost: 653034700800000, baseIncome: 3918208204800, owned: 0, upgradeLevel: 0, description: "Forges entire universes of skulls." },
     { name: "Infinity Engine", emoji: "♾️", baseCost: 3918208204800000, baseIncome: 23509249228800, owned: 0, upgradeLevel: 0, description: "Harnesses infinite energy for skull production." },
     { name: "Omega Point", emoji: "Ω", baseCost: 23509249228800000, baseIncome: 141055495372800, owned: 0, upgradeLevel: 0, description: "The final point of skull evolution." },
     { name: "Transcendent Core", emoji: "💫", baseCost: 141055495372800000, baseIncome: 846332972236800, owned: 0, upgradeLevel: 0, description: "Core that transcends all understanding." },
-
-// Auto-clickers 21-30 (Advanced Tech)
-{ name: "Neural Network", emoji: "🧠", baseCost: 8.39808e+14, baseIncome: 5.038848e+12, owned: 0, upgradeLevel: 0, description: "Machine learning optimized skull collection." },
-{ name: "Deep Learning Core", emoji: "🤖", baseCost: 5.038848e+15, baseIncome: 3.0233088e+13, owned: 0, upgradeLevel: 0, description: "Neural networks that improve with every click." },
-{ name: "Transformer Model", emoji: "🔄", baseCost: 3.0233088e+16, baseIncome: 1.81398528e+14, owned: 0, upgradeLevel: 0, description: "Attention is all you need for skulls." },
-{ name: "LLM Instance", emoji: "📝", baseCost: 1.81398528e+17, baseIncome: 1.088391168e+15, owned: 0, upgradeLevel: 0, description: "Large Language Model trained on bone data." },
-{ name: "Generative AI", emoji: "🎨", baseCost: 1.088391168e+18, baseIncome: 6.530347008e+15, owned: 0, upgradeLevel: 0, description: "Generate infinite skulls from pure noise." },
-{ name: "Agent Swarm", emoji: "🐝", baseCost: 6.530347008e+18, baseIncome: 3.9182082048e+16, owned: 0, upgradeLevel: 0, description: "Thousands of AI agents working in parallel." },
-{ name: "RAG Pipeline", emoji: "📚", baseCost: 3.9182082048e+19, baseIncome: 2.35092492288e+17, owned: 0, upgradeLevel: 0, description: "Retrieve skull knowledge, generate power." },
-{ name: "Fine-Tuned Model", emoji: "⚙️", baseCost: 2.35092492288e+20, baseIncome: 1.410554953728e+18, owned: 0, upgradeLevel: 0, description: "Optimized specifically for maximum skull output." },
-{ name: "Reinforcement Learning", emoji: "🎯", baseCost: 1.410554953728e+21, baseIncome: 8.463329722368e+18, owned: 0, upgradeLevel: 0, description: "Agent learns optimal clicking strategies." },
-{ name: "Diffusion Model", emoji: "🌊", baseCost: 8.463329722368e+21, baseIncome: 5.0779978334208e+19, owned: 0, upgradeLevel: 0, description: "Denoise chaos into perfect skulls." },
-
-// Auto-clickers 31-40 (Distributed Systems)
-{ name: "Load Balancer", emoji: "⚖️", baseCost: 5.0779978334208e+22, baseIncome: 3.04679870005248e+20, owned: 0, upgradeLevel: 0, description: "Distribute skull generation across all nodes." },
-{ name: "Message Queue", emoji: "📨", baseCost: 3.04679870005248e+23, baseIncome: 1.828079220031488e+21, owned: 0, upgradeLevel: 0, description: "Async skull processing at massive scale." },
-{ name: "Microservices", emoji: "🔧", baseCost: 1.828079220031488e+24, baseIncome: 1.0968475320188928e+22, owned: 0, upgradeLevel: 0, description: "Decoupled skull services for maximum uptime." },
-{ name: "Container Orchestrator", emoji: "📦", baseCost: 1.0968475320188928e+25, baseIncome: 6.581085192113357e+22, owned: 0, upgradeLevel: 0, description: "Deploy skull pods across infinite clusters." },
-{ name: "Service Mesh", emoji: "🕸️", baseCost: 6.581085192113357e+25, baseIncome: 3.948651115268014e+23, owned: 0, upgradeLevel: 0, description: "Smart routing for skull traffic." },
-{ name: "API Gateway", emoji: "🚪", baseCost: 3.948651115268014e+26, baseIncome: 2.3691906691608084e+24, owned: 0, upgradeLevel: 0, description: "Unified entry point to the skull multiverse." },
-{ name: "Rate Limiter", emoji: "⏱️", baseCost: 2.3691906691608084e+27, baseIncome: 1.421514401496485e+25, owned: 0, upgradeLevel: 0, description: "Control the flow of reality itself." },
-{ name: "Circuit Breaker", emoji: "⛔", baseCost: 1.421514401496485e+28, baseIncome: 8.52908640897891e+25, owned: 0, upgradeLevel: 0, description: "Prevent cascading failures across timelines." },
-{ name: "Retry Logic", emoji: "🔄", baseCost: 8.52908640897891e+28, baseIncome: 5.117451845387346e+26, owned: 0, upgradeLevel: 0, description: "Never give up, never surrender." },
-{ name: "Dead Letter Queue", emoji: "💀", baseCost: 5.117451845387346e+29, baseIncome: 3.0704711072324076e+27, owned: 0, upgradeLevel: 0, description: "Failed skulls rise again as undead." },
-
-// Auto-clickers 41-50 (Database & Storage)
-{ name: "Database Index", emoji: "📇", baseCost: 3.0704711072324076e+30, baseIncome: 1.8422826643394446e+28, owned: 0, upgradeLevel: 0, description: "Find any skull in O(log n) time." },
-{ name: "Shard Manager", emoji: "🔪", baseCost: 1.8422826643394446e+31, baseIncome: 1.1053695986036668e+29, owned: 0, upgradeLevel: 0, description: "Split skull data across infinite shards." },
-{ name: "Replica Set", emoji: "🔄", baseCost: 1.1053695986036668e+32, baseIncome: 6.632217591622001e+29, owned: 0, upgradeLevel: 0, description: "Every skull exists in perfect duplicate." },
-{ name: "Data Warehouse", emoji: "🏛️", baseCost: 6.632217591622001e+32, baseIncome: 3.979330554973201e+30, owned: 0, upgradeLevel: 0, description: "Store all skulls across all timelines." },
-{ name: "Data Lake", emoji: "🌊", baseCost: 3.979330554973201e+33, baseIncome: 2.3875983329839206e+31, owned: 0, upgradeLevel: 0, description: "Raw skull data waiting to be processed." },
-{ name: "ETL Pipeline", emoji: "⚙️", baseCost: 2.3875983329839206e+34, baseIncome: 1.4325589997903524e+32, owned: 0, upgradeLevel: 0, description: "Extract skulls, transform reality, load power." },
-{ name: "OLAP Cube", emoji: "📊", baseCost: 1.4325589997903524e+35, baseIncome: 8.595353998742115e+32, owned: 0, upgradeLevel: 0, description: "Multi-dimensional skull analysis." },
-{ name: "Time Series DB", emoji: "📈", baseCost: 8.595353998742115e+35, baseIncome: 5.157212399245269e+33, owned: 0, upgradeLevel: 0, description: "Track skull accumulation across all time." },
-{ name: "Graph Database", emoji: "🕸️", baseCost: 5.157212399245269e+36, baseIncome: 3.0943274395471614e+34, owned: 0, upgradeLevel: 0, description: "Map relationships between all skulls." },
-{ name: "Vector Database", emoji: "➡️", baseCost: 3.0943274395471614e+37, baseIncome: 1.8565964637282968e+35, owned: 0, upgradeLevel: 0, description: "Find similar skulls through embedding space." },
-
-// Auto-clickers 51-60 (DevOps & Infrastructure)
-{ name: "CI/CD Pipeline", emoji: "🚀", baseCost: 1.8565964637282968e+38, baseIncome: 1.1139578782369781e+36, owned: 0, upgradeLevel: 0, description: "Continuous deployment of new realities." },
-{ name: "Infrastructure as Code", emoji: "📝", baseCost: 1.1139578782369781e+39, baseIncome: 6.683747269421869e+36, owned: 0, upgradeLevel: 0, description: "Define universes in declarative YAML." },
-{ name: "Terraform Provider", emoji: "🏗️", baseCost: 6.683747269421869e+39, baseIncome: 4.010248361653121e+37, owned: 0, upgradeLevel: 0, description: "Provision new dimensions with code." },
-{ name: "Kubernetes Operator", emoji: "🎮", baseCost: 4.010248361653121e+40, baseIncome: 2.4061490169918726e+38, owned: 0, upgradeLevel: 0, description: "Autonomous skull cluster management." },
-{ name: "Helm Chart", emoji: "⚓", baseCost: 2.4061490169918726e+41, baseIncome: 1.4436894101951236e+39, owned: 0, upgradeLevel: 0, description: "Package and deploy complete realities." },
-{ name: "Observability Stack", emoji: "👁️", baseCost: 1.4436894101951236e+42, baseIncome: 8.662136461170741e+39, owned: 0, upgradeLevel: 0, description: "See everything happening in all universes." },
-{ name: "Prometheus Exporter", emoji: "📊", baseCost: 8.662136461170741e+42, baseIncome: 5.197281876702445e+40, owned: 0, upgradeLevel: 0, description: "Export skull metrics to the cosmos." },
-{ name: "Grafana Dashboard", emoji: "📈", baseCost: 5.197281876702445e+43, baseIncome: 3.118369126021467e+41, owned: 0, upgradeLevel: 0, description: "Visualize infinite skull generation." },
-{ name: "Log Aggregator", emoji: "📜", baseCost: 3.118369126021467e+44, baseIncome: 1.8710214756128802e+42, owned: 0, upgradeLevel: 0, description: "Collect logs from every dimension." },
-{ name: "Distributed Tracing", emoji: "🔍", baseCost: 1.8710214756128802e+45, baseIncome: 1.122612885367728e+43, owned: 0, upgradeLevel: 0, description: "Follow skulls across all timelines." },
-
-// Auto-clickers 61-70 (Security & Cryptography)
-{ name: "Encryption Engine", emoji: "🔐", baseCost: 1.122612885367728e+46, baseIncome: 6.735677312206368e+43, owned: 0, upgradeLevel: 0, description: "Encrypt skulls against interdimensional theft." },
-{ name: "Zero-Knowledge Proof", emoji: "🤫", baseCost: 6.735677312206368e+46, baseIncome: 4.041406387323821e+44, owned: 0, upgradeLevel: 0, description: "Prove you have skulls without revealing them." },
-{ name: "Blockchain Validator", emoji: "⛓️", baseCost: 4.041406387323821e+47, baseIncome: 2.4248438323942926e+45, owned: 0, upgradeLevel: 0, description: "Validate every skull transaction immutably." },
-{ name: "Smart Contract", emoji: "📜", baseCost: 2.4248438323942926e+48, baseIncome: 1.4549062994365756e+46, owned: 0, upgradeLevel: 0, description: "Automated skull distribution protocols." },
-{ name: "Multi-Sig Wallet", emoji: "✍️", baseCost: 1.4549062994365756e+49, baseIncome: 8.729437796619454e+46, owned: 0, upgradeLevel: 0, description: "Require multiple signatures for reality changes." },
-{ name: "Firewall Rules", emoji: "🔥", baseCost: 8.729437796619454e+49, baseIncome: 5.237662677971672e+47, owned: 0, upgradeLevel: 0, description: "Block unauthorized access to your skulls." },
-{ name: "IDS/IPS", emoji: "🛡️", baseCost: 5.237662677971672e+50, baseIncome: 3.142597606783003e+48, owned: 0, upgradeLevel: 0, description: "Detect and prevent skull intrusions." },
-{ name: "Penetration Tester", emoji: "🎯", baseCost: 3.142597606783003e+51, baseIncome: 1.885558564069802e+49, owned: 0, upgradeLevel: 0, description: "Find vulnerabilities before enemies do." },
-{ name: "Bug Bounty Hunter", emoji: "🐛", baseCost: 1.885558564069802e+52, baseIncome: 1.1313351384418812e+50, owned: 0, upgradeLevel: 0, description: "Exploit reality glitches for profit." },
-{ name: "Quantum Cryptographer", emoji: "⚛️", baseCost: 1.1313351384418812e+53, baseIncome: 6.788010830651287e+50, owned: 0, upgradeLevel: 0, description: "Unbreakable encryption using quantum mechanics." },
-
-// Auto-clickers 71-75 (Edge & Serverless)
-{ name: "Edge Computing", emoji: "🌍", baseCost: 6.788010830651287e+53, baseIncome: 4.072806498390772e+51, owned: 0, upgradeLevel: 0, description: "Process skulls at the edge of reality." },
-{ name: "Serverless Function", emoji: "⚡", baseCost: 4.072806498390772e+54, baseIncome: 2.443683899034463e+52, owned: 0, upgradeLevel: 0, description: "Skull generation without infrastructure." },
-{ name: "Lambda Runtime", emoji: "λ", baseCost: 2.443683899034463e+55, baseIncome: 1.4662103394206778e+53, owned: 0, upgradeLevel: 0, description: "Execute skull functions on demand." },
-{ name: "CloudFront", emoji: "☁️", baseCost: 1.4662103394206778e+56, baseIncome: 8.797262036524067e+53, owned: 0, upgradeLevel: 0, description: "Distribute skulls across global network." },
-{ name: "Content Delivery", emoji: "📡", baseCost: 8.797262036524067e+56, baseIncome: 5.27835722191444e+54, owned: 0, upgradeLevel: 0, description: "Deliver skulls at light speed worldwide." }
-
+    { name: "Neural Network", emoji: "🧠", baseCost: 8.39808e+14, baseIncome: 5.038848e+12, owned: 0, upgradeLevel: 0, description: "Machine learning optimized skull collection." },
+    { name: "Deep Learning Core", emoji: "🤖", baseCost: 5.038848e+15, baseIncome: 3.0233088e+13, owned: 0, upgradeLevel: 0, description: "Neural networks that improve with every click." },
+    { name: "Transformer Model", emoji: "🔄", baseCost: 3.0233088e+16, baseIncome: 1.81398528e+14, owned: 0, upgradeLevel: 0, description: "Attention is all you need for skulls." },
+    { name: "LLM Instance", emoji: "📝", baseCost: 1.81398528e+17, baseIncome: 1.088391168e+15, owned: 0, upgradeLevel: 0, description: "Large Language Model trained on bone data." },
+    { name: "Generative AI", emoji: "🎨", baseCost: 1.088391168e+18, baseIncome: 6.530347008e+15, owned: 0, upgradeLevel: 0, description: "Generate infinite skulls from pure noise." },
+    { name: "Agent Swarm", emoji: "🐝", baseCost: 6.530347008e+18, baseIncome: 3.9182082048e+16, owned: 0, upgradeLevel: 0, description: "Thousands of AI agents working in parallel." },
+    { name: "RAG Pipeline", emoji: "📚", baseCost: 3.9182082048e+19, baseIncome: 2.35092492288e+17, owned: 0, upgradeLevel: 0, description: "Retrieve skull knowledge, generate power." },
+    { name: "Fine-Tuned Model", emoji: "⚙️", baseCost: 2.35092492288e+20, baseIncome: 1.410554953728e+18, owned: 0, upgradeLevel: 0, description: "Optimized specifically for maximum skull output." },
+    { name: "Reinforcement Learning", emoji: "🎯", baseCost: 1.410554953728e+21, baseIncome: 8.463329722368e+18, owned: 0, upgradeLevel: 0, description: "Agent learns optimal clicking strategies." },
+    { name: "Diffusion Model", emoji: "🌊", baseCost: 8.463329722368e+21, baseIncome: 5.0779978334208e+19, owned: 0, upgradeLevel: 0, description: "Denoise chaos into perfect skulls." },
+    { name: "Load Balancer", emoji: "⚖️", baseCost: 5.0779978334208e+22, baseIncome: 3.04679870005248e+20, owned: 0, upgradeLevel: 0, description: "Distribute skull generation across all nodes." },
+    { name: "Message Queue", emoji: "📨", baseCost: 3.04679870005248e+23, baseIncome: 1.828079220031488e+21, owned: 0, upgradeLevel: 0, description: "Async skull processing at massive scale." },
+    { name: "Microservices", emoji: "🔧", baseCost: 1.828079220031488e+24, baseIncome: 1.0968475320188928e+22, owned: 0, upgradeLevel: 0, description: "Decoupled skull services for maximum uptime." },
+    { name: "Container Orchestrator", emoji: "📦", baseCost: 1.0968475320188928e+25, baseIncome: 6.581085192113357e+22, owned: 0, upgradeLevel: 0, description: "Deploy skull pods across infinite clusters." },
+    { name: "Service Mesh", emoji: "🕸️", baseCost: 6.581085192113357e+25, baseIncome: 3.948651115268014e+23, owned: 0, upgradeLevel: 0, description: "Smart routing for skull traffic." },
+    { name: "API Gateway", emoji: "🚪", baseCost: 3.948651115268014e+26, baseIncome: 2.3691906691608084e+24, owned: 0, upgradeLevel: 0, description: "Unified entry point to the skull multiverse." },
+    { name: "Rate Limiter", emoji: "⏱️", baseCost: 2.3691906691608084e+27, baseIncome: 1.421514401496485e+25, owned: 0, upgradeLevel: 0, description: "Control the flow of reality itself." },
+    { name: "Circuit Breaker", emoji: "⛔", baseCost: 1.421514401496485e+28, baseIncome: 8.52908640897891e+25, owned: 0, upgradeLevel: 0, description: "Prevent cascading failures across timelines." },
+    { name: "Retry Logic", emoji: "🔄", baseCost: 8.52908640897891e+28, baseIncome: 5.117451845387346e+26, owned: 0, upgradeLevel: 0, description: "Never give up, never surrender." },
+    { name: "Dead Letter Queue", emoji: "💀", baseCost: 5.117451845387346e+29, baseIncome: 3.0704711072324076e+27, owned: 0, upgradeLevel: 0, description: "Failed skulls rise again as undead." },
+    { name: "Database Index", emoji: "📇", baseCost: 3.0704711072324076e+30, baseIncome: 1.8422826643394446e+28, owned: 0, upgradeLevel: 0, description: "Find any skull in O(log n) time." },
+    { name: "Shard Manager", emoji: "🔪", baseCost: 1.8422826643394446e+31, baseIncome: 1.1053695986036668e+29, owned: 0, upgradeLevel: 0, description: "Split skull data across infinite shards." },
+    { name: "Replica Set", emoji: "🔄", baseCost: 1.1053695986036668e+32, baseIncome: 6.632217591622001e+29, owned: 0, upgradeLevel: 0, description: "Every skull exists in perfect duplicate." },
+    { name: "Data Warehouse", emoji: "🏛️", baseCost: 6.632217591622001e+32, baseIncome: 3.979330554973201e+30, owned: 0, upgradeLevel: 0, description: "Store all skulls across all timelines." },
+    { name: "Data Lake", emoji: "🌊", baseCost: 3.979330554973201e+33, baseIncome: 2.3875983329839206e+31, owned: 0, upgradeLevel: 0, description: "Raw skull data waiting to be processed." },
+    { name: "ETL Pipeline", emoji: "⚙️", baseCost: 2.3875983329839206e+34, baseIncome: 1.4325589997903524e+32, owned: 0, upgradeLevel: 0, description: "Extract skulls, transform reality, load power." },
+    { name: "OLAP Cube", emoji: "📊", baseCost: 1.4325589997903524e+35, baseIncome: 8.595353998742115e+32, owned: 0, upgradeLevel: 0, description: "Multi-dimensional skull analysis." },
+    { name: "Time Series DB", emoji: "📈", baseCost: 8.595353998742115e+35, baseIncome: 5.157212399245269e+33, owned: 0, upgradeLevel: 0, description: "Track skull accumulation across all time." },
+    { name: "Graph Database", emoji: "🕸️", baseCost: 5.157212399245269e+36, baseIncome: 3.0943274395471614e+34, owned: 0, upgradeLevel: 0, description: "Map relationships between all skulls." },
+    { name: "Vector Database", emoji: "➡️", baseCost: 3.0943274395471614e+37, baseIncome: 1.8565964637282968e+35, owned: 0, upgradeLevel: 0, description: "Find similar skulls through embedding space." },
+    { name: "CI/CD Pipeline", emoji: "🚀", baseCost: 1.8565964637282968e+38, baseIncome: 1.1139578782369781e+36, owned: 0, upgradeLevel: 0, description: "Continuous deployment of new realities." },
+    { name: "Infrastructure as Code", emoji: "📝", baseCost: 1.1139578782369781e+39, baseIncome: 6.683747269421869e+36, owned: 0, upgradeLevel: 0, description: "Define universes in declarative YAML." },
+    { name: "Terraform Provider", emoji: "🏗️", baseCost: 6.683747269421869e+39, baseIncome: 4.010248361653121e+37, owned: 0, upgradeLevel: 0, description: "Provision new dimensions with code." },
+    { name: "Kubernetes Operator", emoji: "🎮", baseCost: 4.010248361653121e+40, baseIncome: 2.4061490169918726e+38, owned: 0, upgradeLevel: 0, description: "Autonomous skull cluster management." },
+    { name: "Helm Chart", emoji: "⚓", baseCost: 2.4061490169918726e+41, baseIncome: 1.4436894101951236e+39, owned: 0, upgradeLevel: 0, description: "Package and deploy complete realities." },
+    { name: "Observability Stack", emoji: "👁️", baseCost: 1.4436894101951236e+42, baseIncome: 8.662136461170741e+39, owned: 0, upgradeLevel: 0, description: "See everything happening in all universes." },
+    { name: "Prometheus Exporter", emoji: "📊", baseCost: 8.662136461170741e+42, baseIncome: 5.197281876702445e+40, owned: 0, upgradeLevel: 0, description: "Export skull metrics to the cosmos." },
+    { name: "Grafana Dashboard", emoji: "📈", baseCost: 5.197281876702445e+43, baseIncome: 3.118369126021467e+41, owned: 0, upgradeLevel: 0, description: "Visualize infinite skull generation." },
+    { name: "Log Aggregator", emoji: "📜", baseCost: 3.118369126021467e+44, baseIncome: 1.8710214756128802e+42, owned: 0, upgradeLevel: 0, description: "Collect logs from every dimension." },
+    { name: "Distributed Tracing", emoji: "🔍", baseCost: 1.8710214756128802e+45, baseIncome: 1.122612885367728e+43, owned: 0, upgradeLevel: 0, description: "Follow skulls across all timelines." },
+    { name: "Encryption Engine", emoji: "🔐", baseCost: 1.122612885367728e+46, baseIncome: 6.735677312206368e+43, owned: 0, upgradeLevel: 0, description: "Encrypt skulls against interdimensional theft." },
+    { name: "Zero-Knowledge Proof", emoji: "🤫", baseCost: 6.735677312206368e+46, baseIncome: 4.041406387323821e+44, owned: 0, upgradeLevel: 0, description: "Prove you have skulls without revealing them." },
+    { name: "Blockchain Validator", emoji: "⛓️", baseCost: 4.041406387323821e+47, baseIncome: 2.4248438323942926e+45, owned: 0, upgradeLevel: 0, description: "Validate every skull transaction immutably." },
+    { name: "Smart Contract", emoji: "📜", baseCost: 2.4248438323942926e+48, baseIncome: 1.4549062994365756e+46, owned: 0, upgradeLevel: 0, description: "Automated skull distribution protocols." },
+    { name: "Multi-Sig Wallet", emoji: "✍️", baseCost: 1.4549062994365756e+49, baseIncome: 8.729437796619454e+46, owned: 0, upgradeLevel: 0, description: "Require multiple signatures for reality changes." },
+    { name: "Firewall Rules", emoji: "🔥", baseCost: 8.729437796619454e+49, baseIncome: 5.237662677971672e+47, owned: 0, upgradeLevel: 0, description: "Block unauthorized access to your skulls." },
+    { name: "IDS/IPS", emoji: "🛡️", baseCost: 5.237662677971672e+50, baseIncome: 3.142597606783003e+48, owned: 0, upgradeLevel: 0, description: "Detect and prevent skull intrusions." },
+    { name: "Penetration Tester", emoji: "🎯", baseCost: 3.142597606783003e+51, baseIncome: 1.885558564069802e+49, owned: 0, upgradeLevel: 0, description: "Find vulnerabilities before enemies do." },
+    { name: "Bug Bounty Hunter", emoji: "🐛", baseCost: 1.885558564069802e+52, baseIncome: 1.1313351384418812e+50, owned: 0, upgradeLevel: 0, description: "Exploit reality glitches for profit." },
+    { name: "Quantum Cryptographer", emoji: "⚛️", baseCost: 1.1313351384418812e+53, baseIncome: 6.788010830651287e+50, owned: 0, upgradeLevel: 0, description: "Unbreakable encryption using quantum mechanics." },
+    { name: "Edge Computing", emoji: "🌍", baseCost: 6.788010830651287e+53, baseIncome: 4.072806498390772e+51, owned: 0, upgradeLevel: 0, description: "Process skulls at the edge of reality." },
+    { name: "Serverless Function", emoji: "⚡", baseCost: 4.072806498390772e+54, baseIncome: 2.443683899034463e+52, owned: 0, upgradeLevel: 0, description: "Skull generation without infrastructure." },
+    { name: "Lambda Runtime", emoji: "λ", baseCost: 2.443683899034463e+55, baseIncome: 1.4662103394206778e+53, owned: 0, upgradeLevel: 0, description: "Execute skull functions on demand." },
+    { name: "CloudFront", emoji: "☁️", baseCost: 1.4662103394206778e+56, baseIncome: 8.797262036524067e+53, owned: 0, upgradeLevel: 0, description: "Distribute skulls across global network." },
+    { name: "Content Delivery", emoji: "📡", baseCost: 8.797262036524067e+56, baseIncome: 5.27835722191444e+54, owned: 0, upgradeLevel: 0, description: "Deliver skulls at light speed worldwide." }
   ];
 
-  // Skills (100+ skills)
   const skills = [
-    // Combat skills
     { id: "criticalHit", name: "Critical Mastery", description: "Increase critical hit chance", maxLevel: 50, level: 0, cost: 1, type: "combat" },
     { id: "criticalDamage", name: "Critical Power", description: "Increase critical hit damage", maxLevel: 50, level: 0, cost: 1, type: "combat" },
     { id: "clickPower", name: "Mighty Clicks", description: "Increase base click power", maxLevel: 100, level: 0, cost: 1, type: "combat" },
     { id: "comboStrikes", name: "Combo Strikes", description: "Chain attacks for bonus damage", maxLevel: 25, level: 0, cost: 2, type: "combat" },
     { id: "berserkerRage", name: "Berserker Rage", description: "Temporary massive damage boost", maxLevel: 20, level: 0, cost: 3, type: "combat" },
-    // NEW COMBAT SKILLS
     { id: "overkill", name: "Overkill", description: "Excess damage generates bonus resources", maxLevel: 30, level: 0, cost: 2, type: "combat" },
     { id: "executioner", name: "Executioner", description: "Bonus damage against high HP targets", maxLevel: 25, level: 0, cost: 2, type: "combat" },
     { id: "bloodlust", name: "Bloodlust", description: "Gain temporary power with each click streak", maxLevel: 20, level: 0, cost: 3, type: "combat" },
@@ -1635,14 +1609,11 @@
     { id: "momentum", name: "Momentum", description: "Damage increases with consecutive clicks", maxLevel: 40, level: 0, cost: 1, type: "combat" },
     { id: "finishingBlow", name: "Finishing Blow", description: "Bonus when click would kill/complete", maxLevel: 25, level: 0, cost: 2, type: "combat" },
     { id: "soulReap", name: "Soul Reap", description: "Defeated enemies drop bonus souls", maxLevel: 30, level: 0, cost: 2, type: "combat" },
-    
-    // Production skills
     { id: "autoEfficiency", name: "Automation Efficiency", description: "Increase auto-clicker production", maxLevel: 100, level: 0, cost: 1, type: "production" },
     { id: "speedBoost", name: "Production Speed", description: "Increase overall production speed", maxLevel: 50, level: 0, cost: 2, type: "production" },
     { id: "qualityControl", name: "Quality Control", description: "Chance for bonus resources", maxLevel: 30, level: 0, cost: 2, type: "production" },
     { id: "massProduction", name: "Mass Production", description: "Bulk production bonuses", maxLevel: 25, level: 0, cost: 3, type: "production" },
     { id: "perfectCrafting", name: "Perfect Crafting", description: "Guarantee maximum quality", maxLevel: 10, level: 0, cost: 5, type: "production" },
-    // NEW PRODUCTION SKILLS
     { id: "synergy", name: "Synergy", description: "Auto-clickers boost each other", maxLevel: 30, level: 0, cost: 2, type: "production" },
     { id: "overdrive", name: "Overdrive", description: "Temporary production boost ability", maxLevel: 20, level: 0, cost: 3, type: "production" },
     { id: "specialization", name: "Specialization", description: "Choose a resource to focus on", maxLevel: 25, level: 0, cost: 2, type: "production" },
@@ -1653,14 +1624,11 @@
     { id: "recycler", name: "Recycler", description: "Recover resources from upgrades", maxLevel: 20, level: 0, cost: 3, type: "production" },
     { id: "foreman", name: "Foreman", description: "Auto-clickers have chance for double production", maxLevel: 30, level: 0, cost: 2, type: "production" },
     { id: "innovation", name: "Innovation", description: "New production methods unlock earlier", maxLevel: 15, level: 0, cost: 4, type: "production" },
-    
-    // Magic skills
     { id: "necromancy", name: "Necromancy", description: "Raise the dead for assistance", maxLevel: 50, level: 0, cost: 2, type: "magic" },
     { id: "soulMagic", name: "Soul Magic", description: "Manipulate souls for power", maxLevel: 40, level: 0, cost: 3, type: "magic" },
     { id: "voidMastery", name: "Void Mastery", description: "Control the void itself", maxLevel: 30, level: 0, cost: 4, type: "magic" },
     { id: "timeManipulation", name: "Time Manipulation", description: "Bend time to your will", maxLevel: 20, level: 0, cost: 5, type: "magic" },
     { id: "realityControl", name: "Reality Control", description: "Control the fabric of reality", maxLevel: 15, level: 0, cost: 10, type: "magic" },
-    // NEW MAGIC SKILLS
     { id: "darkRitual", name: "Dark Ritual", description: "Sacrifice resources for temporary power", maxLevel: 20, level: 0, cost: 3, type: "magic" },
     { id: "soulBind", name: "Soul Bind", description: "Souls grant additional effects", maxLevel: 30, level: 0, cost: 2, type: "magic" },
     { id: "essenceWeave", name: "Essence Weave", description: "Weave essence into temporary buffs", maxLevel: 25, level: 0, cost: 2, type: "magic" },
@@ -1671,14 +1639,11 @@
     { id: "enchantment", name: "Enchantment", description: "Upgrades provide bonus effects", maxLevel: 25, level: 0, cost: 2, type: "magic" },
     { id: "curseWeaving", name: "Curse Weaving", description: "Debuff enemies for bonus rewards", maxLevel: 20, level: 0, cost: 3, type: "magic" },
     { id: "transmutation", name: "Transmutation", description: "Convert resources at better rates", maxLevel: 25, level: 0, cost: 2, type: "magic" },
-    
-    // Utility skills
     { id: "goldenTouch", name: "Golden Touch", description: "Increase golden time frequency", maxLevel: 25, level: 0, cost: 2, type: "utility" },
     { id: "fortunesBlessing", name: "Fortune's Blessing", description: "Increase luck in all activities", maxLevel: 30, level: 0, cost: 2, type: "utility" },
     { id: "timeWarp", name: "Time Warp", description: "Accelerate time periodically", maxLevel: 15, level: 0, cost: 4, type: "utility" },
     { id: "offlineGains", name: "Offline Gains", description: "Increase offline production", maxLevel: 50, level: 0, cost: 1, type: "utility" },
     { id: "experienceBoost", name: "Experience Boost", description: "Gain more experience points", maxLevel: 40, level: 0, cost: 2, type: "utility" },
-    // NEW UTILITY SKILLS
     { id: "preparation", name: "Preparation", description: "Start new runs with bonus resources", maxLevel: 30, level: 0, cost: 2, type: "utility" },
     { id: "persistence", name: "Persistence", description: "Bonuses persist through prestige", maxLevel: 20, level: 0, cost: 3, type: "utility" },
     { id: "luck", name: "Luck", description: "All random chances increased", maxLevel: 40, level: 0, cost: 1, type: "utility" },
@@ -1689,14 +1654,11 @@
     { id: "recycling", name: "Recycling", description: "Chance to reuse consumed items", maxLevel: 25, level: 0, cost: 2, type: "utility" },
     { id: "convenience", name: "Convenience", description: "Automate repetitive tasks", maxLevel: 20, level: 0, cost: 3, type: "utility" },
     { id: "mastery", name: "Mastery", description: "Increased effectiveness of all skills", maxLevel: 30, level: 0, cost: 2, type: "utility" },
-    
-    // Economic skills
     { id: "bargaining", name: "Bargaining", description: "Reduce upgrade costs", maxLevel: 30, level: 0, cost: 2, type: "economic" },
     { id: "investment", name: "Investment", description: "Passive income from investments", maxLevel: 25, level: 0, cost: 3, type: "economic" },
     { id: "trading", name: "Trading", description: "Better trade deals", maxLevel: 20, level: 0, cost: 3, type: "economic" },
     { id: "banking", name: "Banking", description: "Higher interest rates", maxLevel: 15, level: 0, cost: 4, type: "economic" },
     { id: "cryptocurrency", name: "Cryptocurrency", description: "Mining efficiency boost", maxLevel: 20, level: 0, cost: 3, type: "economic" },
-    // NEW ECONOMIC SKILLS
     { id: "arbitrage", name: "Arbitrage", description: "Profit from price differences", maxLevel: 20, level: 0, cost: 3, type: "economic" },
     { id: "dividends", name: "Dividends", description: "Passive income from investments", maxLevel: 25, level: 0, cost: 2, type: "economic" },
     { id: "marketAnalysis", name: "Market Analysis", description: "Better predictions for stock market", maxLevel: 20, level: 0, cost: 3, type: "economic" },
@@ -1709,51 +1671,36 @@
     { id: "economicDominance", name: "Economic Dominance", description: "Monopoly bonuses for resources", maxLevel: 20, level: 0, cost: 3, type: "economic" }
   ];
 
-  // Achievements (200+ achievements)
   const achievements = [
-    // Click achievements
     { id: "firstClick", name: "First Steps", description: "Make your first click", condition: () => gameState.clicks >= 1, reward: { exp: 10 }, unlocked: false },
     { id: "hundredClicks", name: "Clicking Novice", description: "Make 100 clicks", condition: () => gameState.clicks >= 100, reward: { exp: 50, skillPoints: 1 }, unlocked: false },
     { id: "thousandClicks", name: "Clicking Adept", description: "Make 1,000 clicks", condition: () => gameState.clicks >= 1000, reward: { exp: 100, skillPoints: 2 }, unlocked: false },
     { id: "tenThousandClicks", name: "Clicking Expert", description: "Make 10,000 clicks", condition: () => gameState.clicks >= 10000, reward: { exp: 200, skillPoints: 3 }, unlocked: false },
     { id: "millionClicks", name: "Clicking Master", description: "Make 1,000,000 clicks", condition: () => gameState.clicks >= 1000000, reward: { exp: 1000, skillPoints: 10 }, unlocked: false },
-    
-    // Resource achievements
     { id: "firstThousandSkulls", name: "Skull Collector", description: "Collect 1,000 skulls", condition: () => gameState.skulls >= 1000, reward: { exp: 25 }, unlocked: false },
     { id: "millionSkulls", name: "Skull Hoarder", description: "Collect 1,000,000 skulls", condition: () => gameState.skulls >= 1000000, reward: { exp: 500, bones: 100 }, unlocked: false },
     { id: "billionSkulls", name: "Skull Overlord", description: "Collect 1,000,000,000 skulls", condition: () => gameState.skulls >= 1e9, reward: { exp: 2000, essence: 50 }, unlocked: false },
     { id: "trillionSkulls", name: "Skull God", description: "Collect 1,000,000,000,000 skulls", condition: () => gameState.skulls >= 1e12, reward: { exp: 5000, souls: 25 }, unlocked: false },
-    
-    // Progression achievements
     { id: "firstPrestige", name: "Ascended", description: "Prestige for the first time", condition: () => gameState.prestige >= 1, reward: { exp: 100, skillPoints: 5 }, unlocked: false },
     { id: "firstRebirth", name: "Reborn", description: "Rebirth for the first time", condition: () => gameState.rebirth >= 1, reward: { exp: 500, skillPoints: 10 }, unlocked: false },
     { id: "firstTranscendence", name: "Transcendent", description: "Transcend for the first time", condition: () => gameState.transcendence >= 1, reward: { exp: 1000, skillPoints: 15 }, unlocked: false },
     { id: "firstEnlightenment", name: "Enlightened", description: "Achieve enlightenment", condition: () => gameState.enlightenment >= 1, reward: { exp: 2000, skillPoints: 20 }, unlocked: false },
     { id: "firstAscension", name: "Ascended One", description: "Ascend to higher planes", condition: () => gameState.ascension >= 1, reward: { exp: 5000, skillPoints: 25 }, unlocked: false },
-    
-    // Special achievements
     { id: "speedClicker", name: "Speed Demon", description: "Click 100 times in 10 seconds", condition: () => false, reward: { exp: 200, clickPower: 100 }, unlocked: false },
     { id: "perfectTiming", name: "Perfect Timing", description: "Activate golden time exactly 100 times", condition: () => gameState.goldenTimesTriggered >= 100, reward: { exp: 500, divine: 10 }, unlocked: false },
     { id: "criticalMaster", name: "Critical Master", description: "Achieve 1000 critical hits", condition: () => gameState.criticalHits >= 1000, reward: { exp: 300, skillPoints: 5 }, unlocked: false },
-    
-    // Collection achievements
     { id: "artifactCollector", name: "Artifact Collector", description: "Collect 10 artifacts", condition: () => gameState.unlockedArtifacts.length >= 10, reward: { exp: 400 }, unlocked: false },
     { id: "petLover", name: "Pet Lover", description: "Collect 5 pets", condition: () => gameState.unlockedPets.length >= 5, reward: { exp: 300 }, unlocked: false },
     { id: "cardMaster", name: "Card Master", description: "Collect 50 trading cards", condition: () => gameState.unlockedCards.length >= 50, reward: { exp: 600 }, unlocked: false },
-    
-    // Time-based achievements
     { id: "dedicatedPlayer", name: "Dedicated Player", description: "Play for 24 hours total", condition: () => gameState.daysPlayed >= 1, reward: { exp: 500 }, unlocked: false },
     { id: "weekWarrior", name: "Week Warrior", description: "Play for 7 days", condition: () => gameState.daysPlayed >= 7, reward: { exp: 1000 }, unlocked: false },
     { id: "monthlyMaster", name: "Monthly Master", description: "Play for 30 days", condition: () => gameState.daysPlayed >= 30, reward: { exp: 2000 }, unlocked: false },
     { id: "yearlyYielder", name: "Yearly Yielder", description: "Play for 365 days", condition: () => gameState.daysPlayed >= 365, reward: { exp: 10000 }, unlocked: false },
-    // Click Achievements (Expanded)
     { id: "hundredThousandClicks", name: "Clicking Legend", description: "Make 100,000 clicks", condition: () => gameState.clicks >= 100000, reward: { exp: 500, skillPoints: 5 }, unlocked: false },
     { id: "millionClicksGold", name: "Clicking God", description: "Make 1,000,000 clicks", condition: () => gameState.clicks >= 1000000, reward: { exp: 1000, skillPoints: 10, divine: 1 }, unlocked: false },
     { id: "tenMillionClicks", name: "Clicking Demigod", description: "Make 10,000,000 clicks", condition: () => gameState.clicks >= 10000000, reward: { exp: 2000, skillPoints: 20, cosmic: 1 }, unlocked: false },
     { id: "hundredMillionClicks", name: "Clicking Primordial", description: "Make 100,000,000 clicks", condition: () => gameState.clicks >= 100000000, reward: { exp: 5000, skillPoints: 50, void: 10 }, unlocked: false },
     { id: "billionClicks", name: "Infinite Clicker", description: "Make 1,000,000,000 clicks", condition: () => gameState.clicks >= 1e9, reward: { exp: 10000, skillPoints: 100, allGains: 1.5 }, unlocked: false },
-    
-    // Critical Hit Achievements
     { id: "firstCritical", name: "Critical Novice", description: "Land your first critical hit", condition: () => gameState.criticalHits >= 1, reward: { exp: 50 }, unlocked: false },
     { id: "criticalMaster10", name: "Critical Apprentice", description: "Land 10 critical hits", condition: () => gameState.criticalHits >= 10, reward: { exp: 100, bones: 50 }, unlocked: false },
     { id: "criticalMaster100", name: "Critical Adept", description: "Land 100 critical hits", condition: () => gameState.criticalHits >= 100, reward: { exp: 200, essence: 10 }, unlocked: false },
@@ -1761,8 +1708,6 @@
     { id: "criticalMaster10000", name: "Critical Master", description: "Land 10,000 critical hits", condition: () => gameState.criticalHits >= 10000, reward: { exp: 1000, skillPoints: 5, divine: 1 }, unlocked: false },
     { id: "criticalMaster100000", name: "Critical Overlord", description: "Land 100,000 critical hits", condition: () => gameState.criticalHits >= 100000, reward: { exp: 5000, skillPoints: 10, cosmic: 1 }, unlocked: false },
     { id: "criticalGod", name: "Critical God", description: "Land 1,000,000 critical hits", condition: () => gameState.criticalHits >= 1e6, reward: { exp: 10000, skillPoints: 25, void: 10 }, unlocked: false },
-    
-    // Resource Milestones
     { id: "skullCollector10k", name: "Skull Novice", description: "Collect 10,000 skulls", condition: () => gameState.totalEarned >= 10000, reward: { exp: 100 }, unlocked: false },
     { id: "skullCollector100k", name: "Skull Collector", description: "Collect 100,000 skulls", condition: () => gameState.totalEarned >= 100000, reward: { exp: 200, bones: 100 }, unlocked: false },
     { id: "skullCollector1M", name: "Skull Hoarder", description: "Collect 1,000,000 skulls", condition: () => gameState.totalEarned >= 1e6, reward: { exp: 500, essence: 50 }, unlocked: false },
@@ -1772,83 +1717,60 @@
     { id: "skullCollector10B", name: "Skull Quadrillionaire", description: "Collect 10,000,000,000 skulls", condition: () => gameState.totalEarned >= 1e10, reward: { exp: 10000, skillPoints: 15, cosmic: 1 }, unlocked: false },
     { id: "skullCollector100B", name: "Skull Quintillionaire", description: "Collect 100,000,000,000 skulls", condition: () => gameState.totalEarned >= 1e11, reward: { exp: 20000, skillPoints: 20, void: 5 }, unlocked: false },
     { id: "skullCollector1T", name: "Skull Sextillionaire", description: "Collect 1,000,000,000,000 skulls", condition: () => gameState.totalEarned >= 1e12, reward: { exp: 50000, skillPoints: 30, allGains: 1.2 }, unlocked: false },
-    
-    // Bone Achievements
     { id: "boneCollector100", name: "Bone Novice", description: "Collect 100 bones", condition: () => gameState.bones >= 100, reward: { exp: 50 }, unlocked: false },
     { id: "boneCollector1000", name: "Bone Collector", description: "Collect 1,000 bones", condition: () => gameState.bones >= 1000, reward: { exp: 100, clickPower: 10 }, unlocked: false },
     { id: "boneCollector10000", name: "Bone Hoarder", description: "Collect 10,000 bones", condition: () => gameState.bones >= 10000, reward: { exp: 200, essence: 20 }, unlocked: false },
     { id: "boneCollector100000", name: "Bone Lord", description: "Collect 100,000 bones", condition: () => gameState.bones >= 100000, reward: { exp: 500, skillPoints: 3 }, unlocked: false },
     { id: "boneCollector1M", name: "Bone King", description: "Collect 1,000,000 bones", condition: () => gameState.bones >= 1e6, reward: { exp: 1000, skillPoints: 5, souls: 10 }, unlocked: false },
     { id: "boneCollector10M", name: "Bone Emperor", description: "Collect 10,000,000 bones", condition: () => gameState.bones >= 1e7, reward: { exp: 2000, skillPoints: 8, divine: 2 }, unlocked: false },
-    
-    // Essence Achievements
     { id: "essenceCollector10", name: "Essence Seeker", description: "Collect 10 essence", condition: () => gameState.essence >= 10, reward: { exp: 100 }, unlocked: false },
     { id: "essenceCollector100", name: "Essence Gatherer", description: "Collect 100 essence", condition: () => gameState.essence >= 100, reward: { exp: 200, clickPower: 25 }, unlocked: false },
     { id: "essenceCollector1000", name: "Essence Master", description: "Collect 1,000 essence", condition: () => gameState.essence >= 1000, reward: { exp: 500, skillPoints: 2 }, unlocked: false },
     { id: "essenceCollector10000", name: "Essence God", description: "Collect 10,000 essence", condition: () => gameState.essence >= 10000, reward: { exp: 1000, skillPoints: 5, antimatter: 10 }, unlocked: false },
     { id: "essenceCollector100000", name: "Essence Primordial", description: "Collect 100,000 essence", condition: () => gameState.essence >= 100000, reward: { exp: 2000, skillPoints: 10, quantum: 5 }, unlocked: false },
-    
-    // Soul Achievements
     { id: "soulCollector1", name: "Soul Catcher", description: "Collect your first soul", condition: () => gameState.souls >= 1, reward: { exp: 200, skillPoints: 1 }, unlocked: false },
     { id: "soulCollector10", name: "Soul Gatherer", description: "Collect 10 souls", condition: () => gameState.souls >= 10, reward: { exp: 500, clickPower: 50 }, unlocked: false },
     { id: "soulCollector100", name: "Soul Master", description: "Collect 100 souls", condition: () => gameState.souls >= 100, reward: { exp: 1000, skillPoints: 3 }, unlocked: false },
     { id: "soulCollector1000", name: "Soul Lord", description: "Collect 1,000 souls", condition: () => gameState.souls >= 1000, reward: { exp: 2000, skillPoints: 5, divine: 5 }, unlocked: false },
     { id: "soulCollector10000", name: "Soul God", description: "Collect 10,000 souls", condition: () => gameState.souls >= 10000, reward: { exp: 5000, skillPoints: 10, cosmic: 2 }, unlocked: false },
-    
-    // Antimatter Achievements
     { id: "antimatterCollector1", name: "Antimatter Pioneer", description: "Collect your first antimatter", condition: () => gameState.antimatter >= 1, reward: { exp: 500, skillPoints: 2 }, unlocked: false },
     { id: "antimatterCollector10", name: "Antimatter Harvester", description: "Collect 10 antimatter", condition: () => gameState.antimatter >= 10, reward: { exp: 1000, clickPower: 100 }, unlocked: false },
     { id: "antimatterCollector100", name: "Antimatter Master", description: "Collect 100 antimatter", condition: () => gameState.antimatter >= 100, reward: { exp: 2000, skillPoints: 5 }, unlocked: false },
     { id: "antimatterCollector1000", name: "Antimatter God", description: "Collect 1,000 antimatter", condition: () => gameState.antimatter >= 1000, reward: { exp: 5000, skillPoints: 10, void: 5 }, unlocked: false },
-    
-    // Quantum Achievements
     { id: "quantumCollector1", name: "Quantum Observer", description: "Collect your first quantum", condition: () => gameState.quantum >= 1, reward: { exp: 1000, skillPoints: 3 }, unlocked: false },
     { id: "quantumCollector10", name: "Quantum Weaver", description: "Collect 10 quantum", condition: () => gameState.quantum >= 10, reward: { exp: 2000, skillPoints: 5 }, unlocked: false },
     { id: "quantumCollector100", name: "Quantum Master", description: "Collect 100 quantum", condition: () => gameState.quantum >= 100, reward: { exp: 5000, skillPoints: 8 }, unlocked: false },
     { id: "quantumCollector1000", name: "Quantum God", description: "Collect 1,000 quantum", condition: () => gameState.quantum >= 1000, reward: { exp: 10000, skillPoints: 15, cosmic: 5 }, unlocked: false },
-    
-    // Divine Achievements
     { id: "divineCollector1", name: "Divine Aspirant", description: "Collect your first divine", condition: () => gameState.divine >= 1, reward: { exp: 2000, skillPoints: 5 }, unlocked: false },
     { id: "divineCollector10", name: "Divine Conduit", description: "Collect 10 divine", condition: () => gameState.divine >= 10, reward: { exp: 5000, skillPoints: 10 }, unlocked: false },
     { id: "divineCollector100", name: "Divine Avatar", description: "Collect 100 divine", condition: () => gameState.divine >= 100, reward: { exp: 10000, skillPoints: 15 }, unlocked: false },
     { id: "divineCollector1000", name: "Divine God", description: "Collect 1,000 divine", condition: () => gameState.divine >= 1000, reward: { exp: 20000, skillPoints: 20, allGains: 1.3 }, unlocked: false },
-    
-    // Void Achievements
     { id: "voidCollector1", name: "Void Touched", description: "Collect your first void", condition: () => gameState.void >= 1, reward: { exp: 5000, skillPoints: 8 }, unlocked: false },
     { id: "voidCollector10", name: "Void Walker", description: "Collect 10 void", condition: () => gameState.void >= 10, reward: { exp: 10000, skillPoints: 12 }, unlocked: false },
     { id: "voidCollector100", name: "Void Lord", description: "Collect 100 void", condition: () => gameState.void >= 100, reward: { exp: 20000, skillPoints: 16 }, unlocked: false },
     { id: "voidCollector1000", name: "Void God", description: "Collect 1,000 void", condition: () => gameState.void >= 1000, reward: { exp: 50000, skillPoints: 20, allGains: 1.5 }, unlocked: false },
-    
-    // Progression Achievements (Expanded)
     { id: "prestige5", name: "Ascended Master", description: "Prestige 5 times", condition: () => gameState.prestige >= 5, reward: { exp: 500, skillPoints: 5 }, unlocked: false },
     { id: "prestige10", name: "Ascended Lord", description: "Prestige 10 times", condition: () => gameState.prestige >= 10, reward: { exp: 1000, skillPoints: 10, essence: 100 }, unlocked: false },
     { id: "prestige25", name: "Ascended God", description: "Prestige 25 times", condition: () => gameState.prestige >= 25, reward: { exp: 2000, skillPoints: 15, souls: 25 }, unlocked: false },
     { id: "prestige50", name: "Ascended Primordial", description: "Prestige 50 times", condition: () => gameState.prestige >= 50, reward: { exp: 5000, skillPoints: 20, divine: 10 }, unlocked: false },
     { id: "prestige100", name: "Eternal Ascender", description: "Prestige 100 times", condition: () => gameState.prestige >= 100, reward: { exp: 10000, skillPoints: 30, cosmic: 5 }, unlocked: false },
-    
     { id: "rebirth5", name: "Reborn Master", description: "Rebirth 5 times", condition: () => gameState.rebirth >= 5, reward: { exp: 1000, skillPoints: 8 }, unlocked: false },
     { id: "rebirth10", name: "Reborn Lord", description: "Rebirth 10 times", condition: () => gameState.rebirth >= 10, reward: { exp: 2000, skillPoints: 12, antimatter: 25 }, unlocked: false },
     { id: "rebirth25", name: "Reborn God", description: "Rebirth 25 times", condition: () => gameState.rebirth >= 25, reward: { exp: 5000, skillPoints: 16, quantum: 10 }, unlocked: false },
     { id: "rebirth50", name: "Eternal Reborn", description: "Rebirth 50 times", condition: () => gameState.rebirth >= 50, reward: { exp: 10000, skillPoints: 20, void: 10 }, unlocked: false },
-    
     { id: "transcendence5", name: "Transcendent Master", description: "Transcend 5 times", condition: () => gameState.transcendence >= 5, reward: { exp: 2000, skillPoints: 10, souls: 50 }, unlocked: false },
     { id: "transcendence10", name: "Transcendent Lord", description: "Transcend 10 times", condition: () => gameState.transcendence >= 10, reward: { exp: 5000, skillPoints: 15, antimatter: 50 }, unlocked: false },
     { id: "transcendence25", name: "Transcendent God", description: "Transcend 25 times", condition: () => gameState.transcendence >= 25, reward: { exp: 10000, skillPoints: 20, divine: 25 }, unlocked: false },
     { id: "transcendence50", name: "Beyond Reality", description: "Transcend 50 times", condition: () => gameState.transcendence >= 50, reward: { exp: 20000, skillPoints: 25, cosmic: 10 }, unlocked: false },
-    
     { id: "enlightenment5", name: "Enlightened Master", description: "Enlighten 5 times", condition: () => gameState.enlightenment >= 5, reward: { exp: 5000, skillPoints: 12, quantum: 25 }, unlocked: false },
     { id: "enlightenment10", name: "Enlightened Lord", description: "Enlighten 10 times", condition: () => gameState.enlightenment >= 10, reward: { exp: 10000, skillPoints: 18, divine: 50 }, unlocked: false },
     { id: "enlightenment25", name: "Enlightened God", description: "Enlighten 25 times", condition: () => gameState.enlightenment >= 25, reward: { exp: 20000, skillPoints: 24, cosmic: 15 }, unlocked: false },
-    
     { id: "ascension5", name: "Ascended Master", description: "Ascend 5 times", condition: () => gameState.ascension >= 5, reward: { exp: 10000, skillPoints: 15, divine: 100 }, unlocked: false },
     { id: "ascension10", name: "Ascended Lord", description: "Ascend 10 times", condition: () => gameState.ascension >= 10, reward: { exp: 20000, skillPoints: 20, cosmic: 25 }, unlocked: false },
     { id: "ascension25", name: "Ascended God", description: "Ascend 25 times", condition: () => gameState.ascension >= 25, reward: { exp: 50000, skillPoints: 25, void: 50 }, unlocked: false },
-    
     { id: "cosmic5", name: "Cosmic Master", description: "Achieve Cosmic Evolution 5 times", condition: () => gameState.cosmicEvolution >= 5, reward: { exp: 20000, skillPoints: 20, allGains: 1.2 }, unlocked: false },
     { id: "cosmic10", name: "Cosmic Lord", description: "Achieve Cosmic Evolution 10 times", condition: () => gameState.cosmicEvolution >= 10, reward: { exp: 50000, skillPoints: 30, allGains: 1.5 }, unlocked: false },
     { id: "cosmic25", name: "Cosmic God", description: "Achieve Cosmic Evolution 25 times", condition: () => gameState.cosmicEvolution >= 25, reward: { exp: 100000, skillPoints: 50, allGains: 2.0 }, unlocked: false },
-    
-    // Player Level Achievements
     { id: "level10", name: "Apprentice Clicker", description: "Reach level 10", condition: () => gameState.playerLevel >= 10, reward: { exp: 100, skillPoints: 1 }, unlocked: false },
     { id: "level25", name: "Adept Clicker", description: "Reach level 25", condition: () => gameState.playerLevel >= 25, reward: { exp: 250, skillPoints: 2, bones: 500 }, unlocked: false },
     { id: "level50", name: "Expert Clicker", description: "Reach level 50", condition: () => gameState.playerLevel >= 50, reward: { exp: 500, skillPoints: 3, essence: 50 }, unlocked: false },
@@ -1859,116 +1781,84 @@
     { id: "level2500", name: "Godly Clicker", description: "Reach level 2500", condition: () => gameState.playerLevel >= 2500, reward: { exp: 25000, skillPoints: 20, void: 10 }, unlocked: false },
     { id: "level5000", name: "Omnipotent Clicker", description: "Reach level 5000", condition: () => gameState.playerLevel >= 5000, reward: { exp: 50000, skillPoints: 30, allGains: 1.3 }, unlocked: false },
     { id: "level10000", name: "Transcendent Clicker", description: "Reach level 10000", condition: () => gameState.playerLevel >= 10000, reward: { exp: 100000, skillPoints: 50, allGains: 1.5 }, unlocked: false },
-    
-    // Auto-Clicker Achievements
     { id: "autoClicker1", name: "Automation Novice", description: "Own your first auto-clicker", condition: () => autoClickers.some(a => a.owned > 0), reward: { exp: 100 }, unlocked: false },
     { id: "autoClicker10", name: "Automation Apprentice", description: "Own 10 auto-clickers total", condition: () => autoClickers.reduce((sum, a) => sum + a.owned, 0) >= 10, reward: { exp: 500, bones: 1000 }, unlocked: false },
     { id: "autoClicker50", name: "Automation Expert", description: "Own 50 auto-clickers total", condition: () => autoClickers.reduce((sum, a) => sum + a.owned, 0) >= 50, reward: { exp: 1000, essence: 100 }, unlocked: false },
     { id: "autoClicker100", name: "Automation Master", description: "Own 100 auto-clickers total", condition: () => autoClickers.reduce((sum, a) => sum + a.owned, 0) >= 100, reward: { exp: 2000, skillPoints: 5 }, unlocked: false },
     { id: "autoClicker500", name: "Automation God", description: "Own 500 auto-clickers total", condition: () => autoClickers.reduce((sum, a) => sum + a.owned, 0) >= 500, reward: { exp: 5000, skillPoints: 10, souls: 50 }, unlocked: false },
     { id: "autoClicker1000", name: "Infinite Automation", description: "Own 1000 auto-clickers total", condition: () => autoClickers.reduce((sum, a) => sum + a.owned, 0) >= 1000, reward: { exp: 10000, skillPoints: 15, divine: 10 }, unlocked: false },
-    
-    // Upgrade Achievements
     { id: "upgrade10", name: "Upgrade Enthusiast", description: "Buy 10 upgrades", condition: () => upgrades.reduce((sum, u) => sum + u.owned, 0) >= 10, reward: { exp: 200, clickPower: 25 }, unlocked: false },
     { id: "upgrade50", name: "Upgrade Collector", description: "Buy 50 upgrades", condition: () => upgrades.reduce((sum, u) => sum + u.owned, 0) >= 50, reward: { exp: 500, bones: 2000 }, unlocked: false },
     { id: "upgrade100", name: "Upgrade Hoarder", description: "Buy 100 upgrades", condition: () => upgrades.reduce((sum, u) => sum + u.owned, 0) >= 100, reward: { exp: 1000, essence: 200 }, unlocked: false },
     { id: "upgrade250", name: "Upgrade Master", description: "Buy 250 upgrades", condition: () => upgrades.reduce((sum, u) => sum + u.owned, 0) >= 250, reward: { exp: 2000, skillPoints: 8 }, unlocked: false },
     { id: "upgrade500", name: "Upgrade God", description: "Buy 500 upgrades", condition: () => upgrades.reduce((sum, u) => sum + u.owned, 0) >= 500, reward: { exp: 5000, skillPoints: 12, antimatter: 50 }, unlocked: false },
     { id: "upgrade1000", name: "Upgrade Overlord", description: "Buy 1000 upgrades", condition: () => upgrades.reduce((sum, u) => sum + u.owned, 0) >= 1000, reward: { exp: 10000, skillPoints: 20, quantum: 25 }, unlocked: false },
-    
-    // Skill Point Achievements
     { id: "skillPoints10", name: "Skill Novice", description: "Spend 10 skill points", condition: () => gameState.skillPointsSpent >= 10, reward: { exp: 200 }, unlocked: false },
     { id: "skillPoints50", name: "Skill Apprentice", description: "Spend 50 skill points", condition: () => gameState.skillPointsSpent >= 50, reward: { exp: 500, bones: 5000 }, unlocked: false },
     { id: "skillPoints100", name: "Skill Expert", description: "Spend 100 skill points", condition: () => gameState.skillPointsSpent >= 100, reward: { exp: 1000, essence: 500 }, unlocked: false },
     { id: "skillPoints250", name: "Skill Master", description: "Spend 250 skill points", condition: () => gameState.skillPointsSpent >= 250, reward: { exp: 2500, skillPoints: 5 }, unlocked: false },
     { id: "skillPoints500", name: "Skill God", description: "Spend 500 skill points", condition: () => gameState.skillPointsSpent >= 500, reward: { exp: 5000, skillPoints: 10, souls: 100 }, unlocked: false },
     { id: "skillPoints1000", name: "Omniscient", description: "Spend 1000 skill points", condition: () => gameState.skillPointsSpent >= 1000, reward: { exp: 10000, skillPoints: 15, divine: 25 }, unlocked: false },
-    
-    // Special Ability Achievements
     { id: "goldenTime10", name: "Golden Enthusiast", description: "Activate Golden Time 10 times", condition: () => gameState.goldenTimesTriggered >= 10, reward: { exp: 500, bones: 1000 }, unlocked: false },
     { id: "goldenTime50", name: "Golden Master", description: "Activate Golden Time 50 times", condition: () => gameState.goldenTimesTriggered >= 50, reward: { exp: 1000, essence: 200 }, unlocked: false },
     { id: "goldenTime100", name: "Golden God", description: "Activate Golden Time 100 times", condition: () => gameState.goldenTimesTriggered >= 100, reward: { exp: 2000, skillPoints: 5, souls: 50 }, unlocked: false },
     { id: "goldenTime500", name: "Eternal Golden", description: "Activate Golden Time 500 times", condition: () => gameState.goldenTimesTriggered >= 500, reward: { exp: 5000, skillPoints: 10, divine: 10 }, unlocked: false },
-    
-    // Exploration Achievements
     { id: "exploreArea1", name: "Explorer", description: "Fully explore 1 area", condition: () => areas.filter(a => a.explored >= a.maxExploration).length >= 1, reward: { exp: 500, bones: 5000 }, unlocked: false },
     { id: "exploreArea3", name: "Adventurer", description: "Fully explore 3 areas", condition: () => areas.filter(a => a.explored >= a.maxExploration).length >= 3, reward: { exp: 1000, essence: 500 }, unlocked: false },
     { id: "exploreArea5", name: "Exploration Master", description: "Fully explore 5 areas", condition: () => areas.filter(a => a.explored >= a.maxExploration).length >= 5, reward: { exp: 2000, skillPoints: 5, souls: 100 }, unlocked: false },
     { id: "exploreArea10", name: "World Explorer", description: "Fully explore 10 areas", condition: () => areas.filter(a => a.explored >= a.maxExploration).length >= 10, reward: { exp: 5000, skillPoints: 10, antimatter: 100 }, unlocked: false },
     { id: "exploreArea15", name: "Dimension Walker", description: "Fully explore 15 areas", condition: () => areas.filter(a => a.explored >= a.maxExploration).length >= 15, reward: { exp: 10000, skillPoints: 15, quantum: 50 }, unlocked: false },
-    
-    // Research Achievements
     { id: "research1", name: "Researcher", description: "Complete 1 research project", condition: () => research.filter(r => r.completed).length >= 1, reward: { exp: 500, researchPoints: 50 }, unlocked: false },
     { id: "research5", name: "Scientist", description: "Complete 5 research projects", condition: () => research.filter(r => r.completed).length >= 5, reward: { exp: 1000, researchPoints: 100 }, unlocked: false },
     { id: "research10", name: "Professor", description: "Complete 10 research projects", condition: () => research.filter(r => r.completed).length >= 10, reward: { exp: 2000, researchPoints: 200, skillPoints: 3 }, unlocked: false },
     { id: "research20", name: "Master Researcher", description: "Complete 20 research projects", condition: () => research.filter(r => r.completed).length >= 20, reward: { exp: 5000, researchPoints: 500, skillPoints: 5 }, unlocked: false },
     { id: "research30", name: "Omni-Researcher", description: "Complete 30 research projects", condition: () => research.filter(r => r.completed).length >= 30, reward: { exp: 10000, researchPoints: 1000, skillPoints: 10 }, unlocked: false },
-    
-    // Mini-Game Achievements
-    { id: "minigame1", name: "Gamer", description: "Play your first mini-game", condition: () => false, reward: { exp: 500 }, unlocked: false }, // Track minigame plays separately
+    { id: "minigame1", name: "Gamer", description: "Play your first mini-game", condition: () => false, reward: { exp: 500 }, unlocked: false },
     { id: "minigame5", name: "Arcade Enthusiast", description: "Play 5 mini-games", condition: () => false, reward: { exp: 1000, bones: 10000 }, unlocked: false },
     { id: "minigame25", name: "Arcade Master", description: "Play 25 mini-games", condition: () => false, reward: { exp: 2500, essence: 1000 }, unlocked: false },
     { id: "minigame100", name: "Arcade God", description: "Play 100 mini-games", condition: () => false, reward: { exp: 5000, skillPoints: 10, souls: 200 }, unlocked: false },
-    
-    // High Score Achievements
     { id: "highScore1000", name: "Score Seeker", description: "Achieve a high score of 1000 in any mini-game", condition: () => Math.max(...minigames.map(m => m.highScore)) >= 1000, reward: { exp: 1000, bones: 5000 }, unlocked: false },
     { id: "highScore5000", name: "Score Master", description: "Achieve a high score of 5000 in any mini-game", condition: () => Math.max(...minigames.map(m => m.highScore)) >= 5000, reward: { exp: 2000, essence: 500 }, unlocked: false },
     { id: "highScore10000", name: "Score God", description: "Achieve a high score of 10000 in any mini-game", condition: () => Math.max(...minigames.map(m => m.highScore)) >= 10000, reward: { exp: 5000, skillPoints: 5, souls: 100 }, unlocked: false },
     { id: "highScore50000", name: "Legendary Score", description: "Achieve a high score of 50000 in any mini-game", condition: () => Math.max(...minigames.map(m => m.highScore)) >= 50000, reward: { exp: 10000, skillPoints: 10, divine: 10 }, unlocked: false },
-    
-    // Bank & Economy Achievements
     { id: "bank1000", name: "Saver", description: "Deposit 1000 skulls in the bank", condition: () => gameState.bankBalance >= 1000, reward: { exp: 500 }, unlocked: false },
     { id: "bank10000", name: "Investor", description: "Deposit 10,000 skulls in the bank", condition: () => gameState.bankBalance >= 10000, reward: { exp: 1000, bones: 5000 }, unlocked: false },
     { id: "bank100000", name: "Wealthy", description: "Deposit 100,000 skulls in the bank", condition: () => gameState.bankBalance >= 100000, reward: { exp: 2000, essence: 500 }, unlocked: false },
     { id: "bank1M", name: "Millionaire", description: "Deposit 1,000,000 skulls in the bank", condition: () => gameState.bankBalance >= 1e6, reward: { exp: 5000, skillPoints: 5, souls: 100 }, unlocked: false },
     { id: "bank10M", name: "Billionaire", description: "Deposit 10,000,000 skulls in the bank", condition: () => gameState.bankBalance >= 1e7, reward: { exp: 10000, skillPoints: 10, divine: 20 }, unlocked: false },
-    
-    // SkullCoin Mining Achievements
     { id: "mining10", name: "Miner", description: "Mine 10 SkullCoins", condition: () => gameState.skullCoins >= 10, reward: { exp: 500 }, unlocked: false },
     { id: "mining100", name: "Pro Miner", description: "Mine 100 SkullCoins", condition: () => gameState.skullCoins >= 100, reward: { exp: 1000, bones: 5000 }, unlocked: false },
     { id: "mining1000", name: "Master Miner", description: "Mine 1,000 SkullCoins", condition: () => gameState.skullCoins >= 1000, reward: { exp: 2000, essence: 500 }, unlocked: false },
     { id: "mining10000", name: "Mining Tycoon", description: "Mine 10,000 SkullCoins", condition: () => gameState.skullCoins >= 10000, reward: { exp: 5000, skillPoints: 5, souls: 100 }, unlocked: false },
     { id: "mining100000", name: "Crypto King", description: "Mine 100,000 SkullCoins", condition: () => gameState.skullCoins >= 100000, reward: { exp: 10000, skillPoints: 10, quantum: 50 }, unlocked: false },
-    
-    // Time-Based Achievements
     { id: "play1Hour", name: "Hour of Power", description: "Play for 1 hour total", condition: () => gameState.daysPlayed >= 0.0417, reward: { exp: 500 }, unlocked: false },
     { id: "play1Day", name: "Day One", description: "Play for 24 hours total", condition: () => gameState.daysPlayed >= 1, reward: { exp: 1000, bones: 10000 }, unlocked: false },
     { id: "play7Days", name: "Week Warrior", description: "Play for 7 days total", condition: () => gameState.daysPlayed >= 7, reward: { exp: 2000, essence: 1000 }, unlocked: false },
     { id: "play30Days", name: "Monthly Master", description: "Play for 30 days total", condition: () => gameState.daysPlayed >= 30, reward: { exp: 5000, skillPoints: 5, souls: 200 }, unlocked: false },
     { id: "play100Days", name: "Century Club", description: "Play for 100 days total", condition: () => gameState.daysPlayed >= 100, reward: { exp: 10000, skillPoints: 10, divine: 50 }, unlocked: false },
     { id: "play365Days", name: "Year of Skulls", description: "Play for 365 days total", condition: () => gameState.daysPlayed >= 365, reward: { exp: 50000, skillPoints: 20, cosmic: 10 }, unlocked: false },
-    
-    // Offline Achievements
     { id: "offline1000", name: "Idle Fingers", description: "Earn 1,000 skulls offline", condition: () => gameState.offlineGained >= 1000, reward: { exp: 500 }, unlocked: false },
     { id: "offline10000", name: "Idle Pro", description: "Earn 10,000 skulls offline", condition: () => gameState.offlineGained >= 10000, reward: { exp: 1000, bones: 5000 }, unlocked: false },
     { id: "offline100000", name: "Idle Master", description: "Earn 100,000 skulls offline", condition: () => gameState.offlineGained >= 100000, reward: { exp: 2000, essence: 500 }, unlocked: false },
     { id: "offline1M", name: "Idle God", description: "Earn 1,000,000 skulls offline", condition: () => gameState.offlineGained >= 1e6, reward: { exp: 5000, skillPoints: 5, souls: 100 }, unlocked: false },
-    
-    // Special Combo Achievements
     { id: "combo10", name: "Combo Starter", description: "Activate 3 abilities at once", condition: () => gameState.goldenTimeActive && gameState.criticalBoostActive && gameState.doubleDropsActive, reward: { exp: 1000, bones: 5000 }, unlocked: false },
     { id: "comboGod", name: "Combo God", description: "Have all 7 progression systems active", condition: () => gameState.prestige > 0 && gameState.rebirth > 0 && gameState.transcendence > 0 && gameState.enlightenment > 0 && gameState.ascension > 0 && gameState.cosmicEvolution > 0, reward: { exp: 10000, skillPoints: 10, allGains: 1.2 }, unlocked: false },
-    
-    // Secret Achievements
     { id: "secretClicker", name: "???", description: "???", condition: () => gameState.clicks === 66666, reward: { exp: 6666, skillPoints: 6, bones: 6666 }, unlocked: false },
     { id: "secretSkulls", name: "???", description: "???", condition: () => Math.floor(gameState.skulls) === 999999, reward: { exp: 9999, essence: 999, souls: 99 }, unlocked: false },
     { id: "secretPrestige", name: "???", description: "???", condition: () => gameState.prestige === 13, reward: { exp: 13000, skillPoints: 13, cosmic: 1 }, unlocked: false },
     { id: "secretName", name: "???", description: "???", condition: () => gameState.playerName === "SKULL LORD", reward: { exp: 5000, skillPoints: 5, divine: 5 }, unlocked: false },
-    
-    // Ultimate Achievements
     { id: "ultimateClicker", name: "Ultimate Clicker", description: "Reach 1 trillion skulls earned", condition: () => gameState.totalEarned >= 1e12, reward: { exp: 100000, skillPoints: 50, allGains: 1.5, cosmic: 10 }, unlocked: false },
     { id: "ultimateProgression", name: "Ultimate Progression", description: "Reach max level in all progression systems", condition: () => gameState.prestige >= 100 && gameState.rebirth >= 50 && gameState.transcendence >= 25 && gameState.enlightenment >= 10 && gameState.ascension >= 5 && gameState.cosmicEvolution >= 1, reward: { exp: 200000, skillPoints: 100, allGains: 2.0, void: 100 }, unlocked: false },
     { id: "ultimateCollection", name: "Ultimate Collection", description: "Collect all achievements (200+)", condition: () => gameState.unlockedAchievements.length >= 200, reward: { exp: 500000, skillPoints: 200, allGains: 3.0, cosmic: 100 }, unlocked: false },
     { id: "theEnd", name: "The End... Or Beginning?", description: "Complete everything the game has to offer", condition: () => gameState.unlockedAchievements.length >= 250 && gameState.cosmicEvolution >= 10, reward: { exp: 1000000, skillPoints: 500, allGains: 5.0, cosmic: 1000 }, unlocked: false }
   ];
 
-  // Areas for exploration (50+ areas)
   const areas = [
     { id: "hauntedGraveyard", name: "Haunted Graveyard", description: "Where it all began", unlocked: true, explored: 0, maxExploration: 100, rewards: { skulls: 1000, bones: 100 } },
     { id: "ancientTomb", name: "Ancient Tomb", description: "Forgotten burial chambers", unlocked: false, explored: 0, maxExploration: 200, rewards: { skulls: 5000, essence: 50 } },
     { id: "underworldRealm", name: "Underworld Realm", description: "Domain of the dead", unlocked: false, explored: 0, maxExploration: 500, rewards: { souls: 100, antimatter: 10 } },
     { id: "spectralDimension", name: "Spectral Dimension", description: "Where ghosts reside", unlocked: false, explored: 0, maxExploration: 1000, rewards: { quantum: 50, divine: 5 } },
     { id: "voidZone", name: "Void Zone", description: "Nothingness incarnate", unlocked: false, explored: 0, maxExploration: 2000, rewards: { void: 100, cosmic: 25 } },
-    // NEW AREAS 6-15: Expanded Exploration
     { id: "crystalCaverns", name: "Crystal Caverns", description: "Glowing crystals pulse with ancient energy", unlocked: false, explored: 0, maxExploration: 300, rewards: { skulls: 25000, essence: 100, quantum: 5 } },
     { id: "soulRiver", name: "Soul River", description: "A flowing stream of lost spirits", unlocked: false, explored: 0, maxExploration: 400, rewards: { souls: 500, antimatter: 25, divine: 2 } },
     { id: "forgottenLibrary", name: "Forgotten Library", description: "Tomes of forbidden knowledge line the walls", unlocked: false, explored: 0, maxExploration: 500, rewards: { researchPoints: 50, essence: 500, skulls: 100000 } },
@@ -1981,36 +1871,28 @@
     { id: "omegaPoint", name: "Omega Point", description: "The final destination of all existence", unlocked: false, explored: 0, maxExploration: 2000, rewards: { allGains: 2.0, cosmic: 100, skillPoints: 50 } }
   ];
 
-  // Research projects (100+ research)
   const research = [
-    // Basic research
     { id: "skullScience", name: "Skull Science", description: "Study the properties of skulls", cost: 10, duration: 60000, completed: false, benefits: { clickPower: 1.1 } },
     { id: "boneEngineering", name: "Bone Engineering", description: "Engineer stronger bones", cost: 25, duration: 120000, completed: false, benefits: { autoEfficiency: 1.1 } },
     { id: "essencePhysics", name: "Essence Physics", description: "Understand essence at quantum level", cost: 50, duration: 300000, completed: false, benefits: { essenceGain: 1.2 } },
-    // Advanced research
     { id: "soulChemistry", name: "Soul Chemistry", description: "Chemical analysis of souls", cost: 100, duration: 600000, completed: false, benefits: { soulGain: 1.3 } },
     { id: "antimatterStudies", name: "Antimatter Studies", description: "Harness antimatter power", cost: 200, duration: 1200000, completed: false, benefits: { antimatterGain: 1.5 } },
     { id: "quantumMechanics", name: "Quantum Mechanics", description: "Master quantum physics", cost: 500, duration: 1800000, completed: false, benefits: { quantumGain: 2.0 } },
-    // Ultimate research
     { id: "divineTheology", name: "Divine Theology", description: "Study divine nature", cost: 1000, duration: 3600000, completed: false, benefits: { divineGain: 3.0 } },
     { id: "voidPhilosophy", name: "Void Philosophy", description: "Contemplate nothingness", cost: 2000, duration: 7200000, completed: false, benefits: { voidGain: 5.0 } },
     { id: "cosmicAstronomy", name: "Cosmic Astronomy", description: "Map the cosmic structure", cost: 5000, duration: 14400000, completed: false, benefits: { allGains: 2.0 } },
-    // NEW RESEARCH 10-18: Advanced Resource Studies
     { id: "antimatterStabilization", name: "Antimatter Stabilization", description: "Safely contain and utilize antimatter", cost: 500, duration: 1800000, completed: false, benefits: { antimatterGain: 1.5 } },
     { id: "quantumEntanglement", name: "Quantum Entanglement", description: "Link skull production across dimensions", cost: 800, duration: 2400000, completed: false, benefits: { quantumGain: 1.6, skullGain: 1.2 } },
     { id: "voidResonance", name: "Void Resonance", description: "Harmonize with the emptiness", cost: 1200, duration: 3000000, completed: false, benefits: { voidGain: 1.8, clickPower: 1.3 } },
     { id: "divineIntervention", name: "Divine Intervention", description: "Channel power from higher beings", cost: 2000, duration: 3600000, completed: false, benefits: { divineGain: 2.0, criticalChance: 1.2 } },
-    // NEW RESEARCH 19-22: Cosmic Studies
     { id: "cosmicBackground", name: "Cosmic Background Analysis", description: "Decode the whispers of creation", cost: 3500, duration: 4800000, completed: false, benefits: { cosmicGain: 1.5, allGains: 1.1 } },
     { id: "darkMatterExtraction", name: "Dark Matter Extraction", description: "Mine the invisible universe", cost: 5000, duration: 6000000, completed: false, benefits: { skullGain: 1.8, essenceGain: 1.5 } },
     { id: "nebulaForging", name: "Nebula Forging", description: "Create skulls from stellar nurseries", cost: 7500, duration: 7200000, completed: false, benefits: { autoEfficiency: 1.6, quantumGain: 1.4 } },
     { id: "stellarEvolution", name: "Stellar Evolution", description: "Guide stars to become skulls", cost: 10000, duration: 9000000, completed: false, benefits: { divineGain: 1.5, antimatterGain: 1.3 } },
-    // NEW RESEARCH 23-27: Transcendent Technologies
     { id: "dimensionalFolding", name: "Dimensional Folding", description: "Fold space for instant skull delivery", cost: 15000, duration: 10800000, completed: false, benefits: { clickPower: 1.5, sps: 1.4 } },
     { id: "timelineWeaving", name: "Timeline Weaving", description: "Collect skulls from parallel realities", cost: 20000, duration: 12600000, completed: false, benefits: { allGains: 1.3, offlineGains: 2.0 } },
     { id: "realityEditing", name: "Reality Editing", description: "Rewrite the code of existence", cost: 30000, duration: 14400000, completed: false, benefits: { criticalChance: 1.4, criticalDamage: 1.3 } },
     { id: "conceptManipulation", name: "Concept Manipulation", description: "Skulls exist because you will it", cost: 50000, duration: 18000000, completed: false, benefits: { allGains: 1.5, voidGain: 2.0 } },
-    // NEW RESEARCH 28-32: Mythic Knowledge
     { id: "akashicRecords", name: "Akashic Records Access", description: "Download knowledge from the cosmic library", cost: 100000, duration: 21600000, completed: false, benefits: { skillPointGen: 1, researchPointGen: 2 } },
     { id: "primordialScript", name: "Primordial Script", description: "Decode the language of creation", cost: 250000, duration: 28800000, completed: false, benefits: { allGains: 1.8, cosmicGain: 2.0 } },
     { id: "omniscienceMatrix", name: "Omniscience Matrix", description: "Know all skull-related knowledge", cost: 500000, duration: 36000000, completed: false, benefits: { clickPower: 2.0, autoEfficiency: 2.0, criticalChance: 1.5 } },
@@ -2018,7 +1900,6 @@
     { id: "metaphysicalBreakthrough", name: "Metaphysical Breakthrough", description: "Transcend the concept of research itself", cost: 5000000, duration: 86400000, completed: false, benefits: { allGains: 3.0, skillPoints: 50, researchPoints: 100 } }
   ];
 
-  // Mini-games (20+ mini-games)
   const minigames = [
     { id: "skullMatch", name: "Skull Match", description: "Match skulls in this puzzle game", unlocked: true, highScore: 0, rewards: { skulls: 1000, exp: 100 } },
     { id: "boneTowerDefense", name: "Bone Tower Defense", description: "Defend against waves of enemies", unlocked: false, highScore: 0, rewards: { bones: 500, exp: 200 } },
@@ -2027,14 +1908,12 @@
     { id: "graveyardMaze", name: "Graveyard Maze", description: "Navigate through spooky mazes", unlocked: false, highScore: 0, rewards: { skulls: 2000, bones: 200 } }
   ];
 
-  // Pets (50+ pets)
   const pets = [
     { id: "skullCat", name: "Skull Cat", emoji: "🐱", description: "A cat with skull markings", effect: "2% click power bonus", unlocked: false, cost: { bones: 1000 } },
     { id: "boneDog", name: "Bone Dog", emoji: "🐕", description: "Loyal companion that finds bones", effect: "5% bone gain bonus", unlocked: false, cost: { essence: 100 } },
     { id: "ghostBird", name: "Ghost Bird", emoji: "🦅", description: "Ethereal bird from beyond", effect: "3% essence gain bonus", unlocked: false, cost: { souls: 50 } },
     { id: "phantomRat", name: "Phantom Rat", emoji: "🐭", description: "Sneaky rat that phases through walls", effect: "1% auto-clicker efficiency", unlocked: false, cost: { antimatter: 25 } },
     { id: "voidSpider", name: "Void Spider", emoji: "🕷️", description: "Spider from the void realm", effect: "10% critical hit chance", unlocked: false, cost: { void: 10 } },
-    // NEW PETS 6-15: Mystical Creatures
     { id: "soulWisp", name: "Soul Wisp", emoji: "✨", description: "A floating wisp of captured souls", effect: "5% soul gain bonus", unlocked: false, cost: { souls: 100 } },
     { id: "cryptBat", name: "Crypt Bat", emoji: "🦇", description: "Bat that guards ancient tombs", effect: "3% bone gain from exploration", unlocked: false, cost: { bones: 5000 } },
     { id: "graveRat", name: "Grave Rat", emoji: "🐀", description: "Scurries through graveyards finding treasures", effect: "2% chance for double resources", unlocked: false, cost: { essence: 200 } },
@@ -2045,7 +1924,6 @@
     { id: "nebulaPhoenix", name: "Nebula Phoenix", emoji: "🐦‍🔥", description: "Reborn from stellar dust", effect: "15% rebirth bonus on next rebirth", unlocked: false, cost: { divine: 100, cosmic: 10 } },
     { id: "quantumFox", name: "Quantum Fox", emoji: "🦊", description: "Exists in multiple states simultaneously", effect: "10% quantum resource bonus", unlocked: false, cost: { quantum: 50, antimatter: 100 } },
     { id: "antimatterSlime", name: "Antimatter Slime", emoji: "🟣", description: "Bouncy creature made of pure antimatter", effect: "12% antimatter gain", unlocked: false, cost: { antimatter: 200, essence: 1000 } },
-    // NEW PETS 16-25: Mythical & Legendary
     { id: "cerberusPup", name: "Cerberus Pup", emoji: "🐕‍🦺", description: "Three-headed puppy guarding the underworld", effect: "15% click power bonus", unlocked: false, cost: { souls: 1000, bones: 50000 } },
     { id: "grimReaperCat", name: "Grim Reaper Cat", emoji: "🐈‍⬛", description: "Cat that guides souls to the afterlife", effect: "20% critical chance during Golden Time", unlocked: false, cost: { divine: 50, souls: 2000 } },
     { id: "zombieSloth", name: "Zombie Sloth", emoji: "🦥", description: "Slow but unstoppable undead sloth", effect: "5% auto-clicker efficiency (stacks)", unlocked: false, cost: { essence: 2000, bones: 25000 } },
@@ -2056,7 +1934,6 @@
     { id: "lichKingPenguin", name: "Lich King Penguin", emoji: "🐧", description: "Frozen undead penguin ruler", effect: "15% cold damage bonus (ice areas)", unlocked: false, cost: { antimatter: 500, quantum: 100 } },
     { id: "voidDragonfly", name: "Void Dragonfly", emoji: "🪰", description: "Drifts between dimensions", effect: "10% dimensional rift rewards", unlocked: false, cost: { void: 200, cosmic: 20 } },
     { id: "cosmicWhale", name: "Cosmic Whale", emoji: "🐋", description: "Swims through the fabric of spacetime", effect: "20% all resource gain", unlocked: false, cost: { cosmic: 50, divine: 500, void: 100 } },
-    // NEW PETS 26-35: Ascended & Transcendent
     { id: "angelicHound", name: "Angelic Hound", emoji: "🪽", description: "Celestial guardian from above", effect: "15% divine gain bonus", unlocked: false, cost: { divine: 200, souls: 5000 } },
     { id: "demonicImp", name: "Demonic Imp", emoji: "👹", description: "Mischievous creature from the underworld", effect: "10% chance to steal from enemies", unlocked: false, cost: { void: 150, essence: 5000 } },
     { id: "primordialSlug", name: "Primordial Slug", emoji: "🐌", description: "One of the first beings to exist", effect: "5% all progression bonuses", unlocked: false, cost: { cosmic: 30, divine: 300, quantum: 500 } },
@@ -2069,7 +1946,6 @@
     { id: "thePet", name: "The Pet", emoji: "✨", description: "The concept of a pet, manifested", effect: "50% all gains (ultimate pet)", unlocked: false, cost: { cosmic: 10000, enlightenment: 5, ascension: 5 } }
   ];
 
-  // Events (seasonal and special)
   const events = [
     {
       id: "halloween2026",
