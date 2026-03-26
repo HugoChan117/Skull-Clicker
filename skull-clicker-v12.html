@@ -68,86 +68,16 @@ body.light .upgrade-owned { color: #666; }
 .critical-hit {position: absolute;font-size: 1.5em;font-weight: bold;color: var(--critical-color);text-shadow: 0 0 10px var(--critical-color);pointer-events: none;z-index: 10;animation: critical-animation 1s ease-out forwards;}
 @keyframes critical-animation {0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }}
 .mega-critical {position: absolute;font-size: 2em;font-weight: bold;color: #ff0080;text-shadow: 0 0 20px #ff0080;pointer-events: none;z-index: 15;animation: mega-critical-animation 1.5s ease-out forwards;}
-  
-  @keyframes mega-critical-animation {
-    0% { transform: translate(-50%, -50%) scale(0.3); opacity: 1; }
-    50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.8; }
-    100% { transform: translate(-50%, -50%) scale(3); opacity: 0; }
-  }
-  
-  .status-bar {
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    z-index: 10000;
-  }
-  
-  .status-indicator {
-    background: rgba(0,0,0,0.8);
-    color: white;
-    padding: 6px 12px;
-    border-radius: 15px;
-    font-weight: bold;
-    font-size: 0.8em;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-    animation: pulse 1.5s infinite;
-    display: none;
-  }
-  
-  .status-indicator.active { display: block; }
-  
-  /* Pet system */
-  .pet-container {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000;
-  }
-  
-  .pet {
-    font-size: 40px;
-    cursor: pointer;
-    animation: pet-float 3s ease-in-out infinite;
-    filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
-  }
-  
-  @keyframes pet-float {
-    0%, 100% { transform: translateY(0) rotate(-5deg); }
-    50% { transform: translateY(-10px) rotate(5deg); }
-  }
-  
-  /* Minigame modal */
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 20000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.8);
-  }
-  
-  .modal-content {
-    background-color: var(--dark-bg);
-    margin: 5% auto;
-    padding: 20px;
-    border-radius: 15px;
-    width: 90%;
-    max-width: 600px;
-    max-height: 80vh;
-    overflow-y: auto;
-    position: relative;
-    border: 2px solid #666;
-  }
-  
-  body.light .modal-content {
-    background-color: white;
-    color: var(--light-text);
-  }
+@keyframes mega-critical-animation {0% { transform: translate(-50%, -50%) scale(0.3); opacity: 1; }50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.8; }100% { transform: translate(-50%, -50%) scale(3); opacity: 0; }}
+.status-bar {position: fixed;top: 10px;left: 10px;display: flex;flex-direction: column;gap: 5px;z-index: 10000;}
+.status-indicator {background: rgba(0,0,0,0.8);color: white;padding: 6px 12px;border-radius: 15px;font-weight: bold;font-size: 0.8em;box-shadow: 0 2px 8px rgba(0,0,0,0.3);animation: pulse 1.5s infinite;display: none;}
+.status-indicator.active { display: block; }
+.pet-container {position: fixed;bottom: 20px;right: 20px;z-index: 1000;}
+.pet {font-size: 40px;cursor: pointer;animation: pet-float 3s ease-in-out infinite;filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));}
+@keyframes pet-float {0%, 100% { transform: translateY(0) rotate(-5deg); }50% { transform: translateY(-10px) rotate(5deg); }}
+.modal {display: none;position: fixed;z-index: 20000;left: 0;top: 0;width: 100%;height: 100%;background-color: rgba(0,0,0,0.8);}
+.modal-content {background-color: var(--dark-bg);margin: 5% auto;padding: 20px;border-radius: 15px;width: 90%;max-width: 600px;max-height: 80vh;overflow-y: auto;position: relative;border: 2px solid #666;}
+body.light .modal-content {background-color: white;color: var(--light-text);}
   
   .close {
     color: #aaa;
