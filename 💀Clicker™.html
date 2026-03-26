@@ -5,40 +5,24 @@
 
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💀 SKULL CLICKER</title>
-    <link rel="icon" type="image/png" href="https://hugochan117.github.io/Skull-Clicker/skull.png">
-    <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💀 SKULL CLICKER</title>
+<link rel="icon" type="image/png" href="https://hugochan117.github.io/Skull-Clicker/skull.png">
+<style>
 
 @import url('https://fonts.googleapis.com/css2?family=Creepster&family=Eater&family=Nosifer&family=Rubik+Wet+Paint&family=Barlow+Condensed:wght@700&display=swap');
-        * {
-            box-sizing: border-box;
-            user-select: none;
-            margin: 0;
-            padding: 0;
-        }
-        
-        body {
-            min-height: 100vh;
-            width: 100vw;
-            overflow-x: hidden;
-            background: linear-gradient(135deg, #1a0f0a 0%, #2d1a10 50%, #1f0e08 100%);
-            display: flex;
-            flex-direction: column;
-            padding: 12px;
-            position: relative;
-            font-family:  'Creepster', 'Eater', 'Nosifer', cursive;
-        }
+        * { box-sizing: border-box; user-select: none;  margin: 0; padding: 0;}
+        body { min-height: 100vh; width: 100vw; overflow-x: hidden; background: linear-gradient(135deg, #1a0f0a 0%, #2d1a10 50%, #1f0e08 100%);  display: flex; flex-direction: column;  padding: 12px; position: relative; font-family:  'Creepster', 'Eater', 'Nosifer', cursive;  }
         
         body::before {
             content: '';
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
             background: repeating-linear-gradient(45deg, 
-                rgba(100, 50, 20, 0.05) 0px, 
-                rgba(150, 70, 30, 0.08) 50px, 
-                transparent 100px);
+            rgba(100, 50, 20, 0.05) 0px, 
+            rgba(150, 70, 30, 0.08) 50px, 
+            transparent 100px);
             pointer-events: none;
             animation: skullDrift 25s linear infinite;
             z-index: 0;
@@ -616,7 +600,8 @@
 function getAscendCost() {
     return ASCEND_BASE_COST * Math.pow(ASCEND_COST_MULT, ascendLevel);
 }
-    
+
+// Upgrades (contains AI-generated name)
 const upgrades = [
     { id: 'bone1',    name: 'SKULL FRAGMENT',        icon: '💀', basePower: 1,          baseCost: 20,             desc: '+1/click' },
     { id: 'bone2',    name: 'BONE SHARD',            icon: '🦴', basePower: 12,         baseCost: 400,            desc: '+12/click' },
@@ -771,6 +756,7 @@ function formatNumber(num) {
     return `${formatted}${suffixes[tier]}`.trim();
 }
 
+// contains AI-generated name
 const achievements = [
     { id: 'click1', name: 'First Bone', desc: 'Click once', icon: '🖱️', condition: () => totalManualClicks >= 1 },
     { id: 'click100', name: 'Bone Collector', desc: '100 clicks', icon: '🖱️', condition: () => totalManualClicks >= 100 },
