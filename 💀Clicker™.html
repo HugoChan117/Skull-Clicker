@@ -541,8 +541,7 @@
         </div>
         <div class="prestige-desc">
             💀 Resets bones & upgrades & prestige, but gain permanent 1.4x bonus per level.<br>
-            Base cost: 10 Million 🦴<br>
-            Max level 15
+            Max level 14
         </div>
         <div class="prestige-btn" id="ascendActionBtn">💀 CLAIM ASCEND 💀</div>
         <div class="storage-info" id="ascendMessage">Transcend your power...</div>
@@ -582,10 +581,10 @@
     const PRESTIGE_COST_MULT = 20;      
     const PRESTIGE_BONUS_PER_LEVEL = 1.2; 
     let ascendLevel = 0; 
-    const ASCEND_BASE_COST = 7.71e9;   // 771M
-    const ASCEND_COST_MULT = 1600;   // 2000 -> 1600x
-    const ASCEND_BONUS_PER_LEVEL = 1.4; 
-    const MAX_ASCEND_LEVEL = 15;
+    const ASCEND_BASE_COST = 7.71e9;
+    const ASCEND_COST_MULT = 2008;
+    const ASCEND_BONUS_PER_LEVEL = Math.sqrt(2); 
+    const MAX_ASCEND_LEVEL = 14;
 
     function getPrestigeMultiplier() {
         return Math.pow(PRESTIGE_BONUS_PER_LEVEL, prestigeLevel);
