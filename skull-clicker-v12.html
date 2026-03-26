@@ -1421,7 +1421,7 @@
     }
   };
 
-  // === DATA STRUCTURES ===
+  // === DATA ===
   const upgrades = [
     { name: "BONE PICKER", baseCost: 15, power: 1, owned: 0, maxOwned: 100, description: "A basic tool for collecting bones from graves." },
     { name: "GRAVE SHOVEL", baseCost: 100, power: 5, owned: 0, maxOwned: 100, description: "Dig deeper into the mysteries of death." },
@@ -1514,7 +1514,6 @@
     { name: "FULL TABLE SCAN", baseCost: 8.469447493553161e63, power: 8.469447493553161e60, owned: 0, maxOwned: 100, description: "Exhaustively search all possible realities." },
     { name: "HASH JOIN", baseCost: 4.2347237467765805e64, power: 4.2347237467765805e61, owned: 0, maxOwned: 100, description: "Merge any two universes into one." }
 ];
-
   const autoClickers = [
     { name: "Bone Bot", emoji: "🤖", baseCost: 100, baseIncome: 1, owned: 0, upgradeLevel: 0, description: "A simple robot that collects bones." },
     { name: "Skull Drone", emoji: "🦴", baseCost: 1000, baseIncome: 8, owned: 0, upgradeLevel: 0, description: "Autonomous skull-hunting drone." },
@@ -1592,7 +1591,6 @@
     { name: "CloudFront", emoji: "☁️", baseCost: 1.4662103394206778e+56, baseIncome: 8.797262036524067e+53, owned: 0, upgradeLevel: 0, description: "Distribute skulls across global network." },
     { name: "Content Delivery", emoji: "📡", baseCost: 8.797262036524067e+56, baseIncome: 5.27835722191444e+54, owned: 0, upgradeLevel: 0, description: "Deliver skulls at light speed worldwide." }
   ];
-
   const skills = [
     { id: "criticalHit", name: "Critical Mastery", description: "Increase critical hit chance", maxLevel: 50, level: 0, cost: 1, type: "combat" },
     { id: "criticalDamage", name: "Critical Power", description: "Increase critical hit damage", maxLevel: 50, level: 0, cost: 1, type: "combat" },
@@ -1670,7 +1668,6 @@
     { id: "inflation", name: "Inflation", description: "Resource values increase over time", maxLevel: 15, level: 0, cost: 4, type: "economic" },
     { id: "economicDominance", name: "Economic Dominance", description: "Monopoly bonuses for resources", maxLevel: 20, level: 0, cost: 3, type: "economic" }
   ];
-
   const achievements = [
     { id: "firstClick", name: "First Steps", description: "Make your first click", condition: () => gameState.clicks >= 1, reward: { exp: 10 }, unlocked: false },
     { id: "hundredClicks", name: "Clicking Novice", description: "Make 100 clicks", condition: () => gameState.clicks >= 100, reward: { exp: 50, skillPoints: 1 }, unlocked: false },
@@ -1870,7 +1867,6 @@
     { id: "genesisForge", name: "Genesis Forge", description: "Where new realities are crafted", unlocked: false, explored: 0, maxExploration: 1500, rewards: { cosmic: 50, skillPoints: 20, researchPoints: 100 } },
     { id: "omegaPoint", name: "Omega Point", description: "The final destination of all existence", unlocked: false, explored: 0, maxExploration: 2000, rewards: { allGains: 2.0, cosmic: 100, skillPoints: 50 } }
   ];
-
   const research = [
     { id: "skullScience", name: "Skull Science", description: "Study the properties of skulls", cost: 10, duration: 60000, completed: false, benefits: { clickPower: 1.1 } },
     { id: "boneEngineering", name: "Bone Engineering", description: "Engineer stronger bones", cost: 25, duration: 120000, completed: false, benefits: { autoEfficiency: 1.1 } },
@@ -1899,7 +1895,6 @@
     { id: "paradoxIntegration", name: "Paradox Integration", description: "Harness logical contradictions for power", cost: 1000000, duration: 43200000, completed: false, benefits: { allGains: 2.5, voidGain: 3.0 } },
     { id: "metaphysicalBreakthrough", name: "Metaphysical Breakthrough", description: "Transcend the concept of research itself", cost: 5000000, duration: 86400000, completed: false, benefits: { allGains: 3.0, skillPoints: 50, researchPoints: 100 } }
   ];
-
   const minigames = [
     { id: "skullMatch", name: "Skull Match", description: "Match skulls in this puzzle game", unlocked: true, highScore: 0, rewards: { skulls: 1000, exp: 100 } },
     { id: "boneTowerDefense", name: "Bone Tower Defense", description: "Defend against waves of enemies", unlocked: false, highScore: 0, rewards: { bones: 500, exp: 200 } },
@@ -1907,7 +1902,6 @@
     { id: "ghostHunting", name: "Ghost Hunting", description: "Hunt down elusive ghosts", unlocked: false, highScore: 0, rewards: { souls: 50, exp: 250 } },
     { id: "graveyardMaze", name: "Graveyard Maze", description: "Navigate through spooky mazes", unlocked: false, highScore: 0, rewards: { skulls: 2000, bones: 200 } }
   ];
-
   const pets = [
     { id: "skullCat", name: "Skull Cat", emoji: "🐱", description: "A cat with skull markings", effect: "2% click power bonus", unlocked: false, cost: { bones: 1000 } },
     { id: "boneDog", name: "Bone Dog", emoji: "🐕", description: "Loyal companion that finds bones", effect: "5% bone gain bonus", unlocked: false, cost: { essence: 100 } },
@@ -1945,7 +1939,6 @@
     { id: "transcendentButterfly", name: "Transcendent Butterfly", emoji: "🦋", description: "Flutters beyond comprehension", effect: "25% transcendence bonus", unlocked: false, cost: { transcendence: 10, cosmic: 1000 } },
     { id: "thePet", name: "The Pet", emoji: "✨", description: "The concept of a pet, manifested", effect: "50% all gains (ultimate pet)", unlocked: false, cost: { cosmic: 10000, enlightenment: 5, ascension: 5 } }
   ];
-
   const events = [
     {
       id: "halloween2026",
@@ -1961,8 +1954,6 @@
       ]
     }
   ];
-
-  // === NEW: COMPANION SYSTEM ===
   const companions = [
     { id: "skullSquire", name: "Skull Squire", emoji: "⚔️", description: "Loyal knight who serves the skull lord", effect: "10% click power", cost: { bones: 5000 }, unlocked: false, level: 1, exp: 0 },
     { id: "boneMage", name: "Bone Mage", emoji: "🔮", description: "Magical user who enhances bone magic", effect: "15% bone gain", cost: { essence: 200 }, unlocked: false, level: 1, exp: 0 },
@@ -1970,16 +1961,12 @@
     { id: "voidKnight", name: "Void Knight", emoji: "🛡️", description: "Guardian from the void realm", effect: "25% void resistance", cost: { void: 50 }, unlocked: false, level: 1, exp: 0 },
     { id: "cosmicDragon", name: "Cosmic Dragon", emoji: "🐉", description: "Ancient dragon that swims through stars", effect: "50% all gains", cost: { cosmic: 10, divine: 100 }, unlocked: false, level: 1, exp: 0 }
   ];
-
-  // === NEW: SEASONAL EVENTS SYSTEM ===
   const seasonalEvents = [
     { id: "springBloom", name: "Spring Bloom Festival", months: [3,4,5], bonus: { essenceGain: 1.5, boneGain: 1.3 }, active: false },
     { id: "summerSolstice", name: "Summer Solstice", months: [6,7,8], bonus: { skullGain: 1.8, clickPower: 1.4 }, active: false },
     { id: "harvestMoon", name: "Harvest Moon Festival", months: [9,10,11], bonus: { soulGain: 1.6, divineGain: 1.4 }, active: false },
     { id: "winterNights", name: "Winter Nights", months: [12,1,2], bonus: { voidGain: 1.7, quantumGain: 1.5 }, active: false }
   ];
-
-  // === NEW: TALENT TREES ===
   const talentTrees = {
     destruction: {
       name: "🔥 Destruction",
@@ -2006,8 +1993,6 @@
       ]
     }
   };
-
-  // === NEW: CHALLENGE MODES ===
   const challenges = [
     { id: "speedRun", name: "Speed Runner", description: "Reach 1M skulls in under 1 hour", completed: false, reward: { skillPoints: 10, title: "Speed Demon" }, condition: () => false },
     { id: "noClick", name: "No Click Challenge", description: "Reach 100K skulls without clicking", completed: false, reward: { skillPoints: 15, title: "Idle God" }, condition: () => false },
@@ -2015,19 +2000,15 @@
     { id: "povertyRun", name: "Poverty Run", description: "Prestige with less than 100 upgrades", completed: false, reward: { skillPoints: 25, title: "Minimalist" }, condition: () => false },
     { id: "cosmicEndurance", name: "Cosmic Endurance", description: "Reach Cosmic Evolution without ascending", completed: false, reward: { skillPoints: 50, title: "Cosmic Champion" }, condition: () => false }
   ];
-
-  // === NEW: DAILY LOGIN REWARDS ===
   const dailyLoginRewards = [
     { day: 1, reward: { skulls: 1000, bones: 100 } },
-    { day: 2, reward: { skulls: 2000, essence: 10 } },
-    { day: 3, reward: { skulls: 5000, souls: 5 } },
-    { day: 4, reward: { skulls: 10000, antimatter: 2 } },
-    { day: 5, reward: { skulls: 25000, skillPoints: 1 } },
-    { day: 6, reward: { skulls: 50000, quantum: 5 } },
-    { day: 7, reward: { skulls: 100000, divine: 2, skillPoints: 2 } }
+    { day: 2, reward: { skulls: 20000, essence: 10 } },
+    { day: 3, reward: { skulls: 500000, souls: 5 } },
+    { day: 4, reward: { skulls: 10000000, antimatter: 2 } },
+    { day: 5, reward: { skulls: 250000000, skillPoints: 1 } },
+    { day: 6, reward: { skulls: 5000000000, quantum: 5 } },
+    { day: 7, reward: { skulls: 100000000000, divine: 2, skillPoints: 2 } }
   ];
-
-  // === NEW: PRESTIGE BADGES ===
   const prestigeBadges = [
     { id: "bronze", name: "Bronze Ascender", requirement: 1, icon: "🥉", bonus: "+1% all gains" },
     { id: "silver", name: "Silver Ascender", requirement: 5, icon: "🥈", bonus: "+5% all gains" },
@@ -2040,8 +2021,6 @@
     { id: "mythic", name: "Mythic Ascender", requirement: 1000, icon: "⚡", bonus: "+150% all gains" },
     { id: "transcendent", name: "Transcendent Ascender", requirement: 2500, icon: "🌀", bonus: "+200% all gains" }
   ];
-
-  // === NEW: COSMIC ARTIFACTS ===
   const cosmicArtifacts = [
     { id: "eyeOfOmega", name: "Eye of Omega", description: "Gaze into the end of all things", effect: "+25% critical damage", rarity: "legendary", owned: false, power: 1 },
     { id: "heartOfCreation", name: "Heart of Creation", description: "The core that started everything", effect: "+20% all production", rarity: "legendary", owned: false, power: 1 },
@@ -2053,7 +2032,6 @@
     { id: "quantumPrism", name: "Quantum Prism", description: "Refracts reality into possibilities", effect: "+25% quantum gain", rarity: "epic", owned: false, power: 1 }
   ];
 
-  // Add to gameState
   gameState.dailyLoginStreak = 0;
   gameState.lastLoginDate = null;
   gameState.unlockedCompanions = [];
@@ -2064,12 +2042,9 @@
   gameState.currentSeasonalEvent = null;
   gameState.prestigeBadge = null;
 
-  // === NEW FUNCTIONS ===
-  
   function checkSeasonalEvent() {
     const currentMonth = new Date().getMonth() + 1;
     const activeEvent = seasonalEvents.find(e => e.months.includes(currentMonth));
-    
     if (activeEvent && !gameState.currentSeasonalEvent) {
       gameState.currentSeasonalEvent = activeEvent.id;
       showNotification(`${activeEvent.name} is active! Bonus resources increased!`, '🌸', 'legendary', 5000);
@@ -2088,10 +2063,8 @@
       return;
     }
     
-    // Check if streak continues
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
-    
     if (lastLogin === yesterday.toDateString()) {
       gameState.dailyLoginStreak = (gameState.dailyLoginStreak % 7) + 1;
     } else {
@@ -2117,7 +2090,6 @@
   function upgradeCompanion(companionId) {
     const companion = companions.find(c => c.id === companionId);
     if (!companion || !gameState.unlockedCompanions.includes(companionId)) return;
-    
     const cost = companion.level * 1000;
     if (gameState.skulls >= cost) {
       gameState.skulls -= cost;
