@@ -472,8 +472,7 @@
         .prestige-btn.disabled { opacity:0.4; pointer-events:none; filter:grayscale(0.8); }
         .prestige-icon { font-size:4rem; filter:drop-shadow(0 0 15px gold); }
         .prestige-desc { font-size:1.8rem; background:#2d1f14; border-radius: 30px; padding:15px; margin: 15px 0; border:3px solid #efb072; }
-        
-        /* Floating corner icons for prestige & ascend */
+
         .floating-corner-icons {
             position: fixed;
             bottom: 20px;
@@ -711,11 +710,9 @@ const upgrades = [
 
     let levels = {};
     upgrades.forEach(u => levels[u.id] = 0);
-
     function isUpgradeVisibleByPrestige(index) {
         return index < 1 + prestigeLevel;   
     }
-
     function isUpgradeUnlockedByTier(index) {
         if (index === 0) return true; 
         if (index >= 1 + prestigeLevel) return false;
@@ -732,11 +729,7 @@ const upgrades = [
     function comboMultiplier() { return 1 + comboPercent() / 100; }
     function increaseCombo() { combo = Math.min(combo + 1, MAX_COMBO); resetComboTimer(); updateComboUI(); }
     function resetComboTimer() { if (comboTimer) clearTimeout(comboTimer); comboTimer = setTimeout(() => { combo = 0; updateComboUI(); comboTimer = null; }, COMBO_DECAY_MS); }
-    function updateComboUI() {
-        const el = document.getElementById('comboDisplay'); if(el) el.innerText = combo;
-        const pctEl = document.getElementById('comboPercentDisplay'); if(pctEl) pctEl.innerText = `(+${comboPercent()}%)`;
-    }
-
+    function updateComboUI() { const el = document.getElementById('comboDisplay'); if(el) el.innerText = combo; const pctEl = document.getElementById('comboPercentDisplay'); if(pctEl) pctEl.innerText = `(+${comboPercent()}%)`; }
     function getCritMultiplier() {
         const r = Math.random() * 10000;
         if (r < 1) return 1000;    
@@ -1274,7 +1267,6 @@ const saveObj = { bones, totalManualClicks, levels, unlockedAchievements, presti
     document.getElementById('exportBtn').addEventListener('click', exportGame);
     document.getElementById('importBtn').addEventListener('click', importGame);
     
-    // Floating icon handlers
     const floatPrestige = document.getElementById('floatPrestigeIcon');
     const floatAscend = document.getElementById('floatAscendIcon');
     
