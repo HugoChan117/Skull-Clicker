@@ -472,6 +472,46 @@
         .prestige-btn.disabled { opacity:0.4; pointer-events:none; filter:grayscale(0.8); }
         .prestige-icon { font-size:4rem; filter:drop-shadow(0 0 15px gold); }
         .prestige-desc { font-size:1.8rem; background:#2d1f14; border-radius: 30px; padding:15px; margin: 15px 0; border:3px solid #efb072; }
+        
+        /* Floating corner icons for prestige & ascend */
+        .floating-corner-icons {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            pointer-events: none;
+        }
+        .corner-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(145deg, #3e2a1c, #251a10);
+            border-radius: 50% 30% 50% 30%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            cursor: pointer;
+            border: 3px solid #ffffff;
+            box-shadow: 0 8px 0 #3b2618, 0 0 20px rgba(255,100,0,0.5);
+            transition: transform 0.08s, box-shadow 0.1s;
+            pointer-events: auto;
+            backdrop-filter: blur(8px);
+            animation: iconPulse 1.5s infinite alternate;
+        }
+        .corner-icon:active {
+            transform: translateY(5px);
+            box-shadow: 0 3px 0 #3b2618;
+        }
+        @keyframes iconPulse {
+            0% { box-shadow: 0 8px 0 #3b2618, 0 0 8px #ffaa55; border-color: #b87a48; }
+            100% { box-shadow: 0 8px 0 #4f3522, 0 0 25px #ff7b24; border-color: #ffb166; }
+        }
+        .corner-icon.hidden-icon {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -570,6 +610,12 @@
             <div class="extra-stat" id="statsClickPower">⚡ skull power: 0</div>
         </div>
     </div>
+</div>
+
+<!-- Floating corner icons for quick access -->
+<div class="floating-corner-icons" id="floatingIcons">
+    <div class="corner-icon" id="floatPrestigeIcon" title="Bone Prestige (ready!)">👑</div>
+    <div class="corner-icon" id="floatAscendIcon" title="Skull Ascend (ready!)">✨</div>
 </div>
 
 <script>
@@ -1009,6 +1055,7 @@ function updateAscendUI() {
         renderAchievements();
         updatePrestigeUI();
         updateAscendUI();
+        updateFloatingIcons();
     }
 
     function updateStatsPanel() {
@@ -1188,6 +1235,34 @@ const saveObj = { bones, totalManualClicks, levels, unlockedAchievements, presti
     document.getElementById('resetGameBtn').addEventListener('click', resetGame);
     document.getElementById('exportBtn').addEventListener('click', exportGame);
     document.getElementById('importBtn').addEventListener('click', importGame);
+    
+    // Floating icon handlers
+    const floatPrestige = document.getElementById('floatPrestigeIcon');
+    const floatAscend = document.getElementById('floatAscendIcon');
+    
+    function updateFloatingIcons() {
+        const canPrestige = (bones >= getPrestigeCost() && prestigeLevel < 33);
+        const canAscend = (bones >= getAscendCost() && ascendLevel < MAX_ASCEND_LEVEL);
+        if (floatPrestige) {
+            if (canPrestige) floatPrestige.classList.remove('hidden-icon');
+            else floatPrestige.classList.add('hidden-icon');
+        }
+        if (floatAscend) {
+            if (canAscend) floatAscend.classList.remove('hidden-icon');
+            else floatAscend.classList.add('hidden-icon');
+        }
+    }
+    
+    if (floatPrestige) {
+        floatPrestige.addEventListener('click', () => {
+            setActivePage('prestige');
+        });
+    }
+    if (floatAscend) {
+        floatAscend.addEventListener('click', () => {
+            setActivePage('ascend');
+        });
+    }
 
     fullRefresh();
     setTimeout(() => { 
