@@ -554,37 +554,62 @@
         <div class="settings-panel" style="text-align:center;">
             <div class="prestige-icon">👑💀👑</div>
             <h2 style="font-size:3.2rem;color:#ffbd7a;font-family:'Nosifer';">BONE PRESTIGE</h2>
-            <div class="prestige-card" id="prestigeInfo">
-                <div>Current prestige level: <span id="prestigeLevelSpan">0</span></div>
-                <div>Multiplier: <span id="prestigeMultSpan">1.00</span>x</div>
-                <div>Next bonus: +25% → <span id="nextPrestigeMultSpan">1.25</span>x</div>
-                <div>Prestige cost: <span id="prestigeCostSpan">300</span> 🦴</div>
+            <div id="prestigeActiveContent">
+                <div class="prestige-card" id="prestigeInfo">
+                    <div>Current prestige level: <span id="prestigeLevelSpan">0</span></div>
+                    <div>Multiplier: <span id="prestigeMultSpan">1.00</span>x</div>
+                    <div>Next bonus: +20% → <span id="nextPrestigeMultSpan">1.20</span>x</div>
+                    <div>Prestige cost: <span id="prestigeCostSpan">300</span> 🦴</div>
+                </div>
+                <div class="prestige-desc">
+                    ✨ Resets bones & upgrades, but gain permanent ⁴√2 (≈1.189x) bonus per level.<br>
+                    Prestige also reveals 1 more hidden upgrade.
+                    Max level 33
+                </div>
+                <div class="prestige-btn" id="prestigeActionBtn">💀 CLAIM PRESTIGE 💀</div>
+                <div class="storage-info" id="prestigeMessage">Become stronger...</div>
             </div>
-            <div class="prestige-desc">
-                ✨ Resets bones & upgrades, but gain permanent 1.25x bonus.<br>
-                Prestige also reveals 1 more hidden upgrade.
-                Max level 33
+            <div id="prestigeMaxedContent" style="display:none;">
+                <div class="prestige-card">
+                    <div>✨ MAXIMUM PRESTIGE REACHED! ✨</div>
+                    <div style="font-size:1.8rem; margin-top:15px;">Level 33 - Ultimate Power</div>
+                    <div style="font-size:1.5rem; margin-top:10px;">Multiplier: <span id="prestigeMaxMultSpan">0</span>x</div>
+                </div>
+                <div class="prestige-desc" style="background:#4a2a1a;">
+                    👑 You have reached the pinnacle of prestige power! 👑
+                </div>
             </div>
-            <div class="prestige-btn" id="prestigeActionBtn">💀 CLAIM PRESTIGE 💀</div>
-            <div class="storage-info" id="prestigeMessage">Become stronger...</div>
         </div>
     </div>
     <div id="pageAscend" class="page">
     <div class="settings-panel" style="text-align:center;">
         <div class="prestige-icon">💀✨💀</div>
         <h2 style="font-size:3.2rem;color:#ff6a00;font-family:'Nosifer';">SKULL ASCEND</h2>
-        <div class="prestige-card" id="ascendInfo">
-            <div>Current ascend level: <span id="ascendLevelSpan">0</span></div>
-            <div>Multiplier: <span id="ascendMultSpan">1.00</span>x</div>
-            <div>Next bonus: +40% → <span id="nextAscendMultSpan">1.40</span>x</div>
-            <div>Ascend cost: <span id="ascendCostSpan">1 Billion</span> 🦴</div>
+        <div id="ascendActiveContent">
+            <div class="prestige-card" id="ascendInfo">
+                <div>Current ascend level: <span id="ascendLevelSpan">0</span></div>
+                <div>Multiplier: <span id="ascendMultSpan">1.00</span>x</div>
+                <div>Next bonus: +40% → <span id="nextAscendMultSpan">1.40</span>x</div>
+                <div>Ascend cost: <span id="ascendCostSpan">1 Billion</span> 🦴</div>
+            </div>
+            <div class="prestige-desc">
+                💀 Resets bones & upgrades & prestige, but gain permanent 1.4x bonus per level.<br>
+                Max level 14
+            </div>
+            <div class="prestige-btn" id="ascendActionBtn">💀 CLAIM ASCEND 💀</div>
+            <div class="storage-info" id="ascendMessage">Transcend your power...</div>
         </div>
-        <div class="prestige-desc">
-            💀 Resets bones & upgrades & prestige, but gain permanent 1.4x bonus per level.<br>
-            Max level 14
+        <div id="ascendMaxedContent" style="display:none;">
+            <div class="prestige-card">
+                <div>✨ MAXIMUM ASCEND REACHED! ✨</div>
+                <div style="font-size:1.8rem; margin-top:15px;">Level 14 - Transcendent Being</div>
+                <div style="font-size:1.5rem; margin-top:10px;">Multiplier: <span id="ascendMaxMultSpan">0</span>x</div>
+            </div>
+            <div class="prestige-desc" style="background:#4a2a1a;">
+                💀 You have reached the ultimate ascend power! 💀
+            </div>
         </div>
-        <div class="prestige-btn" id="ascendActionBtn">💀 CLAIM ASCEND 💀</div>
-        <div class="storage-info" id="ascendMessage">Transcend your power...</div>
+    </div>
     </div>
 </div>
     <div id="pageAchievements" class="page">
@@ -984,15 +1009,27 @@ const achievements = [
     }
 
     function updatePrestigeUI() {
-        document.getElementById('prestigeLevelSpan').innerText = prestigeLevel;
-        document.getElementById('prestigeMultSpan').innerText = getPrestigeMultiplier().toFixed(2);
-        let nextMult = Math.pow(PRESTIGE_BONUS_PER_LEVEL, prestigeLevel+1);
-        document.getElementById('nextPrestigeMultSpan').innerText = nextMult.toFixed(2);
-        let cost = getPrestigeCost();
-        document.getElementById('prestigeCostSpan').innerHTML = formatNumber(cost);
-        const btn = document.getElementById('prestigeActionBtn');
-        if (bones >= cost && prestigeLevel < 33) btn.classList.remove('disabled');
-        else btn.classList.add('disabled');
+        const isMaxed = prestigeLevel >= 33;
+        const activeContent = document.getElementById('prestigeActiveContent');
+        const maxedContent = document.getElementById('prestigeMaxedContent');
+        
+        if (isMaxed) {
+            if (activeContent) activeContent.style.display = 'none';
+            if (maxedContent) maxedContent.style.display = 'block';
+            document.getElementById('prestigeMaxMultSpan').innerText = getPrestigeMultiplier().toFixed(2);
+        } else {
+            if (activeContent) activeContent.style.display = 'block';
+            if (maxedContent) maxedContent.style.display = 'none';
+            document.getElementById('prestigeLevelSpan').innerText = prestigeLevel;
+            document.getElementById('prestigeMultSpan').innerText = getPrestigeMultiplier().toFixed(2);
+            let nextMult = Math.pow(PRESTIGE_BONUS_PER_LEVEL, prestigeLevel+1);
+            document.getElementById('nextPrestigeMultSpan').innerText = nextMult.toFixed(2);
+            let cost = getPrestigeCost();
+            document.getElementById('prestigeCostSpan').innerHTML = formatNumber(cost);
+            const btn = document.getElementById('prestigeActionBtn');
+            if (bones >= cost && prestigeLevel < 33) btn.classList.remove('disabled');
+            else btn.classList.add('disabled');
+        }
     }
 
 function performAscend() {
@@ -1020,15 +1057,27 @@ function performAscend() {
 }
 
 function updateAscendUI() {
-    document.getElementById('ascendLevelSpan').innerText = ascendLevel;
-    document.getElementById('ascendMultSpan').innerText = getAscendMultiplier().toFixed(2);
-    let nextMult = Math.pow(ASCEND_BONUS_PER_LEVEL, ascendLevel+1);
-    document.getElementById('nextAscendMultSpan').innerText = nextMult.toFixed(2);
-    let cost = getAscendCost();
-    document.getElementById('ascendCostSpan').innerHTML = formatNumber(cost);
-    const btn = document.getElementById('ascendActionBtn');
-    if (bones >= cost && ascendLevel < MAX_ASCEND_LEVEL) btn.classList.remove('disabled');
-    else btn.classList.add('disabled');
+    const isMaxed = ascendLevel >= MAX_ASCEND_LEVEL;
+    const activeContent = document.getElementById('ascendActiveContent');
+    const maxedContent = document.getElementById('ascendMaxedContent');
+    
+    if (isMaxed) {
+        if (activeContent) activeContent.style.display = 'none';
+        if (maxedContent) maxedContent.style.display = 'block';
+        document.getElementById('ascendMaxMultSpan').innerText = getAscendMultiplier().toFixed(2);
+    } else {
+        if (activeContent) activeContent.style.display = 'block';
+        if (maxedContent) maxedContent.style.display = 'none';
+        document.getElementById('ascendLevelSpan').innerText = ascendLevel;
+        document.getElementById('ascendMultSpan').innerText = getAscendMultiplier().toFixed(2);
+        let nextMult = Math.pow(ASCEND_BONUS_PER_LEVEL, ascendLevel+1);
+        document.getElementById('nextAscendMultSpan').innerText = nextMult.toFixed(2);
+        let cost = getAscendCost();
+        document.getElementById('ascendCostSpan').innerHTML = formatNumber(cost);
+        const btn = document.getElementById('ascendActionBtn');
+        if (bones >= cost && ascendLevel < MAX_ASCEND_LEVEL) btn.classList.remove('disabled');
+        else btn.classList.add('disabled');
+    }
 }
     
     function fullRefresh() {
