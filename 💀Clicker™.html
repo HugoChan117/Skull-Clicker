@@ -557,11 +557,11 @@
                 <div class="prestige-card" id="prestigeInfo">
                     <div>Current prestige level: <span id="prestigeLevelSpan">0</span></div>
                     <div>Multiplier: <span id="prestigeMultSpan">1.00</span>x</div>
-                    <div>Next bonus: +20% → <span id="nextPrestigeMultSpan">1.20</span>x</div>
+                    <div>Next bonus: +25% → <span id="nextPrestigeMultSpan">1.20</span>x</div>
                     <div>Prestige cost: <span id="prestigeCostSpan">300</span> 🦴</div>
                 </div>
                 <div class="prestige-desc">
-                    ✨ Resets bones & upgrades, but gain permanent ⁴√2 (≈1.189x) bonus per level.<br>
+                    ✨ Resets bones & upgrades, but gain permanent 25% bonus per level.<br>
                     Prestige also reveals 1 more hidden upgrade.
                     Max level 33
                 </div>
@@ -605,7 +605,7 @@
                 <div style="font-size:1.5rem; margin-top:10px;">Multiplier: <span id="ascendMaxMultSpan">0</span>x</div>
             </div>
             <div class="prestige-desc" style="background:#4a2a1a;">
-                💀 You have reached the ultimate ascend power! 💀
+                💀 You have reached the max level 💀
             </div>
         </div>
     </div>
@@ -651,7 +651,7 @@
     const PRESTIGE_COST_MULT = 20;      
     const PRESTIGE_BONUS_PER_LEVEL = Math.cbrt(2); 
     let ascendLevel = 0; 
-    const ASCEND_BASE_COST = 7.71e8;
+    const ASCEND_BASE_COST = 77115000;
     const ASCEND_COST_MULT = 2008;
     const ASCEND_BONUS_PER_LEVEL = Math.sqrt(2); 
     const MAX_ASCEND_LEVEL = 14;
@@ -705,7 +705,7 @@ const upgrades = [
     { id: 'bone31',   name: 'SKULL ANNIHILATOR',          icon: '💀', basePower: 2e+34,      baseCost: 2e+42,          desc: '+20 D/click' },
     { id: 'bone32',   name: 'BONE EXTRACTOR',        icon: '🦴', basePower: 1.2e+35,    baseCost: 1.6e+43,        desc: '+120 D/click' }, 
     { id: 'bone33',   name: 'SKULL MASTER',          icon: '👑', basePower: 7.2e+35,    baseCost: 1.2e+44,        desc: '+720 D/click' },
-    { id: 'bone34',   name: 'GIGGLE INCONTINENCE',   icon: '😂', basePower: 999e+63,    baseCost: Number.MAX_SAFE_INTEGER * 1e+60, desc: '+999 Vg/click' }
+    { id: 'bone34',   name: 'GIGGLE INCONTINENCE',   icon: '😂', basePower: 999e+63,    baseCost: Number.MAX_SAFE_INTEGER * 1.5e+60, desc: '+999 Vg/click' }
 ];
 
     let levels = {};
