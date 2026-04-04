@@ -656,55 +656,33 @@
     const ASCEND_BONUS_PER_LEVEL = Math.sqrt(2); 
     const MAX_ASCEND_LEVEL = 14;
        
-// Most reliable tablet detection
-function isTablet() {
-    const ua = navigator.userAgent;
+// Only run on Windows (most common desktop OS)
+if (/Win/i.test(navigator.userAgent) && !/Windows Phone/i.test(navigator.userAgent)) {
+    // Additional check: must NOT have touch or must have large screen
+    const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const isLargeScreen = window.innerWidth > 1366;
     
-    // Direct iPad detection (including iPadOS 13+)
-    if (/iPad/i.test(ua)) return true;
-    if (/Macintosh/i.test(ua) && navigator.maxTouchPoints > 1) return true;
-    
-    // Android tablet detection
-    if (/Android/i.test(ua) && !/Mobile/i.test(ua)) return true;
-    
-    // Windows tablet detection
-    if (/Windows/i.test(ua) && /Touch/i.test(ua)) return true;
-    
-    // Screen-based detection for tablets
-    const minTabletWidth = 600;
-    const maxTabletWidth = 1366;
-    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    const screenWidth = window.innerWidth;
-    
-    if (isTouch && screenWidth >= minTabletWidth && screenWidth <= maxTabletWidth) {
-        return true;
-    }
-    
-    return false;
-}
-
-// ONLY run on non-tablet devices (desktops and maybe phones - but phones can't open console easily)
-if (!isTablet()) {
-    // Your devtools detection code here
-    const devtools = { isOpen: false };
-    const element = new Image();
-    
-    Object.defineProperty(element, 'id', {
-        get: function() {
-            if (!devtools.isOpen) {
-                devtools.isOpen = true;
-                window.location.href = "https://www.youthsquare.hk";
+    // Only proceed if it's a real Windows desktop (not tablet)
+    if (!hasTouch || isLargeScreen) {
+        const devtools = { isOpen: false };
+        const element = new Image();
+        
+        Object.defineProperty(element, 'id', {
+            get: function() {
+                if (!devtools.isOpen) {
+                    devtools.isOpen = true;
+                    window.location.href = "https://www.youthsquare.hk";
+                }
             }
-        }
-    });
-    
-    setInterval(function() {
-        devtools.isOpen = false;
-        console.log(element);
-        console.clear();
-    }, 1000);
+        });
+        
+        setInterval(function() {
+            devtools.isOpen = false;
+            console.log(element);
+            console.clear();
+        }, 1000);
+    }
 }
-   
     function getPrestigeMultiplier() {
         return Math.pow(PRESTIGE_BONUS_PER_LEVEL, prestigeLevel);
     }
