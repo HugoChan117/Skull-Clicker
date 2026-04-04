@@ -701,7 +701,7 @@ const upgrades = [
     { id: 'bone28',   name: 'BONE SOULFIRE',         icon: '🔮', basePower: 4e+29,      baseCost: 2.68435456e36,  desc: '+400 Oc/click' },
     { id: 'bone29',   name: 'SKULL NETHER',          icon: '👹', basePower: 5.5e+30,    baseCost: 5.36870912e37,  desc: '+5.5 No/click' },
     { id: 'bone30',   name: 'BONE DEITY',            icon: '👑', basePower: 7.2e+31,    baseCost: 1.073741824e39, desc: '+72 No/click' },
-    { id: 'bone31',   name: 'SKULL ANNIHILATOR',          icon: '💀', basePower: 2e+34,      baseCost: 2e+42,          desc: '+20 D/click' },
+    { id: 'bone31',   name: 'SKULL ANNIHILATOR',     icon: '💀', basePower: 2e+34,      baseCost: 2e+42,          desc: '+20 D/click' },
     { id: 'bone32',   name: 'BONE EXTRACTOR',        icon: '🦴', basePower: 1.2e+35,    baseCost: 1.6e+43,        desc: '+120 D/click' }, 
     { id: 'bone33',   name: 'SKULL MASTER',          icon: '👑', basePower: 7.2e+35,    baseCost: 1.2e+44,        desc: '+720 D/click' },
     { id: 'bone34',   name: 'GIGGLE INCONTINENCE',   icon: '😂', basePower: 999e+63,    baseCost: Number.MAX_SAFE_INTEGER * 1.5e+60, desc: '+999 Vg/click' }
@@ -778,12 +778,37 @@ function totalClickPower() {
 }
     
 function formatNumber(num) {
+    // Handle edge cases
     if (num === Infinity) return '∞';
     if (num === undefined || num === null) return '0';
-    if (num < 100000) {
-        return Math.floor(num).toLocaleString('en-US');
+    
+    // Convert to number if string
+    const number = typeof num === 'string' ? parseFloat(num) : num;
+    if (isNaN(number)) return '0';
+    
+    // For numbers 0-100, show decimals properly without suffix
+    if (number < 100 && number >= 0) {
+        if (Number.isInteger(number)) {
+            return number.toString();
+        }
+        // Show up to 2 decimal places, removing trailing zeros
+        return parseFloat(number.toFixed(2)).toString();
+    }
+    
+    // For negative numbers (if needed)
+    if (number < 0) {
+        return '-' + formatNumber(Math.abs(number));
+    }
+    
+    // For numbers less than 1000 but >= 100, show as is
+    if (number < 100000) {
+        if (Number.isInteger(number)) {
+            return number.toLocaleString('en-US');
+        }
+        return parseFloat(number.toFixed(2)).toLocaleString('en-US');
     }
 
+    // Full suffixes list (not shortened)
     const suffixes = [
         '', 'K', ' Million', ' Billion', ' Trillion', ' Quadrillion', 
         ' Quintillion', ' Sextillion', ' Septillion', ' Octillion', ' Nonillion', 
@@ -796,27 +821,36 @@ function formatNumber(num) {
     ];
     
     let tier = 0;
-    let tempNum = num;
+    let tempNum = number;
     while (tempNum >= 1000 && tier < suffixes.length - 1) {
         tempNum /= 1000;
         tier++;
     }
 
     let formatted;
-    if (tempNum < 10) {
-        formatted = tempNum.toFixed(2);  
+    // Determine decimal places based on magnitude
+    if (tempNum < 1) {
+        formatted = tempNum.toFixed(3);
+    } else if (tempNum < 10) {
+        formatted = tempNum.toFixed(2);
     } else if (tempNum < 100) {
-        formatted = tempNum.toFixed(1);  
+        formatted = tempNum.toFixed(1);
     } else {
-        formatted = Math.floor(tempNum).toString(); 
+        formatted = Math.floor(tempNum).toString();
     }
     
+    // Remove trailing .0
     if (formatted.endsWith('.0')) {
         formatted = formatted.slice(0, -2);
     }
     
+    // Remove unnecessary trailing zeros in decimals
+    if (formatted.includes('.')) {
+        formatted = formatted.replace(/\.?0+$/, '');
+    }
+    
     return `${formatted}${suffixes[tier]}`.trim();
-}
+           }
 
 const achievements = [
     { id: 'click1', name: 'First Bone', desc: 'Click once', icon: '🖱️', condition: () => totalManualClicks >= 1 },
