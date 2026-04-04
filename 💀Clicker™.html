@@ -655,23 +655,48 @@
     const ASCEND_COST_MULT = 2008;
     const ASCEND_BONUS_PER_LEVEL = Math.sqrt(2); 
     const MAX_ASCEND_LEVEL = 14;
-    const devtools = { isOpen: false };
-    const element = new Image();
-    
-    // This trick triggers when the browser tries to log the element in the console
-    Object.defineProperty(element, 'id', {
-        get: function() {
+const devtools = { isOpen: false };
+const element = new Image();
+
+// This trick triggers when the browser tries to log the element in the console
+Object.defineProperty(element, 'id', {
+    get: function() {
+        if (!devtools.isOpen) {
             devtools.isOpen = true;
             // The "Burger Trap" Redirect
-            window.location.href = "https://www.youthsquare.hk"; 
+            window.location.href = "https://www.youthsquare.hk";
         }
-    });
+    }
+});
 
-    setInterval(function() {
-        devtools.isOpen = false;
-        console.log(element); // If console is open, it accesses element.id
-        console.clear();      // Keeps the console clean so they don't see the trick
-    }, 1000);
+// Function to check if console is open using multiple methods (AI-generated)
+function checkConsole() {
+    // Method 1: The element trick
+    devtools.isOpen = false;
+    console.log(element);
+    console.clear();
+    
+    // Method 2: Check window size difference (devtools often changes viewport)
+    const widthThreshold = window.outerWidth - window.innerWidth > 160;
+    const heightThreshold = window.outerHeight - window.innerHeight > 160;
+    
+    if (widthThreshold || heightThreshold) {
+        window.location.href = "https://www.youthsquare.hk";
+    }
+}
+
+// Check every second
+setInterval(checkConsole, 1000);
+
+// Also check when window is resized (devtools might be opened/closed)
+window.addEventListener('resize', function() {
+    const widthThreshold = window.outerWidth - window.innerWidth > 160;
+    const heightThreshold = window.outerHeight - window.innerHeight > 160;
+    
+    if (widthThreshold || heightThreshold) {
+        window.location.href = "https://www.youthsquare.hk";
+    }
+});
    
     function getPrestigeMultiplier() {
         return Math.pow(PRESTIGE_BONUS_PER_LEVEL, prestigeLevel);
