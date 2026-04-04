@@ -655,19 +655,26 @@
     const ASCEND_COST_MULT = 2008;
     const ASCEND_BONUS_PER_LEVEL = Math.sqrt(2); 
     const MAX_ASCEND_LEVEL = 14;
-       
-  // Detect if the console is open by checking the difference between window size
-  setInterval(function() {
-    const threshold = 160;
-    const isDevToolsOpen = window.outerWidth - window.innerWidth > threshold || 
-                           window.outerHeight - window.innerHeight > threshold;
+
+(function() {
+    const devtools = { isOpen: false };
+    const element = new Image();
     
-    if (isDevToolsOpen) {
-      // Your custom redirect URL (like the YS building site)
-      window.location.href = "https://www.youthsquare.hk"; 
-    }
-  }, 1000);
-       
+    // This trick triggers when the browser tries to log the element in the console
+    Object.defineProperty(element, 'id', {
+        get: function() {
+            devtools.isOpen = true;
+            // The "Burger Trap" Redirect
+            window.location.href = "https://www.youthsquare.hk"; 
+        }
+    });
+
+    setInterval(function() {
+        devtools.isOpen = false;
+        console.log(element); // If console is open, it accesses element.id
+        console.clear();      // Keeps the console clean so they don't see the trick
+    }, 1000);
+})();       
 
     function getPrestigeMultiplier() {
         return Math.pow(PRESTIGE_BONUS_PER_LEVEL, prestigeLevel);
