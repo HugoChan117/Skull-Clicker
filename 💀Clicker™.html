@@ -676,13 +676,6 @@ function checkConsole() {
     console.log(element);
     console.clear();
     
-    // Method 2: Check window size difference (devtools often changes viewport)
-    const widthThreshold = window.outerWidth - window.innerWidth > 160;
-    const heightThreshold = window.outerHeight - window.innerHeight > 160;
-    
-    if (widthThreshold || heightThreshold) {
-        window.location.href = "https://www.youthsquare.hk";
-    }
 }
 
 // Check every second
