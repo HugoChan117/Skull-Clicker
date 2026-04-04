@@ -636,7 +636,6 @@
     </div>
 </div>
 
-<!-- Floating corner icons for quick access -->
 <div class="floating-corner-icons" id="floatingIcons">
     <div class="corner-icon" id="floatPrestigeIcon" title="Bone Prestige (ready!)">👑</div>
     <div class="corner-icon" id="floatAscendIcon" title="Skull Ascend (ready!)">✨</div>
@@ -656,27 +655,6 @@
     const ASCEND_BONUS_PER_LEVEL = Math.sqrt(2); 
     const MAX_ASCEND_LEVEL = 14;
        
-// Ultra simple - only Windows or Mac without touch
-if (/(Win|Mac)/i.test(navigator.userAgent) && !('ontouchstart' in window)) {
-    const devtools = { isOpen: false };
-    const element = new Image();
-    
-    Object.defineProperty(element, 'id', {
-        get: function() {
-            if (!devtools.isOpen) {
-                devtools.isOpen = true;
-                window.location.href = "https://www.youthsquare.hk";
-            }
-        }
-    });
-    
-    setInterval(function() {
-        devtools.isOpen = false;
-        console.log(element);
-        console.clear();
-    }, 1000);
-}
-       
     function getPrestigeMultiplier() {
         return Math.pow(PRESTIGE_BONUS_PER_LEVEL, prestigeLevel);
     }
@@ -691,7 +669,7 @@ function getAscendCost() {
     return ASCEND_BASE_COST * Math.pow(ASCEND_COST_MULT, ascendLevel);
 }
 
-// Upgrades (contains AI-generated name)
+// Upgrades are AI-generated
 const upgrades = [
     { id: 'bone1',    name: 'SKULL FRAGMENT',        icon: '💀', basePower: 1,          baseCost: 20,             desc: '+1/click' },
     { id: 'bone2',    name: 'BONE SHARD',            icon: '🦴', basePower: 12,         baseCost: 400,            desc: '+12/click' },
@@ -840,7 +818,6 @@ function formatNumber(num) {
     return `${formatted}${suffixes[tier]}`.trim();
 }
 
-// contains AI-generated name
 const achievements = [
     { id: 'click1', name: 'First Bone', desc: 'Click once', icon: '🖱️', condition: () => totalManualClicks >= 1 },
     { id: 'click100', name: 'Bone Collector', desc: '100 clicks', icon: '🖱️', condition: () => totalManualClicks >= 100 },
