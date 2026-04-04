@@ -19,17 +19,7 @@ Skull-Clicker is a compact clicker-style web game implemented as a single HTML f
 ---
 
 ## How to run
-No build tools required — just open the file in your browser.
-
-- Open locally:
-  - Serve locally to avoid browser restrictions (recommended):
-    ```bash
-    # Python 3
-    python -m http.server 8000
-    # then open http://localhost:8000/index.html
-    ```
 - For web version, just open (https://hugochan117.github.io/Skull-Clicker/%F0%9F%92%80Clicker%E2%84%A2.html)
- or (https://skull-clicker.neineig2012.workers.dev/%F0%9F%92%80Clicker%E2%84%A2)
 
 ---
 
