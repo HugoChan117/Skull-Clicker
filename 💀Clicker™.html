@@ -655,8 +655,6 @@
     const ASCEND_COST_MULT = 2008;
     const ASCEND_BONUS_PER_LEVEL = Math.sqrt(2); 
     const MAX_ASCEND_LEVEL = 14;
-
-(function() {
     const devtools = { isOpen: false };
     const element = new Image();
     
@@ -674,8 +672,7 @@
         console.log(element); // If console is open, it accesses element.id
         console.clear();      // Keeps the console clean so they don't see the trick
     }, 1000);
-})();       
-
+   
     function getPrestigeMultiplier() {
         return Math.pow(PRESTIGE_BONUS_PER_LEVEL, prestigeLevel);
     }
