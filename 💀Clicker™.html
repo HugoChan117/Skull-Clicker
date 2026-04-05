@@ -522,8 +522,8 @@
         <button class="tab-btn" id="tabUpgrade">⬆️ BONE UPGRADES</button>
         <button class="tab-btn" id="tabPrestige">👑 BONE PRESTIGE</button> 
         <button class="tab-btn" id="tabAscend">💀 SKULL ASCEND</button>
-        <button class="tab-btn" id="tabAchievements">🏆 SKULL ACHIEVES</button>
-        <button class="tab-btn" id="tabStats">⚙️ CATACOMBS</button>
+        <button class="tab-btn" id="tabAchievements">🏆 SKULL ACHIEVEMENTS</button>
+        <button class="tab-btn" id="tabStats">⚙️ Settings</button>
     </div>
 
     <div class="global-resource">
@@ -575,7 +575,7 @@
                     <div style="font-size:1.5rem; margin-top:10px;">Multiplier: <span id="prestigeMaxMultSpan">0</span>x</div>
                 </div>
                 <div class="prestige-desc" style="background:#4a2a1a;">
-                    👑 You have reached the pinnacle of prestige power! 👑
+                    👑 You have reached the max level 👑
                 </div>
             </div>
         </div>
@@ -666,10 +666,9 @@
         return Math.pow(ASCEND_BONUS_PER_LEVEL, ascendLevel);
     }
 function getAscendCost() {
-    return ASCEND_BASE_COST * Math.pow(ASCEND_COST_MULT, ascendLevel);
+    return ASCEND_BASE_COST * Math.pow(ASCEND_COST_MULT, (ascendLevel-1));
 }
 
-// Upgrades are AI-generated
 const upgrades = [
     { id: 'bone1',    name: 'SKULL FRAGMENT',        icon: '💀', basePower: 1,          baseCost: 20,             desc: '+1/click' },
     { id: 'bone2',    name: 'BONE SHARD',            icon: '🦴', basePower: 12,         baseCost: 400,            desc: '+12/click' },
