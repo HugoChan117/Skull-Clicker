@@ -776,7 +776,7 @@ const upgrades = [
     { id: 'bone31',   name: 'SKULL ANNIHILATOR',     icon: '💀', basePower: 9.8e+32,    baseCost: 2.147483648e40, desc: '+980 No/click' },
     { id: 'bone32',   name: 'BONE EXTRACTOR',        icon: '🦴', basePower: 1.2e+34,    baseCost: 4.294967296e41, desc: '+12 Dc/click' }, 
     { id: 'bone33',   name: 'SKULL MASTER',          icon: '👑', basePower: 1.5e+35,    baseCost: 8.589934592e42, desc: '+150 Dc/click' },
-    { id: 'bone34',   name: '???',   icon: '', basePower: 17e+66,    baseCost: 38e+78, desc: '+17aa/click', imageUrl: "https://mario.wiki.gallery/images/thumb/f/f3/SMG%2BSMG2_Rosalina.png/375px-SMG%2BSMG2_Rosalina.png"}
+    { id: 'bone34',   name: '???',   icon: '', basePower: 17e+66,    baseCost: 38e+78, desc: '+17aa/click', imageUrl: 'https://mario.wiki.gallery/images/thumb/f/f3/SMG%2BSMG2_Rosalina.png/375px-SMG%2BSMG2_Rosalina.png'}
 ];
 
     let levels = {};
@@ -832,12 +832,12 @@ const upgrades = [
     function getPowerFor(upgrade) {
         const lvl = levels[upgrade.id];
         if (lvl === 0) return 0;
-        return upgrade.basePower * Math.pow(1.25, lvl - 1);
+        return upgrade.basePower * Math.pow(Math.cbrt(2), lvl - 1);
     }
     
 function getNextCost(upgrade) {
     const lvl = levels[upgrade.id];
-    const scaleFactor = upgrade.id === 'bone34' ? 1.03 : 1.32;
+    const scaleFactor = upgrade.id === 'bone34' ? 1.038 : 1.33;
     return Math.floor(upgrade.baseCost * Math.pow(scaleFactor, lvl));
 }
     
