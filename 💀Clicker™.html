@@ -955,6 +955,18 @@ const achievements = [
     { id: 'bones1m', name: 'Millionare', desc: 'Have 1 million bones at once', icon: '🦴⛰️', condition: () => bones >= 1000000 },
     { id: 'bones1b', name: 'Bone Planet', desc: 'Have 1 billion bones at once', icon: '🦴🌍', condition: () => bones >= 1000000000 },
     { id: 'bones1t', name: 'Bone Galaxy', desc: 'Have 1 trillion bones at once', icon: '🦴🌌', condition: () => bones >= 1000000000000 },
+{ id: 'bones1qa', name: 'Bone Quadrillion', desc: 'Have 1 Quadrillion bones', icon: '🦴🌌', condition: () => bones >= 1e15 },
+{ id: 'bones1qi', name: 'Bone Quintillion', desc: 'Have 1 Quintillion bones', icon: '🦴💫', condition: () => bones >= 1e18 },
+{ id: 'bones1sx', name: 'Bone Sextillion', desc: 'Have 1 Sextillion bones', icon: '🦴🌟', condition: () => bones >= 1e21 },
+{ id: 'bones1sp', name: 'Bone Septillion', desc: 'Have 1 Septillion bones', icon: '🦴🌋', condition: () => bones >= 1e24 },
+{ id: 'bones1oc', name: 'Bone Octillion', desc: 'Have 1 Octillion bones', icon: '🦴🪐', condition: () => bones >= 1e27 },
+{ id: 'bones1no', name: 'Bone Nonillion', desc: 'Have 1 Nonillion bones', icon: '🦴🌠', condition: () => bones >= 1e30 },
+{ id: 'bones1dc', name: 'Bone Decillion', desc: 'Have 1 Decillion bones', icon: '🦴👑', condition: () => bones >= 1e33 },
+{ id: 'bones1ud', name: 'Bone Undecillion', desc: 'Have 1 Undecillion bones', icon: '🦴💀', condition: () => bones >= 1e36 },
+{ id: 'bones1dd', name: 'Bone Duodecillion', desc: 'Have 1 Duodecillion bones', icon: '🦴⚡', condition: () => bones >= 1e39 },
+{ id: 'bones1td', name: 'Bone Tredecillion', desc: 'Have 1 Tredecillion bones', icon: '🦴🔥', condition: () => bones >= 1e42 },
+{ id: 'bones1qd', name: 'Bone Quattuordecillion', desc: 'Have 1 Quattuordecillion bones', icon: '🦴✨', condition: () => bones >= 1e45 },
+{ id: 'bones1qnd', name: 'Bone Quindecillion', desc: 'Have 1 Quindecillion bones', icon: '🦴💎', condition: () => bones >= 1e48 },
     { id: 'prestige1', name: 'Bone Ascension', desc: 'Prestige for the first time', icon: '👑', condition: () => prestigeLevel >= 1 },
     { id: 'prestige2', name: 'Skull Walker', desc: 'Reach prestige level 2', icon: '👑💀', condition: () => prestigeLevel >= 2 },
     { id: 'prestige3', name: 'Bone Lich', desc: 'Reach prestige level 3', icon: '👑🧙', condition: () => prestigeLevel >= 3 },
@@ -1033,7 +1045,7 @@ function renderUpgrades() {
         }
         
         let powerDisplay = (level === 0) ? 'locked' : `+${formatNumber(power)}/click`;
-        let nextPower = (level === 0) ? up.basePower : up.basePower * Math.pow(1.25, level);
+        let nextPower = (level === 0) ? up.basePower : up.basePower * Math.pow(Math.cbrt(2), level);
         let nextPowerStr = `next +${formatNumber(nextPower)}`;
 
         card.innerHTML = `
