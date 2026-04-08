@@ -655,6 +655,79 @@
     const ASCEND_BONUS_PER_LEVEL = Math.sqrt(2); 
     const MAX_ASCEND_LEVEL = 14;
        
+const TIMEZONE_OFFSET = 8; 
+const DAY_CYCLE = {
+    astronomicalTwilightStart: 5, 21, 
+    astronomicalTwilightEnd: 5, 48, 
+    nauticalTwilightStart: 5, 48,
+    nauticalTwilightEnd: 6, 16,
+    civilTwilightStart: 6, 16,
+    civilTwilightEnd: 6, 40,
+    dayStart: 6, 40,
+    dayEnd: 17, 38,   // 17:38
+    civilEveningStart: 17, 38,
+    civilEveningEnd: 18, 2,
+    nauticalEveningStart: 18, 2,
+    nauticalEveningEnd: 18, 29,
+    astronomicalEveningStart: 18, 29,
+    astronomicalEveningEnd: 18, 56,
+    nightStart: 18, 56,
+    nightEnd: 5, 21   
+};
+
+function getCurrentPeriod() {
+    const now = new Date();
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+
+    // Convert to minutes since midnight for easier comparison
+    const currentMinutes = hours * 60 + minutes;
+
+    function toMinutes(h, m) { return h * 60 + m; }
+
+    const astroStart = toMinutes(DAY_CYCLE.astronomicalTwilightStart[0], DAY_CYCLE.astronomicalTwilightStart[1]);
+    const astroEnd = toMinutes(DAY_CYCLE.astronomicalTwilightEnd[0], DAY_CYCLE.astronomicalTwilightEnd[1]);
+    const nautStart = toMinutes(DAY_CYCLE.nauticalTwilightStart[0], DAY_CYCLE.nauticalTwilightStart[1]);
+    const nautEnd = toMinutes(DAY_CYCLE.nauticalTwilightEnd[0], DAY_CYCLE.nauticalTwilightEnd[1]);
+    const civilStart = toMinutes(DAY_CYCLE.civilTwilightStart[0], DAY_CYCLE.civilTwilightStart[1]);
+    const civilEnd = toMinutes(DAY_CYCLE.civilTwilightEnd[0], DAY_CYCLE.civilTwilightEnd[1]);
+    const dayStart = toMinutes(DAY_CYCLE.dayStart[0], DAY_CYCLE.dayStart[1]);
+    const dayEnd = toMinutes(DAY_CYCLE.dayEnd[0], DAY_CYCLE.dayEnd[1]);
+    const civilEvenStart = toMinutes(DAY_CYCLE.civilEveningStart[0], DAY_CYCLE.civilEveningStart[1]);
+    const civilEvenEnd = toMinutes(DAY_CYCLE.civilEveningEnd[0], DAY_CYCLE.civilEveningEnd[1]);
+    const nautEvenStart = toMinutes(DAY_CYCLE.nauticalEveningStart[0], DAY_CYCLE.nauticalEveningStart[1]);
+    const nautEvenEnd = toMinutes(DAY_CYCLE.nauticalEveningEnd[0], DAY_CYCLE.nauticalEveningEnd[1]);
+    const astroEvenStart = toMinutes(DAY_CYCLE.astronomicalEveningStart[0], DAY_CYCLE.astronomicalEveningStart[1]);
+    const astroEvenEnd = toMinutes(DAY_CYCLE.astronomicalEveningEnd[0], DAY_CYCLE.astronomicalEveningEnd[1]);
+    const nightStart = toMinutes(DAY_CYCLE.nightStart[0], DAY_CYCLE.nightStart[1]);
+    let nightEnd = toMinutes(DAY_CYCLE.nightEnd[0], DAY_CYCLE.nightEnd[1]);
+    if (nightEnd < nightStart) nightEnd += 1440; // handle overnight
+    let currentAdjusted = currentMinutes;
+    if (currentAdjusted < nightStart) currentAdjusted += 1440;
+
+    if (currentAdjusted >= nightStart && currentAdjusted < nightEnd) return 'night';
+    if (currentMinutes >= astroStart && currentMinutes < astroEnd) return 'astronomical';
+    if (currentMinutes >= nautStart && currentMinutes < nautEnd) return 'nautical';
+    if (currentMinutes >= civilStart && currentMinutes < civilEnd) return 'civil';
+    if (currentMinutes >= dayStart && currentMinutes < dayEnd) return 'day';
+    if (currentMinutes >= civilEvenStart && currentMinutes < civilEvenEnd) return 'civil';
+    if (currentMinutes >= nautEvenStart && currentMinutes < nautEvenEnd) return 'nautical';
+    if (currentMinutes >= astroEvenStart && currentMinutes < astroEvenEnd) return 'astronomical';
+    return 'night';
+}
+
+function getDayNightBonus() {
+    const period = getCurrentPeriod();
+    switch(period) {
+        case 'day': return { mult: 1.0, desc: 'Daylight (+0%)' };
+        case 'civil': return { mult: 1.10, desc: 'Civil Twilight (+10%)' };
+        case 'nautical': return { mult: 1.20, desc: 'Nautical Twilight (+20%)' };
+        case 'astronomical': return { mult: 1.30, desc: 'Astronomical Twilight (+30%)' };
+        case 'night': return { mult: Math.SQRT2, desc: 'Night (×√2)' };
+        default: return { mult: 1.0, desc: '' };
+    }
+}
+       
     function getPrestigeMultiplier() {
         return Math.pow(PRESTIGE_BONUS_PER_LEVEL, prestigeLevel);
     }
@@ -773,7 +846,7 @@ function getNextCost(upgrade) {
     }
     
 function totalClickPower() {
-    return baseClickPower() * comboMultiplier() * getPrestigeMultiplier() * getAscendMultiplier();
+    return baseClickPower() * comboMultiplier() * getPrestigeMultiplier() * getAscendMultiplier() * dn.mult;
 }
 
 // This part is AI-assisted
@@ -1112,9 +1185,15 @@ function updateAscendUI() {
     function fullRefresh() {
         document.getElementById('globalBoneDisplay').innerText = formatNumber(bones);
         const clickPow = totalClickPower();
+        const dn = getDayNightBonus();
+        document.getElementById('daynightBonusDisplay')?.remove();
+        const dnSpan = document.createElement('div');
+        dnSpan.id = 'daynightBonusDisplay';
+        dnSpan.style.cssText = 'font-size:1.2rem; background:#2c1c10; border-radius:30px; padding:5px 15px; margin-top:8px; text-align:center; color:#ffc285;';
+        dnSpan.innerText = `🌙 ${dn.desc}`;
+        document.querySelector('.combo-meter')?.after(dnSpan);
         document.getElementById('clickPowerStatMain').innerHTML = `👆 ${formatNumber(clickPow)} /click`;
         document.getElementById('totalClicksStatMain').innerHTML = `🖱️ ${totalManualClicks}`;
-        
         renderUpgrades();
         updateStatsPanel();
         document.getElementById('statsClickPower').innerHTML = `⚡ skull power: ${formatNumber(clickPow)} (prestige ${getPrestigeMultiplier().toFixed(2)}x)`;
