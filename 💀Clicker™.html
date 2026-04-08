@@ -846,8 +846,8 @@ function getNextCost(upgrade) {
     }
     
 function totalClickPower() {
-    const dn = getDayNightBonus();
-    return baseClickPower() * comboMultiplier() * getPrestigeMultiplier() * getAscendMultiplier() * dn.mult;
+    const dnBonus = getDayNightBonus();
+    return baseClickPower() * comboMultiplier() * getPrestigeMultiplier() * getAscendMultiplier() * dnBonus.mult;
 }
 
 // This part is AI-assisted
