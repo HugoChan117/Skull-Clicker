@@ -657,22 +657,22 @@
        
 const TIMEZONE_OFFSET = 8; 
 const DAY_CYCLE = {
-    astronomicalTwilightStart: 5, 21, 
-    astronomicalTwilightEnd: 5, 48, 
-    nauticalTwilightStart: 5, 48,
-    nauticalTwilightEnd: 6, 16,
-    civilTwilightStart: 6, 16,
-    civilTwilightEnd: 6, 40,
-    dayStart: 6, 40,
-    dayEnd: 17, 38,   // 17:38
-    civilEveningStart: 17, 38,
-    civilEveningEnd: 18, 2,
-    nauticalEveningStart: 18, 2,
-    nauticalEveningEnd: 18, 29,
-    astronomicalEveningStart: 18, 29,
-    astronomicalEveningEnd: 18, 56,
-    nightStart: 18, 56,
-    nightEnd: 5, 21   
+    astronomicalTwilightStart: [5, 21],
+    astronomicalTwilightEnd: [5, 48],
+    nauticalTwilightStart: [5, 48],
+    nauticalTwilightEnd: [6, 16],
+    civilTwilightStart: [6, 16],
+    civilTwilightEnd: [6, 40],
+    dayStart: [6, 40],
+    dayEnd: [17, 38],
+    civilEveningStart: [17, 38],
+    civilEveningEnd: [18, 2],
+    nauticalEveningStart: [18, 2],
+    nauticalEveningEnd: [18, 29],
+    astronomicalEveningStart: [18, 29],
+    astronomicalEveningEnd: [18, 56],
+    nightStart: [18, 56],
+    nightEnd: [5, 21]
 };
 
 function getCurrentPeriod() {
