@@ -1069,10 +1069,11 @@ const achievements = [
 
         const pureBase = baseClickPowerRaw();  
         const critMult = getCritMultiplier();
+        const dnBonus = getDayNightBonus();
         if (critMult === 25) checkCrit25();
         if (critMult === 1000) checkCrit1000();
         
-        let gain = pureBase * critMult * comboMultiplier() * getPrestigeMultiplier() * getAscendMultiplier();
+        let gain = pureBase * critMult * comboMultiplier() * getPrestigeMultiplier() * getAscendMultiplier() * dnBonus.mult;
         bones += gain;
         totalManualClicks++;
 
