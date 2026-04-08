@@ -1022,15 +1022,24 @@ function renderUpgrades() {
 
         const card = document.createElement('div');
         card.className = cardClass;
-        card.dataset.id = up.id;     
+        card.dataset.id = up.id;
+
+        // FIXED: Check if imageUrl exists AND is not undefined
+        let iconHtml = '';
+        if (up.imageUrl && up.imageUrl !== 'undefined') {
+            iconHtml = `<div class="upgrade-icon"><img src="${up.imageUrl}" style="width: 64px; height: 64px; object-fit: contain;"></div>`;
+        } else {
+            iconHtml = `<div class="upgrade-icon">${up.icon || '💀'}</div>`;
+        }
+        
         let powerDisplay = (level === 0) ? 'locked' : `+${formatNumber(power)}/click`;
-        let nextPower = (level === 0) ? up.basePower : up.basePower * Math.pow(Math.cbrt(2), level);
+        let nextPower = (level === 0) ? up.basePower : up.basePower * Math.pow(1.25, level);
         let nextPowerStr = `next +${formatNumber(nextPower)}`;
 
         card.innerHTML = `
             ${iconHtml}
-            <div class="upgrade-name">${up.name}</div>
-            <div class="upgrade-level">lvl ${level}</div>
+            <div class="upgrade-name">${up.name || 'Unknown'}</div>
+            <div class="upgrade-level">lvl ${level || 0}</div>
             <div class="upgrade-desc">${powerDisplay}</div>
             <div class="cost-display">🦴 ${formatNumber(cost)}</div>
             <div class="preview-note" style="font-size:0.9rem;">${nextPowerStr}</div>
