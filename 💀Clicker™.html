@@ -776,7 +776,7 @@ const upgrades = [
     { id: 'bone31',   name: 'SKULL ANNIHILATOR',     icon: '💀', basePower: 9.8e+32,    baseCost: 2.147483648e40, desc: '+980 No/click' },
     { id: 'bone32',   name: 'BONE EXTRACTOR',        icon: '🦴', basePower: 1.2e+34,    baseCost: 4.294967296e41, desc: '+12 Dc/click' }, 
     { id: 'bone33',   name: 'SKULL MASTER',          icon: '👑', basePower: 1.5e+35,    baseCost: 8.589934592e42, desc: '+150 Dc/click' },
-    { id: 'bone34',   name: '???',   icon: '', basePower: 17e+66,    baseCost: 38e+78, desc: '+17aa/click', imageUrl: 'https://mario.wiki.gallery/images/thumb/f/f3/SMG%2BSMG2_Rosalina.png/375px-SMG%2BSMG2_Rosalina.png'}
+    { id: 'bone34',   name: '???',   icon: '💀', basePower: 17e+66,    baseCost: 38e+78, desc: '+17aa/click', imageUrl: 'https://mario.wiki.gallery/images/thumb/f/f3/SMG%2BSMG2_Rosalina.png/375px-SMG%2BSMG2_Rosalina.png'}
 ];
 
     let levels = {};
@@ -1006,45 +1006,43 @@ const achievements = [
     }
 
     const grid = document.getElementById('upgradeGrid');
-    function renderUpgrades() {
-        grid.innerHTML = '';
-        upgrades.forEach((up, idx) => {
-            if (!isUpgradeVisibleByPrestige(idx)) return; 
+function renderUpgrades() {
+    grid.innerHTML = '';
+    upgrades.forEach((up, idx) => {
+        if (!isUpgradeVisibleByPrestige(idx)) return; 
 
-            const level = levels[up.id];
-            const cost = getNextCost(up);
-            const power = getPowerFor(up);
-            const tierUnlocked = isUpgradeUnlockedByTier(idx);
-            
-            let cardClass = 'upgrade-card';
-            if (!tierUnlocked) cardClass += ' locked-tier';
-            else if (bones < cost) cardClass += ' disabled';
+        const level = levels[up.id];
+        const cost = getNextCost(up);
+        const power = getPowerFor(up);
+        const tierUnlocked = isUpgradeUnlockedByTier(idx);
+        
+        let cardClass = 'upgrade-card';
+        if (!tierUnlocked) cardClass += ' locked-tier';
+        else if (bones < cost) cardClass += ' disabled';
 
-            const card = document.createElement('div');
-            card.className = cardClass;
-            card.dataset.id = up.id;
+        const card = document.createElement('div');
+        card.className = cardClass;
+        card.dataset.id = up.id;     
+        let powerDisplay = (level === 0) ? 'locked' : `+${formatNumber(power)}/click`;
+        let nextPower = (level === 0) ? up.basePower : up.basePower * Math.pow(Math.cbrt(2), level);
+        let nextPowerStr = `next +${formatNumber(nextPower)}`;
 
-            let iconHtml = `<div class="upgrade-icon">${up.icon}</div>`;       
-            let powerDisplay = (level === 0) ? 'locked' : `+${formatNumber(power)}/click`;
-            let nextPower = (level === 0) ? up.basePower : up.basePower * Math.pow(1.25, level);
-            let nextPowerStr = `next +${formatNumber(nextPower)}`;
-
-            card.innerHTML = `
-                ${iconHtml}
-                <div class="upgrade-name">${up.name}</div>
-                <div class="upgrade-level">lvl ${level}</div>
-                <div class="upgrade-desc">${powerDisplay}</div>
-                <div class="cost-display">🦴 ${formatNumber(cost)}</div>
-                <div class="preview-note" style="font-size:0.9rem;">${nextPowerStr}</div>
-            `;
-            
-            if (tierUnlocked) {
-                card.addEventListener('click', (e) => { e.stopPropagation(); buyUpgrade(up.id); });
-            }
-            
-            grid.appendChild(card);
-        });
-    }
+        card.innerHTML = `
+            ${iconHtml}
+            <div class="upgrade-name">${up.name}</div>
+            <div class="upgrade-level">lvl ${level}</div>
+            <div class="upgrade-desc">${powerDisplay}</div>
+            <div class="cost-display">🦴 ${formatNumber(cost)}</div>
+            <div class="preview-note" style="font-size:0.9rem;">${nextPowerStr}</div>
+        `;
+        
+        if (tierUnlocked) {
+            card.addEventListener('click', (e) => { e.stopPropagation(); buyUpgrade(up.id); });
+        }
+        
+        grid.appendChild(card);
+    });
+}
 
     function buyUpgrade(id) {
         const up = upgrades.find(u => u.id === id);
