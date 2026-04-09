@@ -882,14 +882,13 @@ function formatNumber(num) {
         }
     }
     
-    // Numbers 100-100000: show no decimals, with thousand separators
+
     if (number < 100000) {
         return Math.floor(number).toLocaleString('en-US');
     }
 
-    // Full suffixes list (not shortened)
     const suffixes = [
-        '', 'K', ' Million', ' Billion', ' Trillion', ' Quadrillion', 
+        '', 'K', 'M', 'B', 'T', ' Quadrillion', 
         ' Quintillion', ' Sextillion', ' Septillion', ' Octillion', ' Nonillion', 
         ' Decillion', ' Undecillion', ' Duodecillion', ' Tredecillion', 
         ' Quattuordecillion', ' Quindecillion', ' Sexdecillion', ' Septendecillion', 
@@ -929,7 +928,10 @@ function formatNumber(num) {
     
     return `${formatted}${suffixes[tier]}`.trim();
 }
-
+       
+console.log("1,000 vigintillion = 1aa");
+console.log("10^66 = 1aa");
+       
 const achievements = [
     { id: 'click1', name: 'First Bone', desc: 'Click once', icon: '🖱️', condition: () => totalManualClicks >= 1 },
     { id: 'click100', name: 'Bone Collector', desc: '100 clicks', icon: '🖱️', condition: () => totalManualClicks >= 100 },
