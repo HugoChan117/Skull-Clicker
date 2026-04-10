@@ -149,7 +149,7 @@
             border: 3px solid #e09f62;
             font-size: 2.8rem;
             background-image: radial-gradient(circle at 30% 35%, #5e3a21, #1e130c);
-            font-family: 'Rubik Wet Paint', cursive;
+            font-family: 'Barlow Condensed', 'Rubik Wet Paint', cursive;
             letter-spacing: 3px;
         }
         
@@ -241,7 +241,7 @@
             border-radius: 40px 10px 40px 10px; 
             border: 3px solid #ffb471; 
             font-size: 2rem;
-            font-family: 'Rubik Wet Paint', cursive;
+            font-family: 'Barlow Condensed', 'Rubik Wet Paint', cursive;
         }
         
         .combo-meter {
@@ -777,7 +777,7 @@ const upgrades = [
     { id: 'bone33',   name: 'SKULL MASTER',          icon: '👑', basePower: 1.5e+35,    baseCost: 8.5e42,         desc: '+150 Dc/click' },
     { id: 'bone34',   name: 'SKULL SOUL REAPER',     icon: '🌀', basePower: 1.9e+36,    baseCost: 1.7e+44,        desc: '+1.9 Ud/click' },
     { id: 'bone35',   name: 'BONE VOID WALKER',      icon: '🌌', basePower: 2.4e+37,    baseCost: 3.4e+45,        desc: '+24 Ud/click' },
-    { id: 'bone36',   name: 'ECHSROP',               icon: '💀', basePower: 17e+75,     baseCost: 3.8e+85,        desc: '+17ad/click'   , imageUrl: 'https://www.mariowiki.com/images/e/e3/Inkling_Boy_Splatoon_MK8D.png?d26ae'}
+    { id: 'bone36',   name: 'The end',               icon: '💀', basePower: 17e+65,     baseCost: 3.8e+75,        desc: '+17 Vg/click'   , imageUrl: 'https://hugochan117.github.io/1/404.png'}
 ];
 
     let levels = {};
@@ -793,8 +793,8 @@ const upgrades = [
     }
 
     let combo = 0;
-    const MAX_COMBO = 50;
-    const COMBO_DECAY_MS = 500;
+    const MAX_COMBO = 99;
+    const COMBO_DECAY_MS = 600;
     let comboTimer = null;
     let lastClickTime = 0;
     function comboPercent() { return Math.min(combo * 2, 100); }
