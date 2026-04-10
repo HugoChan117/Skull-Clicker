@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <!-- This code is partially AI-generated -->
-<!-- 2026 HugoChan117 -->
+<!-- Skull Clicker, 2026 HugoChan117 -->
 
 <html lang="en">
 <head>
@@ -571,7 +571,7 @@
             <div id="prestigeMaxedContent" style="display:none;">
                 <div class="prestige-card">
                     <div>✨ MAXIMUM PRESTIGE REACHED! ✨</div>
-                    <div style="font-size:1.8rem; margin-top:15px;">Level 33 - Ultimate Power</div>
+                    <div style="font-size:1.8rem; margin-top:15px;">Level 35 - Ultimate Power</div>
                     <div style="font-size:1.5rem; margin-top:10px;">Multiplier: <span id="prestigeMaxMultSpan">0</span>x</div>
                 </div>
                 <div class="prestige-desc" style="background:#4a2a1a;">
@@ -723,7 +723,7 @@ function getDayNightBonus() {
         case 'civil': return { mult: 1.10, desc: 'Civil Twilight (+10%)' };
         case 'nautical': return { mult: 1.20, desc: 'Nautical Twilight (+20%)' };
         case 'astronomical': return { mult: 1.30, desc: 'Astronomical Twilight (+30%)' };
-        case 'night': return { mult: Math.SQRT2, desc: 'Night (×√2)' };
+        case 'night': return { mult: Math.SQRT2, desc: 'Night (+40%)' };
         default: return { mult: 1.0, desc: '' };
     }
 }
@@ -739,7 +739,7 @@ function getDayNightBonus() {
         return Math.pow(ASCEND_BONUS_PER_LEVEL, ascendLevel);
     }
 function getAscendCost() {
-    return ASCEND_BASE_COST * Math.pow(ASCEND_COST_MULT, (ascendLevel-1));
+    return ASCEND_BASE_COST * Math.pow(ASCEND_COST_MULT, (ascendLevel-1));  // Base cost 384K
 }
 
 const upgrades = [
@@ -774,9 +774,11 @@ const upgrades = [
     { id: 'bone29',   name: 'SKULL NETHER',          icon: '👹', basePower: 5.5e+30,    baseCost: 5.36870912e37,  desc: '+5.5 No/click' },
     { id: 'bone30',   name: 'BONE DEITY',            icon: '👑', basePower: 7.2e+31,    baseCost: 1.073741824e39, desc: '+72 No/click' },
     { id: 'bone31',   name: 'SKULL ANNIHILATOR',     icon: '💀', basePower: 9.8e+32,    baseCost: 2.147483648e40, desc: '+980 No/click' },
-    { id: 'bone32',   name: 'BONE EXTRACTOR',        icon: '🦴', basePower: 1.2e+34,    baseCost: 4.294967296e41, desc: '+12 Dc/click' }, 
-    { id: 'bone33',   name: 'SKULL MASTER',          icon: '👑', basePower: 1.5e+35,    baseCost: 8.589934592e42, desc: '+150 Dc/click' },
-    { id: 'bone34',   name: 'BONE HELPER',           icon: '💀', basePower: 17e+63,     baseCost: 3.8e+75,         desc: '+17Vg/click', imageUrl: 'https://www.mariowiki.com/images/e/e3/Inkling_Boy_Splatoon_MK8D.png?d26ae'}
+    { id: 'bone32',   name: 'BONE EXTRACTOR',        icon: '🦴', basePower: 1.2e+34,    baseCost: 4.29e41,        desc: '+12 Dc/click' }, 
+    { id: 'bone33',   name: 'SKULL MASTER',          icon: '👑', basePower: 1.5e+35,    baseCost: 8.5e42,         desc: '+150 Dc/click' },
+    { id: 'bone34',   name: 'SKULL SOUL REAPER',     icon: '🌀', basePower: 1.9e+36,    baseCost: 1.7e+44,        desc: '+1.9 Ud/click' },
+    { id: 'bone35',   name: 'BONE VOID WALKER',      icon: '🌌', basePower: 2.4e+37,    baseCost: 3.4e+45,        desc: '+24 Ud/click' },
+    { id: 'bone36',   name: 'ECHSROP',               icon: '💀', basePower: 17e+75,     baseCost: 3.8e+85,        desc: '+17ad/click'   , imageUrl: 'https://www.mariowiki.com/images/e/e3/Inkling_Boy_Splatoon_MK8D.png?d26ae'}
 ];
 
     let levels = {};
@@ -837,7 +839,7 @@ const upgrades = [
     
 function getNextCost(upgrade) {
     const lvl = levels[upgrade.id];
-    const scaleFactor = upgrade.id === 'bone34' ? 1.038 : 1.33;
+    const scaleFactor = upgrade.id === 'bone36' ? 1.02 : 1.33;
     return Math.floor(upgrade.baseCost * Math.pow(scaleFactor, lvl));
 }
     
@@ -980,11 +982,11 @@ const achievements = [
     { id: 'prestige15', name: 'Skull God', desc: 'Reach prestige level 15', icon: '👑💫', condition: () => prestigeLevel >= 15 },
     { id: 'prestige20', name: 'Death Itself', desc: 'Reach prestige level 20', icon: '👑🦇', condition: () => prestigeLevel >= 20 },
     { id: 'prestige25', name: 'BONE APEX', desc: 'Reach prestige level 25', icon: '👑🔥', condition: () => prestigeLevel >= 25 },
-    { id: 'prestige33', name: 'MAX PRESTIGE', desc: 'Reach prestige level 33 (max)', icon: '👑🔥', condition: () => prestigeLevel >= 33 },
+    { id: 'prestige35', name: 'MAX PRESTIGE', desc: 'Reach prestige level 35 (max)', icon: '👑🔥', condition: () => prestigeLevel >= 33 },
     { id: 'perfectcrit', name: 'Cosmic Alignment', desc: 'Get a 1000x crit with 50 combo', icon: '🌠', condition: () => false }, 
     { id: 'firsthidden', name: 'Unveiled', desc: 'Unlock your first hidden upgrade', icon: '👁️', condition: () => prestigeLevel >= 1 && Object.values(levels).filter(lvl => lvl >= 1).length >= 2 },
-    { id: 'fullpower', name: 'Ultimate Skull', desc: 'Own the Jabel upgrade', icon: '🧙💀', condition: () => levels['bone31'] >= 1 },
-    { id: 'fullpower2', name: 'Omega Skull', desc: 'Own the last upgrade', icon: '💀💀💀', condition: () => levels['bone33'] >= 1 },
+    { id: 'fullpower', name: 'Ultimate Skull', desc: 'Own the 31st upgrade', icon: '🧙💀', condition: () => levels['bone31'] >= 1 },
+    { id: 'fullpower2', name: 'Omega Skull', desc: 'Own the last upgrade', icon: '💀💀💀', condition: () => levels['bone36'] >= 1 },
     { id: 'ascend1', name: 'Transcendent', desc: 'Ascend for the first time', icon: '⭐', condition: () => ascendLevel >= 1 },
     { id: 'ascend5', name: 'Ascension Master', desc: 'Reach ascend level 5', icon: '⭐💫', condition: () => ascendLevel >= 5 },
     { id: 'ascend14', name: 'ULTIMATE ASCENSION', desc: 'Max out ascend (level 14)', icon: '⭐🔥', condition: () => ascendLevel >= 14 },
@@ -1118,7 +1120,7 @@ function renderUpgrades() {
             document.getElementById('prestigeMessage').innerText = '❌ not enough bones';
             return;
         }
-        if (prestigeLevel >= 33) { 
+        if (prestigeLevel >= 35) { 
             document.getElementById('prestigeMessage').innerText = '💀 maximum prestige reached';
             return;
         }
@@ -1136,7 +1138,7 @@ function renderUpgrades() {
     }
 
     function updatePrestigeUI() {
-        const isMaxed = prestigeLevel >= 33;
+        const isMaxed = prestigeLevel >= 35;
         const activeContent = document.getElementById('prestigeActiveContent');
         const maxedContent = document.getElementById('prestigeMaxedContent');
         
@@ -1154,7 +1156,7 @@ function renderUpgrades() {
             let cost = getPrestigeCost();
             document.getElementById('prestigeCostSpan').innerHTML = formatNumber(cost);
             const btn = document.getElementById('prestigeActionBtn');
-            if (bones >= cost && prestigeLevel < 33) btn.classList.remove('disabled');
+            if (bones >= cost && prestigeLevel < 35) btn.classList.remove('disabled');
             else btn.classList.add('disabled');
         }
     }
