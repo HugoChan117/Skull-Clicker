@@ -653,6 +653,7 @@
     const ASCEND_COST_MULT = 2008;
     const ASCEND_BONUS_PER_LEVEL = Math.sqrt(2); 
     const MAX_ASCEND_LEVEL = 14;
+    const MAX_PRESTIGE_LEVEL = 35;
        
 const TIMEZONE_OFFSET = 8; 
 const DAY_CYCLE = {
@@ -1120,7 +1121,7 @@ function renderUpgrades() {
             document.getElementById('prestigeMessage').innerText = '❌ not enough bones';
             return;
         }
-        if (prestigeLevel >= 35) { 
+        if (prestigeLevel >= MAX_PRESTIGE_LEVEL) { 
             document.getElementById('prestigeMessage').innerText = '💀 maximum prestige reached';
             return;
         }
@@ -1138,7 +1139,7 @@ function renderUpgrades() {
     }
 
     function updatePrestigeUI() {
-        const isMaxed = prestigeLevel >= 35;
+        const isMaxed = prestigeLevel >= MAX_PRESTIGE_LEVEL;
         const activeContent = document.getElementById('prestigeActiveContent');
         const maxedContent = document.getElementById('prestigeMaxedContent');
         
@@ -1156,7 +1157,7 @@ function renderUpgrades() {
             let cost = getPrestigeCost();
             document.getElementById('prestigeCostSpan').innerHTML = formatNumber(cost);
             const btn = document.getElementById('prestigeActionBtn');
-            if (bones >= cost && prestigeLevel < 35) btn.classList.remove('disabled');
+            if (bones >= cost && prestigeLevel < MAX_PRESTIGE_LEVEL) btn.classList.remove('disabled');
             else btn.classList.add('disabled');
         }
     }
@@ -1413,7 +1414,7 @@ const saveObj = { bones, totalManualClicks, levels, unlockedAchievements, presti
     const floatAscend = document.getElementById('floatAscendIcon');
     
     function updateFloatingIcons() {
-        const canPrestige = (bones >= getPrestigeCost() && prestigeLevel < 33);
+        const canPrestige = (bones >= getPrestigeCost() && prestigeLevel < MAX_PRESTIGE_LEVEL);
         const canAscend = (bones >= getAscendCost() && ascendLevel < MAX_ASCEND_LEVEL);
         if (floatPrestige) {
             if (canPrestige) floatPrestige.classList.remove('hidden-icon');
