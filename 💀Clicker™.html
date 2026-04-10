@@ -557,13 +557,13 @@
                 <div class="prestige-card" id="prestigeInfo">
                     <div>Current prestige level: <span id="prestigeLevelSpan">0</span></div>
                     <div>Multiplier: <span id="prestigeMultSpan">1.00</span>x</div>
-                    <div>Next bonus: +25% → <span id="nextPrestigeMultSpan">1.20</span>x</div>
+                    <div>Next bonus: +25% → <span id="nextPrestigeMultSpan">1.26</span>x</div>
                     <div>Prestige cost: <span id="prestigeCostSpan">300</span> 🦴</div>
                 </div>
                 <div class="prestige-desc">
-                    ✨ Resets bones & upgrades, but gain permanent 25% bonus per level.<br>
+                    ✨ Resets bones + upgrades, and gain permanent 26% bonus per level.<br>
                     Prestige also reveals 1 more hidden upgrade.
-                    Max level 33
+                    Max level 35
                 </div>
                 <div class="prestige-btn" id="prestigeActionBtn">💀 CLAIM PRESTIGE 💀</div>
                 <div class="storage-info" id="prestigeMessage">Become stronger...</div>
@@ -571,7 +571,7 @@
             <div id="prestigeMaxedContent" style="display:none;">
                 <div class="prestige-card">
                     <div>✨ MAXIMUM PRESTIGE REACHED! ✨</div>
-                    <div style="font-size:1.8rem; margin-top:15px;">Level 35 - Ultimate Power</div>
+                    <div style="font-size:1.8rem; margin-top:15px;">Level 35 - Prestige God</div>
                     <div style="font-size:1.5rem; margin-top:10px;">Multiplier: <span id="prestigeMaxMultSpan">0</span>x</div>
                 </div>
                 <div class="prestige-desc" style="background:#4a2a1a;">
@@ -588,12 +588,11 @@
             <div class="prestige-card" id="ascendInfo">
                 <div>Current ascend level: <span id="ascendLevelSpan">0</span></div>
                 <div>Multiplier: <span id="ascendMultSpan">1.00</span>x</div>
-                <div>Next bonus: +40% → <span id="nextAscendMultSpan">1.40</span>x</div>
+                <div>Next bonus: +40% → <span id="nextAscendMultSpan">1.41</span>x</div>
                 <div>Ascend cost: <span id="ascendCostSpan">1 Billion</span> 🦴</div>
             </div>
             <div class="prestige-desc">
-                💀 Resets bones & upgrades & prestige, but gain permanent 1.4x bonus per level.<br>
-                Max level 14
+                💀 Resets bones + upgrades + prestige, and gain permanent 1.41x (√2) bonus per level.<br>
             </div>
             <div class="prestige-btn" id="ascendActionBtn">💀 CLAIM ASCEND 💀</div>
             <div class="storage-info" id="ascendMessage">Transcend your power...</div>
@@ -601,7 +600,7 @@
         <div id="ascendMaxedContent" style="display:none;">
             <div class="prestige-card">
                 <div>✨ MAXIMUM ASCEND REACHED! ✨</div>
-                <div style="font-size:1.8rem; margin-top:15px;">Level 14 - Transcendent Being</div>
+                <div style="font-size:1.8rem; margin-top:15px;">Level 14 - Ascend god</div>
                 <div style="font-size:1.5rem; margin-top:10px;">Multiplier: <span id="ascendMaxMultSpan">0</span>x</div>
             </div>
             <div class="prestige-desc" style="background:#4a2a1a;">
@@ -897,7 +896,7 @@ function formatNumber(num) {
         ' Octodecillion', ' Novemdecillion', ' Vigintillion', 
         'aa', 'ab', 'ac', 'ad', 'ae', 'af', 'ag', 'ah', 'ai', 'aj', 
         'ak', 'al', 'am', 'an', 'ao', 'ap', 'aq', 'ar', 'as', 'at', 
-        'au', 'av', 'aw', 'ax', 'ay', 'az'
+        'au', 'av', 'aw', 'ax', 'ay', 'az', 'ba', 'bb', 'bc', 'bd'
     ];
     
     let tier = 0;
@@ -930,11 +929,12 @@ function formatNumber(num) {
     
     return `${formatted}${suffixes[tier]}`.trim();
 }
-       
+
 console.log("1,000 vigintillion = 1aa");
 console.log("10^66 = 1aa");
 console.log("....vigintillion->aa->ab->ac.......");
-console.log("Remember cheated skull is horrible");
+console.log("looks like F12 easy to cheat")
+console.log("BUT Remember cheated skull is horrible");
        
 const achievements = [
     { id: 'click1', name: 'First Bone', desc: 'Click once', icon: '🖱️', condition: () => totalManualClicks >= 1 },
@@ -1343,7 +1343,7 @@ const saveObj = { bones, totalManualClicks, levels, unlockedAchievements, presti
         }
     }
 
-    setInterval(saveGame, 20000);
+    setInterval(saveGame, 10000); // save every 10 sec
 
     const mainPage = document.getElementById('pageMain');
     const upgradePage = document.getElementById('pageUpgrade');
