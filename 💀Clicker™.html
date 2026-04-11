@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <!-- This code is partially AI-generated -->
-<!-- Skull Clicker, 2026 HugoChan117 -->
+<!-- Skull Clicker v1.2, 2026 HugoChan117 -->
 
 <html lang="en">
 <head>
@@ -98,7 +98,7 @@
             cursor: pointer;
             transition: 0.08s;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            /* letter-spacing: 2px; */
             backdrop-filter: blur(4px);
             text-shadow: 2px 2px 0 #2f180a;
         }
@@ -150,7 +150,7 @@
             font-size: 2.8rem;
             background-image: radial-gradient(circle at 30% 35%, #5e3a21, #1e130c);
             font-family: 'Barlow Condensed', 'Rubik Wet Paint', cursive;
-            letter-spacing: 3px;
+            /* letter-spacing: 3px; */
         }
         
         .main-click-area { 
@@ -561,7 +561,7 @@
                     <div>Prestige cost: <span id="prestigeCostSpan">300</span> 🦴</div>
                 </div>
                 <div class="prestige-desc">
-                    ✨ Resets bones + upgrades, and gain permanent 26% bonus per level.<br>
+                    ✨ Resets bones + upgrades, and gain 26% bonus per level.<br>
                     Prestige also reveals 1 more hidden upgrade.
                     Max level 35
                 </div>
@@ -592,7 +592,7 @@
                 <div>Ascend cost: <span id="ascendCostSpan">1 Billion</span> 🦴</div>
             </div>
             <div class="prestige-desc">
-                💀 Resets bones + upgrades + prestige, and gain permanent 1.41x (√2) bonus per level.<br>
+                💀 Resets bones + upgrades + prestige, and gain 1.41x (√2) bonus per level.<br>
             </div>
             <div class="prestige-btn" id="ascendActionBtn">💀 CLAIM ASCEND 💀</div>
             <div class="storage-info" id="ascendMessage">Transcend your power...</div>
@@ -645,8 +645,8 @@
     let bones = 0.0;
     let totalManualClicks = 0;
     let prestigeLevel = 0;
-    const PRESTIGE_BASE_COST = 300;    
-    const PRESTIGE_COST_MULT = 20;      
+    const PRESTIGE_BASE_COST = 300.0;    
+    const PRESTIGE_COST_MULT = 20.0;      
     const PRESTIGE_BONUS_PER_LEVEL = Math.cbrt(2); 
     let ascendLevel = 0; 
     const ASCEND_BASE_COST = 771150000;
@@ -739,7 +739,7 @@ function getDayNightBonus() {
         return Math.pow(ASCEND_BONUS_PER_LEVEL, ascendLevel);
     }
 function getAscendCost() {
-    return ASCEND_BASE_COST * Math.pow(ASCEND_COST_MULT, (ascendLevel-1));  // Base cost 384K
+    return ASCEND_BASE_COST * Math.pow(ASCEND_COST_MULT, (ascendLevel-1));  // first ascend need 384K instead of 771M
 }
 
 const upgrades = [
@@ -897,7 +897,8 @@ function formatNumber(num) {
         ' Octodecillion', ' Novemdecillion', ' Vigintillion', 
         'aa', 'ab', 'ac', 'ad', 'ae', 'af', 'ag', 'ah', 'ai', 'aj', 
         'ak', 'al', 'am', 'an', 'ao', 'ap', 'aq', 'ar', 'as', 'at', 
-        'au', 'av', 'aw', 'ax', 'ay', 'az', 'ba', 'bb', 'bc', 'bd'
+        'au', 'av', 'aw', 'ax', 'ay', 'az', 'ba', 'bb', 'bc', 'bd',
+        'be', 'bf', 'bg', 'bh', 'bi', 'bj', 'bk', 'bl', 'bm', 'bo'
     ];
     
     let tier = 0;
@@ -983,14 +984,14 @@ const achievements = [
     { id: 'prestige15', name: 'Skull God', desc: 'Reach prestige level 15', icon: '👑💫', condition: () => prestigeLevel >= 15 },
     { id: 'prestige20', name: 'Death Itself', desc: 'Reach prestige level 20', icon: '👑🦇', condition: () => prestigeLevel >= 20 },
     { id: 'prestige25', name: 'BONE APEX', desc: 'Reach prestige level 25', icon: '👑🔥', condition: () => prestigeLevel >= 25 },
-    { id: 'prestige35', name: 'MAX PRESTIGE', desc: 'Reach prestige level 35 (max)', icon: '👑🔥', condition: () => prestigeLevel >= 33 },
+    { id: 'prestige35', name: 'MAX PRESTIGE', desc: 'Reach max prestige', icon: '👑🔥', condition: () => prestigeLevel >= MAX_PRESTIGE_LEVEL },
     { id: 'perfectcrit', name: 'Cosmic Alignment', desc: 'Get a 1000x crit with 50 combo', icon: '🌠', condition: () => false }, 
     { id: 'firsthidden', name: 'Unveiled', desc: 'Unlock your first hidden upgrade', icon: '👁️', condition: () => prestigeLevel >= 1 && Object.values(levels).filter(lvl => lvl >= 1).length >= 2 },
     { id: 'fullpower', name: 'Ultimate Skull', desc: 'Own the 31st upgrade', icon: '🧙💀', condition: () => levels['bone31'] >= 1 },
     { id: 'fullpower2', name: 'Omega Skull', desc: 'Own the last upgrade', icon: '💀💀💀', condition: () => levels['bone36'] >= 1 },
     { id: 'ascend1', name: 'Transcendent', desc: 'Ascend for the first time', icon: '⭐', condition: () => ascendLevel >= 1 },
     { id: 'ascend5', name: 'Ascension Master', desc: 'Reach ascend level 5', icon: '⭐💫', condition: () => ascendLevel >= 5 },
-    { id: 'ascend14', name: 'ULTIMATE ASCENSION', desc: 'Max out ascend (level 14)', icon: '⭐🔥', condition: () => ascendLevel >= 14 },
+    { id: 'ascend14', name: 'ULTIMATE ASCENSION', desc: 'Max out ascend (level 14)', icon: '⭐🔥', condition: () => ascendLevel >= MAX_ASCEND_LEVEL },
 ];
 
     let unlockedAchievements = [];
@@ -1134,7 +1135,7 @@ function renderUpgrades() {
         fullRefresh();
         updatePrestigeUI();
         checkAchievements();
-        document.getElementById('prestigeMessage').innerText = '👑 PRESTIGE GAINED!';
+        document.getElementById('prestigeMessage').innerText = '👑 PRESTIGED';
         spawnFloatingText('PRESTIGE '+prestigeLevel, true);
     }
 
@@ -1265,12 +1266,12 @@ function saveGame() {
         ascendLevel,
         version: 'skullPrestige2.0' 
     };
-    localStorage.setItem('skullClickerSave', JSON.stringify(saveObj));
+    localStorage.setItem('skullClickerSave1738', JSON.stringify(saveObj));
     document.getElementById('saveStatus').innerText = '💾 saved ' + new Date().toLocaleTimeString();
 }
     
     function loadGame() {
-        const raw = localStorage.getItem('skullClickerSave');
+        const raw = localStorage.getItem('skullClickerSave1738');
         if (!raw) { 
             document.getElementById('saveStatus').innerText = '❌ no save found'; 
             return; 
@@ -1291,7 +1292,7 @@ function saveGame() {
             combo = 0; 
             updateComboUI();
             fullRefresh();
-            document.getElementById('saveStatus').innerText = '📀 loaded from bone vault';
+            document.getElementById('saveStatus').innerText = '📀 loaded';
         } catch (e) { 
             document.getElementById('saveStatus').innerText = '⚠️ corrupted save'; 
         }
@@ -1439,7 +1440,7 @@ const saveObj = { bones, totalManualClicks, levels, unlockedAchievements, presti
 
     fullRefresh();
     setTimeout(() => { 
-        if (localStorage.getItem('skullClickerSave')) loadGame(); 
+        if (localStorage.getItem('skullClickerSave1738')) loadGame(); 
     }, 100);
 })();
 </script>
