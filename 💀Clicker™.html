@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-
 <!-- This code is partially AI-generated -->
-<!-- Skull Clicker v1.2, 2026 HugoChan117 -->
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>💀 SKULL CLICKER</title>
+<title>💀 Skull Clicker</title>
 <link rel="icon" type="image/png" href="https://hugochan117.github.io/Skull-Clicker/skull.png">
 <style>
 
@@ -511,6 +508,273 @@
         .corner-icon.hidden-icon {
             display: none;
         }
+
+/*Prevent overflow in small screen like tablet or mobile*/
+@media (max-width: 720px) {
+    .full-game {
+        padding: 12px 15px;
+    }
+    
+    .global-title h1 {
+        font-size: 2.8rem;
+        letter-spacing: 4px;
+        text-align: center;
+    }
+    
+    .page-tabs {
+        gap: 8px;
+    }
+    
+    .tab-btn {
+        font-size: 1rem;
+        padding: 6px 16px;
+    }
+    
+    .global-resource {
+        padding: 8px 15px;
+        font-size: 1.6rem;
+    }
+    
+    .global-resource .resource-icon,
+    .global-resource .resource-value {
+        padding: 5px 18px;
+        font-size: 1.8rem;
+    }
+    
+    .click-area {
+        width: 250px;
+        height: 250px;
+        font-size: 4rem;
+    }
+    
+    .combo-meter {
+        font-size: 1.5rem;
+        padding: 8px 20px;
+        gap: 15px;
+    }
+    
+    .inline-stats {
+        font-size: 1.2rem;
+        padding: 12px 20px;
+        gap: 20px;
+    }
+    
+    .inline-stats span {
+        padding: 6px 18px;
+        font-size: 1.2rem;
+    }
+    
+    .shop-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 12px;
+    }
+    
+    .upgrade-card {
+        padding: 12px 6px 10px;
+    }
+    
+    .upgrade-name {
+        font-size: 1.1rem;
+        padding: 4px 12px;
+    }
+    
+    .cost-display {
+        font-size: 1.2rem;
+        padding: 4px 15px;
+    }
+    
+    .settings-panel {
+        padding: 20px;
+    }
+    
+    .skull-btn {
+        padding: 10px 20px;
+        font-size: 1.3rem;
+    }
+    
+    .prestige-card {
+        font-size: 1.5rem;
+        padding: 15px;
+    }
+    
+    .prestige-btn {
+        padding: 12px 25px;
+        font-size: 2rem;
+    }
+    
+    .achievement-entry {
+        font-size: 1rem;
+        padding: 8px 12px;
+        gap: 10px;
+    }
+    
+    .corner-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 2rem;
+    }
+    
+    .import-export-panel input {
+        width: 200px;
+        padding: 10px 15px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .full-game {
+        padding: 8px 10px;
+        border-radius: 30px;
+    }
+    
+    .global-title h1 {
+        font-size: 2rem;
+        letter-spacing: 2px;
+    }
+    
+    .page-tabs {
+        gap: 5px;
+        margin: 5px 0 15px;
+    }
+    
+    .tab-btn {
+        font-size: 0.75rem;
+        padding: 5px 10px;
+        border-radius: 25px 10px 25px 10px;
+    }
+    
+    .global-resource {
+        padding: 5px 10px;
+        margin-bottom: 15px;
+    }
+    
+    .global-resource .resource-icon,
+    .global-resource .resource-value {
+        padding: 3px 12px;
+        font-size: 1.3rem;
+    }
+    
+    .click-area {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .combo-meter {
+        font-size: 1.1rem;
+        padding: 6px 12px;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .inline-stats {
+        font-size: 0.9rem;
+        padding: 8px 12px;
+        gap: 12px;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .inline-stats span {
+        padding: 4px 12px;
+        font-size: 0.9rem;
+        width: auto;
+    }
+    
+    .shop-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .upgrade-card {
+        padding: 10px 5px 8px;
+    }
+    
+    .upgrade-icon {
+        font-size: 2rem;
+    }
+    
+    .upgrade-name {
+        font-size: 1rem;
+        padding: 3px 10px;
+    }
+    
+    .cost-display {
+        font-size: 1rem;
+        padding: 3px 12px;
+    }
+    
+    .settings-panel {
+        padding: 15px;
+    }
+    
+    .skull-btn {
+        padding: 8px 15px;
+        font-size: 1rem;
+        margin: 5px;
+    }
+    
+    .prestige-card {
+        font-size: 1.1rem;
+        padding: 12px;
+    }
+    
+    .prestige-desc {
+        font-size: 1rem;
+        padding: 10px;
+    }
+    
+    .prestige-btn {
+        padding: 10px 20px;
+        font-size: 1.3rem;
+    }
+    
+    .achievements-panel {
+        max-height: 280px;
+        padding: 12px;
+    }
+    
+    .achievement-entry {
+        font-size: 0.8rem;
+        padding: 6px 8px;
+        gap: 6px;
+        flex-wrap: wrap;
+    }
+    
+    .corner-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
+    }
+    
+    .import-export-panel {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .import-export-panel input {
+        width: 100%;
+        max-width: 250px;
+    }
+    
+    .extra-stat {
+        font-size: 1rem;
+        padding: 12px;
+    }
+    
+    footer {
+        font-size: 0.9rem;
+    }
+    
+    .storage-info {
+        font-size: 0.9rem;
+    }
+    
+    .floating-crit {
+        font-size: 2rem;
+    }
+}
     </style>
 </head>
 <body>
@@ -778,7 +1042,7 @@ const upgrades = [
     { id: 'bone33',   name: 'SKULL MASTER',          icon: '👑', basePower: 1.5e+35,    baseCost: 8.5e42,         desc: '+150 Dc/click' },
     { id: 'bone34',   name: 'SKULL SOUL REAPER',     icon: '🌀', basePower: 1.9e+36,    baseCost: 1.7e+44,        desc: '+1.9 Ud/click' },
     { id: 'bone35',   name: 'BONE VOID WALKER',      icon: '🌌', basePower: 2.4e+37,    baseCost: 3.4e+45,        desc: '+24 Ud/click' },
-    { id: 'bone36',   name: 'The end',               icon: '💀', basePower: 17e+65,     baseCost: 3.8e+75,        desc: '+17 Vg/click'   , imageUrl: 'https://hugochan117.github.io/1/404.png'}
+    { id: 'bone36',   name: 'The end',               icon: '💀', basePower: 1.7e+68,     baseCost: 3.8e+76,        desc: '+170 aa/click'}
 ];
 
     let levels = {};
@@ -839,7 +1103,7 @@ const upgrades = [
     
 function getNextCost(upgrade) {
     const lvl = levels[upgrade.id];
-    const scaleFactor = upgrade.id === 'bone36' ? 1.02 : 1.33;
+    const scaleFactor = upgrade.id === 'bone36' ? 1.035 : 1.333;
     return Math.floor(upgrade.baseCost * Math.pow(scaleFactor, lvl));
 }
     
@@ -852,33 +1116,22 @@ function totalClickPower() {
     return baseClickPower() * comboMultiplier() * getPrestigeMultiplier() * getAscendMultiplier() * dnBonus.mult;
 }
 
-// This part is AI-assisted
 function formatNumber(num) {
-    // Handle edge cases
     if (num === Infinity) return '∞';
     if (num === undefined || num === null) return '0';
-    
-    // Convert to number if string
     const number = typeof num === 'string' ? parseFloat(num) : num;
     if (isNaN(number)) return '0';
-    
-    // For negative numbers (if needed)
     if (number < 0) {
         return '-' + formatNumber(Math.abs(number));
     }
-    
-    // Numbers 0-100 with specific decimal rules
     if (number < 100) {
         if (number < 1) {
-            // 0-1: show up to 3 decimal places
             if (number === 0) return '0';
             return parseFloat(number.toFixed(3)).toString();
         } else if (number < 10) {
-            // 1-10: show up to 2 decimal places
             const formatted = number.toFixed(2);
             return parseFloat(formatted).toString();
         } else {
-            // 10-100: show up to 1 decimal place
             const formatted = number.toFixed(1);
             return parseFloat(formatted).toString();
         }
