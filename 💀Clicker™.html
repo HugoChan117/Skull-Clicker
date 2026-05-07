@@ -779,19 +779,19 @@
 </head>
 <body>
 <div class="full-game">
-    <div class="global-title"><h1>💀 SKULL CLICKER</h1></div>
+    <div class="global-title"><h1>💀 Skull Clicker</h1></div>
 
     <div class="page-tabs">
-        <button class="tab-btn active" id="tabMain">💀 MAIN</button>
-        <button class="tab-btn" id="tabUpgrade">⬆️ BONE UPGRADES</button>
-        <button class="tab-btn" id="tabPrestige">👑 BONE PRESTIGE</button> 
-        <button class="tab-btn" id="tabAscend">💀 SKULL ASCEND</button>
-        <button class="tab-btn" id="tabAchievements">🏆 SKULL ACHIEVEMENTS</button>
+        <button class="tab-btn active" id="tabMain">💀 Click</button>
+        <button class="tab-btn" id="tabUpgrade">⬆️ Bone Upgrades</button>
+        <button class="tab-btn" id="tabPrestige">👑 Bone PRESTIGE</button> 
+        <button class="tab-btn" id="tabAscend">💀 Skull ASCEND</button>
+        <button class="tab-btn" id="tabAchievements">🏆 Skull Achievements</button>
         <button class="tab-btn" id="tabStats">⚙️ Settings</button>
     </div>
 
     <div class="global-resource">
-        <span class="resource-icon">🦴</span>
+        <span class="resource-icon">💀</span>
         <span class="resource-value" id="globalBoneDisplay">0</span>
     </div>
     <div id="pageMain" class="page active-page">
@@ -816,20 +816,20 @@
     <div id="pagePrestige" class="page">
         <div class="settings-panel" style="text-align:center;">
             <div class="prestige-icon">👑💀👑</div>
-            <h2 style="font-size:3.2rem;color:#ffbd7a;font-family:'Nosifer';">BONE PRESTIGE</h2>
+            <h2 style="font-size:3.2rem;color:#ffbd7a;font-family:'Nosifer';">Bone PRESTIGE</h2>
             <div id="prestigeActiveContent">
                 <div class="prestige-card" id="prestigeInfo">
                     <div>Current prestige level: <span id="prestigeLevelSpan">0</span></div>
                     <div>Multiplier: <span id="prestigeMultSpan">1.00</span>x</div>
                     <div>Next bonus: +25% → <span id="nextPrestigeMultSpan">1.26</span>x</div>
-                    <div>Prestige cost: <span id="prestigeCostSpan">300</span> 🦴</div>
+                    <div>Prestige cost: <span id="prestigeCostSpan">300</span> 💀</div>
                 </div>
                 <div class="prestige-desc">
-                    ✨ Resets bones + upgrades, and gain 26% bonus per level.<br>
+                    ✨ Resets skulls + upgrades, and gain 26% bonus per level.<br>
                     Prestige also reveals 1 more hidden upgrade.
                     Max level 35
                 </div>
-                <div class="prestige-btn" id="prestigeActionBtn">💀 CLAIM PRESTIGE 💀</div>
+                <div class="prestige-btn" id="prestigeActionBtn">💀 Prestie 💀</div>
                 <div class="storage-info" id="prestigeMessage">Become stronger...</div>
             </div>
             <div id="prestigeMaxedContent" style="display:none;">
@@ -847,18 +847,18 @@
     <div id="pageAscend" class="page">
     <div class="settings-panel" style="text-align:center;">
         <div class="prestige-icon">💀✨💀</div>
-        <h2 style="font-size:3.2rem;color:#ff6a00;font-family:'Nosifer';">SKULL ASCEND</h2>
+        <h2 style="font-size:3.2rem;color:#ff6a00;font-family:'Nosifer';">Skull ASCEND</h2>
         <div id="ascendActiveContent">
             <div class="prestige-card" id="ascendInfo">
                 <div>Current ascend level: <span id="ascendLevelSpan">0</span></div>
                 <div>Multiplier: <span id="ascendMultSpan">1.00</span>x</div>
                 <div>Next bonus: +40% → <span id="nextAscendMultSpan">1.41</span>x</div>
-                <div>Ascend cost: <span id="ascendCostSpan">1 Billion</span> 🦴</div>
+                <div>Ascend cost: <span id="ascendCostSpan">1 Billion</span> 💀</div>
             </div>
             <div class="prestige-desc">
-                💀 Resets bones + upgrades + prestige, and gain 1.41x (√2) bonus per level.<br>
+                💀 Resets skulls + upgrades + prestige, and gain 1.41x bonus per level.<br>
             </div>
-            <div class="prestige-btn" id="ascendActionBtn">💀 CLAIM ASCEND 💀</div>
+            <div class="prestige-btn" id="ascendActionBtn">💀 Ascend 💀</div>
             <div class="storage-info" id="ascendMessage">Transcend your power...</div>
         </div>
         <div id="ascendMaxedContent" style="display:none;">
@@ -876,7 +876,7 @@
 </div>
     <div id="pageAchievements" class="page">
         <div class="settings-panel">
-            <h2 style="font-size:2.8rem; color:#ffb371; font-family:'Nosifer';">🏆 BONE ACHIEVEMENTS</h2>
+            <h2 style="font-size:2.8rem; color:#ffb371; font-family:'Nosifer';">🏆 Bone Achievements</h2>
             <div class="achievements-panel" id="achievementsList">loading...</div>
         </div>
     </div>
@@ -894,7 +894,7 @@
                 <button class="skull-btn" id="resetGameBtn">⚠️ RESET</button>
             </div>
             <div class="storage-info" id="saveStatus">💀 bone vault ready</div>
-            <div class="extra-stat" id="statsClickPower">⚡ skull power: 0</div>
+            <div class="extra-stat" id="statsClickPower">skull/click: 0</div>
         </div>
     </div>
 </div>
@@ -1042,7 +1042,7 @@ const upgrades = [
     { id: 'bone33',   name: 'SKULL MASTER',          icon: '👑', basePower: 1.5e+35,    baseCost: 8.5e42,         desc: '+150 Dc/click' },
     { id: 'bone34',   name: 'SKULL SOUL REAPER',     icon: '🌀', basePower: 1.9e+36,    baseCost: 1.7e+44,        desc: '+1.9 Ud/click' },
     { id: 'bone35',   name: 'BONE VOID WALKER',      icon: '🌌', basePower: 2.4e+37,    baseCost: 3.4e+45,        desc: '+24 Ud/click' },
-    { id: 'bone36',   name: 'The end',               icon: '💀', basePower: 1.7e+68,     baseCost: 3.8e+76,        desc: '+170 aa/click'}
+    { id: 'bone36',   name: 'The end',               icon: '💀', basePower: 1.7e+68,    baseCost: 3.8e+76,        desc: '+170 aa/click'}
 ];
 
     let levels = {};
@@ -1241,7 +1241,7 @@ const achievements = [
     { id: 'perfectcrit', name: 'Cosmic Alignment', desc: 'Get a 1000x crit with 50 combo', icon: '🌠', condition: () => false }, 
     { id: 'firsthidden', name: 'Unveiled', desc: 'Unlock your first hidden upgrade', icon: '👁️', condition: () => prestigeLevel >= 1 && Object.values(levels).filter(lvl => lvl >= 1).length >= 2 },
     { id: 'fullpower', name: 'Ultimate Skull', desc: 'Own the 31st upgrade', icon: '🧙💀', condition: () => levels['bone31'] >= 1 },
-    { id: 'fullpower2', name: 'Omega Skull', desc: 'Own the last upgrade', icon: '💀💀💀', condition: () => levels['bone36'] >= 1 },
+    { id: 'fullpower2', name: 'Omega Skull', desc: 'Own the last upgrade', icon: '💀💀', condition: () => levels['bone36'] >= 1 },
     { id: 'ascend1', name: 'Transcendent', desc: 'Ascend for the first time', icon: '⭐', condition: () => ascendLevel >= 1 },
     { id: 'ascend5', name: 'Ascension Master', desc: 'Reach ascend level 5', icon: '⭐💫', condition: () => ascendLevel >= 5 },
     { id: 'ascend14', name: 'ULTIMATE ASCENSION', desc: 'Max out ascend (level 14)', icon: '⭐🔥', condition: () => ascendLevel >= MAX_ASCEND_LEVEL },
@@ -1314,7 +1314,7 @@ function renderUpgrades() {
             <div class="upgrade-name">${up.name || 'Unknown'}</div>
             <div class="upgrade-level">lvl ${level || 0}</div>
             <div class="upgrade-desc">${powerDisplay}</div>
-            <div class="cost-display">🦴 ${formatNumber(cost)}</div>
+            <div class="cost-display">💀 ${formatNumber(cost)}</div>
             <div class="preview-note" style="font-size:0.9rem;">${nextPowerStr}</div>
         `;
         
@@ -1490,7 +1490,7 @@ function updateAscendUI() {
         const el = document.getElementById('statsDetail');
         if (!el) return;
         const clickPow = totalClickPower();
-        let html = `<b>🦴 BONES:</b> ${formatNumber(bones)}<br>
+        let html = `<b>💀 SKULLS:</b> ${formatNumber(bones)}<br>
                     <b>🖱️ CLICKS:</b> ${totalManualClicks}<br>
                     <b>👑 PRESTIGE:</b> ${prestigeLevel} (x${getPrestigeMultiplier().toFixed(2)})<br>
                     <b>⭐ ASCEND:</b> ${ascendLevel} (x${getAscendMultiplier().toFixed(2)})<br>
