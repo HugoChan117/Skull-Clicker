@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+
+<!-- The 3D skull is AI generated -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -622,7 +624,7 @@ footer{
   const PRESTIGE_BONUS_PER_LEVEL = Math.cbrt(2);
   const MAX_PRESTIGE_LEVEL = 35;
 
-  const ASCEND_BASE_COST = 771150000;
+  const ASCEND_BASE_COST = 771150000/2008; // 384,000
   const ASCEND_COST_MULT = 2008;
   const ASCEND_BONUS_PER_LEVEL = Math.sqrt(2);
   const MAX_ASCEND_LEVEL = 14;
@@ -670,18 +672,19 @@ footer{
   function getAscendCost()        { return ASCEND_BASE_COST * Math.pow(ASCEND_COST_MULT, Math.max(0, ascendLevel - 1)); }
 
   /* ---------- upgrades ---------- */
+  /* The name of upgrades are AI generated */
   const upgrades = [
-    { id:'bone1',  name:'SKULL FRAGMENT',     icon:'💀', basePower:1,        baseCost:20,           desc:'+1/click' },
-    { id:'bone2',  name:'BONE SHARD',         icon:'🦴', basePower:12,       baseCost:400,          desc:'+12/click' },
-    { id:'bone3',  name:'SKULL CRUSHER',      icon:'🔨', basePower:140,      baseCost:8000,         desc:'+140/click' },
-    { id:'bone4',  name:'BONE HARVESTER',     icon:'⚙️', basePower:1700,     baseCost:160000,       desc:'+1.7K/click' },
-    { id:'bone5',  name:'SKULL REAPER',       icon:'🌙', basePower:20000,    baseCost:3200000,      desc:'+20K/click' },
-    { id:'bone6',  name:'BONE SOUL',          icon:'👻', basePower:240000,   baseCost:64000000,     desc:'+240K/click' },
-    { id:'bone7',  name:'SKULL WRAITH',       icon:'🌑', basePower:2900000,  baseCost:1280000000,   desc:'+2.9M/click' },
-    { id:'bone8',  name:'BONE SPECTER',       icon:'👤', basePower:35000000, baseCost:25600000000,  desc:'+35M/click' },
-    { id:'bone9',  name:'SKULL PHANTOM',      icon:'👻', basePower:450000000,baseCost:512000000000, desc:'+450M/click' },
-    { id:'bone10', name:'BONE BANSHEE',       icon:'📢', basePower:5.6e9,    baseCost:1.024e13,     desc:'+5.6B/click' },
-    { id:'bone11', name:'SKULL LICH',         icon:'👑', basePower:7.2e10,   baseCost:2.048e14,     desc:'+72B/click' },
+    { id:'bone1',  name:'SKULL FRAGMENT',     icon:'💀', basePower:1,        baseCost:15,           desc:'+1/click' },
+    { id:'bone2',  name:'BONE SHARD',         icon:'🦴', basePower:12,       baseCost:350,          desc:'+12/click' },
+    { id:'bone3',  name:'SKULL CRUSHER',      icon:'🔨', basePower:140,      baseCost:7770,         desc:'+140/click' },
+    { id:'bone4',  name:'BONE HARVESTER',     icon:'⚙️', basePower:1700,     baseCost:155000,       desc:'+1.7K/click' },
+    { id:'bone5',  name:'SKULL REAPER',       icon:'🌙', basePower:20000,    baseCost:3110000,      desc:'+20K/click' },
+    { id:'bone6',  name:'BONE SOUL',          icon:'👻', basePower:240000,   baseCost:64400000,     desc:'+240K/click' },
+    { id:'bone7',  name:'SKULL WRAITH',       icon:'🌑', basePower:2900000,  baseCost:1250000000,   desc:'+2.9M/click' },
+    { id:'bone8',  name:'BONE SPECTER',       icon:'👤', basePower:35000000, baseCost:25300000000,  desc:'+35M/click' },
+    { id:'bone9',  name:'SKULL PHANTOM',      icon:'👻', basePower:450000000,baseCost:504000000000, desc:'+450M/click' },
+    { id:'bone10', name:'BONE BANSHEE',       icon:'📢', basePower:5.6e9,    baseCost:9.99e12,      desc:'+5.6B/click' },
+    { id:'bone11', name:'SKULL LICH',         icon:'👑', basePower:7.777e10, baseCost:2.048e14,     desc:'+77B/click' },
     { id:'bone12', name:'BONE NECROMANCER',   icon:'🔮', basePower:9e11,     baseCost:4.096e15,     desc:'+900B/click' },
     { id:'bone13', name:'SKULL OVERLORD',     icon:'⚔️', basePower:1.2e13,   baseCost:8.192e16,     desc:'+12T/click' },
     { id:'bone14', name:'BONE DEATHBRINGER',  icon:'💀', basePower:1.5e14,   baseCost:1.6384e18,    desc:'+150T/click' },
@@ -690,18 +693,18 @@ footer{
     { id:'bone17', name:'SKULL TOMBSTONE',    icon:'🪦', basePower:3e17,     baseCost:1.31072e22,   desc:'+300Qa/click' },
     { id:'bone18', name:'BONE GHOUL',         icon:'🧟', basePower:3.6e18,   baseCost:2.62144e23,   desc:'+3.6Qi/click' },
     { id:'bone19', name:'SKULL WIGHT',        icon:'⚰️', basePower:5e19,     baseCost:5.24288e24,   desc:'+50Qi/click' },
-    { id:'bone20', name:'BONE DREADNOUGHT',   icon:'🛡️', basePower:6.5e20,   baseCost:1.048576e26,  desc:'+650Qi/click' },
+    { id:'bone20', name:'BONE DREADNOUGHT',   icon:'🛡️', basePower:6.666e20, baseCost:1.048576e26,  desc:'+666Qi/click' },
     { id:'bone21', name:'SKULL CATACOMB',     icon:'🏛️', basePower:8e21,     baseCost:2.097152e27,  desc:'+8Sx/click' },
     { id:'bone22', name:'BONE MAUSOLEUM',     icon:'🏺', basePower:1.05e23,  baseCost:4.194304e28,  desc:'+105Sx/click' },
     { id:'bone23', name:'SKULL CRYPT',        icon:'🔑', basePower:1.30e24,  baseCost:8.388608e29,  desc:'+1.30Sp/click' },
     { id:'bone24', name:'BONE PYRE',          icon:'🔥', basePower:1.55e25,  baseCost:1.6777216e31, desc:'+15Sp/click' },
-    { id:'bone25', name:'SKULL CEMETERY',     icon:'🌙', basePower:2.0e26,   baseCost:3.3554432e32, desc:'+200Sp/click' },
+    { id:'bone25', name:'SKULL CEMETERY',     icon:'🌙', basePower:2.22e26,  baseCost:3.3554432e32, desc:'+200Sp/click' },
     { id:'bone26', name:'BONE FUNERAL',       icon:'🕯️', basePower:2.5e27,   baseCost:6.7108864e33, desc:'+2.5Oc/click' },
-    { id:'bone27', name:'SKULL REQUIEM',      icon:'🎵', basePower:3.1e28,   baseCost:1.34217728e35,desc:'+31Oc/click' },
-    { id:'bone28', name:'BONE SOULFIRE',      icon:'🔮', basePower:4e29,     baseCost:2.68435456e36,desc:'+400Oc/click' },
-    { id:'bone29', name:'SKULL NETHER',       icon:'👹', basePower:5.5e30,   baseCost:5.36870912e37,desc:'+5.5No/click' },
-    { id:'bone30', name:'BONE DEITY',         icon:'👑', basePower:7.2e31,   baseCost:1.073741824e39,desc:'+72No/click' },
-    { id:'bone31', name:'SKULL ANNIHILATOR',  icon:'💀', basePower:9.8e32,   baseCost:2.147483648e40,desc:'+980No/click' },
+    { id:'bone27', name:'SKULL REQUIEM',      icon:'🎵', basePower:3.1e28,   baseCost:1.3421772e35, desc:'+31Oc/click' },
+    { id:'bone28', name:'BONE SOULFIRE',      icon:'🔮', basePower:4e29,     baseCost:2.6843545e36, desc:'+400Oc/click' },
+    { id:'bone29', name:'SKULL NETHER',       icon:'👹', basePower:5.5e30,   baseCost:5.3687091e37, desc:'+5.5No/click' },
+    { id:'bone30', name:'BONE DEITY',         icon:'👑', basePower:7.2e31,   baseCost:1.0737418e39, desc:'+72No/click' },
+    { id:'bone31', name:'SKULL ANNIHILATOR',  icon:'💀', basePower:9.8e32,   baseCost:2.1474836e40, desc:'+980No/click' },
     { id:'bone32', name:'BONE EXTRACTOR',     icon:'🦴', basePower:1.2e34,   baseCost:4.29e41,      desc:'+12Dc/click' },
     { id:'bone33', name:'SKULL MASTER',       icon:'👑', basePower:1.5e35,   baseCost:8.5e42,       desc:'+150Dc/click' },
     { id:'bone34', name:'SKULL SOUL REAPER',  icon:'🌀', basePower:1.9e36,   baseCost:1.7e44,       desc:'+1.9Ud/click' },
@@ -803,6 +806,7 @@ footer{
   }
 
   /* ---------- achievements ---------- */
+  /* The achievements name are AI generated */
   const achievements = [
     { id:'click1',   name:'First Bone',       desc:'Click once',              icon:'🖱️', cond:()=>totalManualClicks>=1 },
     { id:'click100', name:'Bone Collector',   desc:'100 clicks',              icon:'🖱️', cond:()=>totalManualClicks>=100 },
